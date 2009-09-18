@@ -1,0 +1,4 @@
+WM_VKEYTOITEM
+int
+OnVkeyToItem
+(HWND hWnd, UINT vk, HWND hWndListbox, int iCaret)

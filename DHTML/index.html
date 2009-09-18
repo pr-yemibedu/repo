@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>DHTML Examples</title>
+        <script language="javascript">
+        var numberOfSections = 3;
+        var currentSection = 0;
+        
+        function NavigateBack() {
+            currentSection = currentSection - 1;
+            if (currentSection < 0) {
+                currentSection = 0;
+            }
+            ShowSection(currentSection);
+        }
+        
+        function Home() {
+            currentSection = 0;
+            ShowSection(currentSection);
+        }
+        
+        function NavigateForward() {
+            currentSection = currentSection + 1;
+            if (currentSection > numberOfSections) {
+                currentSection = numberOfSections;
+            }
+            ShowSection(currentSection);
+        }
+                
+        function HideSection(id) {
+            document.getElementById(id).style.display = "none";
+        }
+        
+        function HideAllSections() {
+            for (var index = 0; index <= numberOfSections; index++) {
+                HideSection("sec" + index);
+            }
+        }
+            
+        function ShowSection(id) {
+            HideAllSections();
+            document.getElementById("sec" + id).style.display = "block";
+        }
+        
+        function showDocumentProperties() {
+            var s = "";
+            var documentProperties = ["title","referrer","domain","URL","cookie"];
+            for (var index = 0; index < documentProperties.length; index++) {
+                s += documentProperties[index] + "=" + eval("document." + documentProperties[index]) + "\n";
+            }
+            alert(s);
+        }
+            
+        </script>
+    </head>
+    <body>
+    <center>
+        <a onClick="return NavigateBack();" href="#"><<</a>
+        <a onClick="return Home();" href="#">home</a>
+        <a onClick="return NavigateForward();" href="#">>></a><br>
+        <a onCLick="return showDocumentProperties();" href="#">Show Document Properties</a>
+    </center>
+    <div id="sec0" style="display:block;">
+        <ul>
+            <li><a onClick="return ShowSection(1);"href="#">Section 1</a></li>
+            <li><a onClick="return ShowSection(2);"href="#">Section 2</a></li>
+            <li><a onClick="return ShowSection(3);"href="#">Section 3</a></li>
+        </ul> 
+    </div>
+    <div id="sec1" style="display:none;">
+        Section 1 to the UNIX Code Migration Guide. This document illustrates
+        guidelines and best practices required to port existing UNIX
+        applications to the Windows environment, which can potentially reduce
+        the time, cost, and risk associated with a traditionally painful
+        migration process. 
+    </div>
+    <div id="sec2" style="display:none;">
+        Section 2 to the UNIX Code Migration Guide. This document illustrates
+        guidelines and best practices required to port existing UNIX
+        applications to the Windows environment, which can potentially reduce
+        the time, cost, and risk associated with a traditionally painful
+        migration process. 
+    </div>
+    <div id="sec3" style="display:none;">
+        Section 3 to the UNIX Code Migration Guide. This document illustrates
+        guidelines and best practices required to port existing UNIX
+        applications to the Windows environment, which can potentially reduce
+        the time, cost, and risk associated with a traditionally painful
+        migration process. 
+    </div>
+    <script language="javascript">return ShowSection(0);</script>
+    <body>    
+</html>

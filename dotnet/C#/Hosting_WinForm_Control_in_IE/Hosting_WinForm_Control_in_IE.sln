@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hosting_WinForm_Control_in_IE", "Hosting_WinForm_Control_in_IE.csproj", "{2E5BD8D6-179B-4CA9-99D5-685AB3B9EF57}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{2E5BD8D6-179B-4CA9-99D5-685AB3B9EF57}.Debug.ActiveCfg = Debug|.NET
+		{2E5BD8D6-179B-4CA9-99D5-685AB3B9EF57}.Debug.Build.0 = Debug|.NET
+		{2E5BD8D6-179B-4CA9-99D5-685AB3B9EF57}.Release.ActiveCfg = Release|.NET
+		{2E5BD8D6-179B-4CA9-99D5-685AB3B9EF57}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

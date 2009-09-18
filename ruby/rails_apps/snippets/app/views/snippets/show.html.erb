@@ -1,0 +1,24 @@
+<p>
+  <b>Title:</b>
+  <%=h @snippet.title %>
+  </p>
+
+<p>
+  <b>Language:</b>
+  <%=h @snippet.language %>
+</p>
+
+
+<p>
+  <b>Body:</b>
+  <%= @snippet.html_formatted %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <%=h @snippet.tag_list %>
+</p>
+
+
+<%= link_to 'Edit', edit_snippet_path(@snippet) %> |
+<%= link_to 'Back', snippets_path %>

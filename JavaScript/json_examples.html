@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script type="text/javascript"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+    
+    // ******************************************************************
+    // JSON notation example
+    var person = {
+      Name: null,
+      Age: null,
+      toString: function() {
+        return "Name: " + this.Name + ", Age: " + this.Age;
+      }
+    }
+    
+    person.Name = "Brian";
+    person.Age = 29;
+    alert( person.toString() );
+    
+    // ******************************************************************
+    // dynamically processing JSON strings
+    var jsonText = '({ Person: {Name: "Brian", Age: "29"}  })';
+    var jsonObject = eval(jsonText); // run the JSON through the JavaScript interpreter
+    alert("Name: " + jsonObject.Person.Name + ", Age: " + jsonObject.Person.Age);
+    
+    </script>
+  </body>
+</html>

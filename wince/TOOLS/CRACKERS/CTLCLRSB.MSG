@@ -1,0 +1,4 @@
+WM_CTLCOLORSCROLLBAR
+HBRUSH
+OnCtlColorScrollBar
+(HWND hWnd,HDC hdc,HWND hWndChild, int type)

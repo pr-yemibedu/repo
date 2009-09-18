@@ -1,0 +1,29 @@
+<% task = edit_task %>
+
+<div id="<%= "edit_task_%i" % task.id %>" class="edit_task" style="<%= task.title == 'new' ? '' : 'display: none' %>">
+  
+  <%= form_remote_tag(:url => { :action => 'update', :id => task.id }, :html => {:class => 'edit_task_form'} ) %>
+    
+    <label for="title">Title:</label>
+    <%= text_field_tag :title, task.title, :class => 'input_title' %>
+    
+    <br>
+    
+    <label for="category">Category:</label>    
+    <%= select("task", "category_id", @categories.collect {|p| [ p.name, p.id ] }, :selected => task.category_id) %>    
+        
+    <label for="priority">Priority:</label>    
+    <%= select("task", "priority_id", @priorities.collect {|p| [ p.name, p.id ] }, :selected => task.priority_id) %>    
+    
+    <br>
+    
+    <label for="notes">Notes:</label>
+    <%= text_area_tag :notes, task.notes, :size => '60x8', :class => 'input_notes' %>
+    
+    <br>
+    <%= submit_tag "update" %>
+    <input type="button" accesskey="c" name="cancel" value="cancel" onclick="Element.toggle('<%= "edit_task_%i" % task.id %>'); Element.toggle('<%= 'task_title_%i' % task.id %>');"
+    
+  <%= end_form_tag %>
+
+</div>

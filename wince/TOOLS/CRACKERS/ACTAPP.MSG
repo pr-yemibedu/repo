@@ -1,0 +1,4 @@
+WM_ACTIVATEAPP
+void
+OnActivateApp
+(HWND hWnd, BOOL fActivate, DWORD dwThreadId)

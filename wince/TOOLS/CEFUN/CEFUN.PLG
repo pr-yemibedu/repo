@@ -1,0 +1,44 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: CEFUN - Win32 (WCE MIPS) Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /r /fo"WMIPSDbg/CEFUN.res" /d "MIPS" /d "_MIPS_" /d UNDER_CE=201 /d _WIN32_WCE=201 /d "Palm-size PC 2.01" /d "UNICODE" /d "DEBUG" "C:\Advwince.new\TOOLS\CEFUN\CEFUN.rc"" 
+Creating temporary file "C:\TEMP\RSPC5.tmp" with contents
+[
+/nologo /MC /W3 /Zi /Od /D _WIN32_WCE=201 /D "Palm-size PC 2.01" /D "DEBUG" /D "MIPS" /D "_MIPS_" /D UNDER_CE=201 /D "UNICODE" /D "_MBCS" /Fp"WMIPSDbg/CEFUN.pch" /Yu"stdafx.h" /Fo"WMIPSDbg/" /Fd"WMIPSDbg/" /QMRWCE /c 
+"C:\Advwince.new\TOOLS\CEFUN\CEFUN.cpp"
+]
+Creating command line "clmips.exe @C:\TEMP\RSPC5.tmp" 
+Creating temporary file "C:\TEMP\RSPC6.tmp" with contents
+[
+/nologo /MC /W3 /Zi /Od /D _WIN32_WCE=201 /D "Palm-size PC 2.01" /D "DEBUG" /D "MIPS" /D "_MIPS_" /D UNDER_CE=201 /D "UNICODE" /D "_MBCS" /Fp"WMIPSDbg/CEFUN.pch" /Yc"stdafx.h" /Fo"WMIPSDbg/" /Fd"WMIPSDbg/" /QMRWCE /c 
+"C:\Advwince.new\TOOLS\CEFUN\StdAfx.cpp"
+]
+Creating command line "clmips.exe @C:\TEMP\RSPC6.tmp" 
+Creating temporary file "C:\TEMP\RSPC7.tmp" with contents
+[
+commctrl.lib coredll.lib /nologo /entry:"WinMainCRTStartup" /base:"0x00010000" /incremental:yes /pdb:"WMIPSDbg/CEFUN.pdb" /debug /machine:MIPS /nodefaultlib:"libc.lib" /out:"WMIPSDbg/CEFUN.exe" /subsystem:windowsce,2.01 /STACK:65536,4096 
+.\WMIPSDbg\CEFUN.obj
+.\WMIPSDbg\StdAfx.obj
+.\WMIPSDbg\CEFUN.res
+]
+Creating command line "link.exe @C:\TEMP\RSPC7.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+CEFUN.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+CEFUN.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

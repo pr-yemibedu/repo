@@ -1,0 +1,27 @@
+// Decompiled by DJ v2.8.8.54 Copyright 2000 Atanas Neshkov  Date: 8/17/2001 10:57:24 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   regexp.java
+
+import java.io.PrintStream;
+import org.apache.regexp.RE;
+
+public class regexp
+{
+
+    public regexp()
+    {
+    }
+
+    public static void main(String args[])
+        throws Exception
+    {
+        RE re = new RE(args[0]);
+        System.out.println("Regular Expression: " + args[0]);
+        System.out.println("String: " + args[0]);
+        if(re.match(args[1]))
+            System.out.println("MATCH");
+        else
+            System.out.println("NO MATCH");
+    }
+}

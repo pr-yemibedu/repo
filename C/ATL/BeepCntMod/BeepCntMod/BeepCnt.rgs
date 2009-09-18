@@ -1,0 +1,26 @@
+HKCR
+{
+	BeepCntMod.BeepCnt.1 = s 'BeepCnt Class'
+	{
+		CLSID = s '{46083029-2E36-41E3-AF48-36CB628E7B61}'
+	}
+	BeepCntMod.BeepCnt = s 'BeepCnt Class'
+	{
+		CLSID = s '{46083029-2E36-41E3-AF48-36CB628E7B61}'
+		CurVer = s 'BeepCntMod.BeepCnt.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {46083029-2E36-41E3-AF48-36CB628E7B61} = s 'BeepCnt Class'
+		{
+			ProgID = s 'BeepCntMod.BeepCnt.1'
+			VersionIndependentProgID = s 'BeepCntMod.BeepCnt'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{B563B755-9589-4EEB-B5B7-2B31CE7169E3}'
+		}
+	}
+}

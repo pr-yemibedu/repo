@@ -1,0 +1,4 @@
+WM_ENDSESSION
+void
+OnEndSession
+(HWND hWnd, BOOL fEnding)

@@ -1,0 +1,1 @@
+require 'desktopsearch/filesearch.rb'

@@ -1,0 +1,4 @@
+WM_NCRBUTTONDBLCLK
+void
+OnNCRButtonDown
+(HWND hWnd, BOOL fDoubleClick, int x, int y, UINT codeHitTest)

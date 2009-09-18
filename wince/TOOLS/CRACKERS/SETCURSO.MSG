@@ -1,0 +1,4 @@
+WM_SETCURSOR
+BOOL
+OnSetCursor
+(HWND hWnd, HWND hWndCursor, UINT codeHitTest, UINT msg)

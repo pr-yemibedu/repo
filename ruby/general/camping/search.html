@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script language="javascript" src="prototype.js"></script>
+    </head>
+    <body>
+        <input id="search" />
+        <div id="results" />
+        <script language="javascript">
+        $("search").onkeydown = function() {
+            //$("results").innerHTML = "<b>" + $("search").value + "</b>";
+            setTimeout('DisplayResults()', 100);
+        }
+        
+        function DisplayResults() {
+            var myAjax = new Ajax.Updater(
+			 'results', 
+			 "/fs/" + $("search").value, 
+			 {
+			 	method: 'get'
+			 });
+		}     
+        </script>        
+    </body>
+</html>

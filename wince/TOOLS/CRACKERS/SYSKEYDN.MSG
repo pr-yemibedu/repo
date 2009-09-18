@@ -1,0 +1,4 @@
+WM_SYSKEYDOWN
+void
+OnSysKeyDown
+(HWND hWnd, UINT vk, BOOL fDown, int cRepeat, UINT flags)

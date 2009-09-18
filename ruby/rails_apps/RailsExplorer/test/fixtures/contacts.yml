@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  first: MyString
+  last: MyString
+  age: 1
+  birthday: 2008-01-20
+  notes: MyText
+  married: false
+  version: 1
+
+two:
+  first: MyString
+  last: MyString
+  age: 1
+  birthday: 2008-01-20
+  notes: MyText
+  married: false
+  version: 1

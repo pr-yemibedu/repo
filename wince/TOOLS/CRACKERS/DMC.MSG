@@ -1,0 +1,4 @@
+WM_DEVMODECHANGE
+void
+OnDevModeChange
+(HWND hWnd, LPCTSTR lpszDeviceName)

@@ -1,0 +1,4 @@
+WM_NCCALCSIZE
+UINT
+OnNCCalcSize
+(HWND hWnd, BOOL fCalcValidRects, NCCALCSIZE_PARAMS * lpcsp)

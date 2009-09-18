@@ -1,0 +1,4 @@
+WM_ASKCBFORMATNAME
+void
+OnAskCBFormatName
+(HWND hWnd, int cchMax, LPTSTR rgchName)

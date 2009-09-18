@@ -1,0 +1,4 @@
+WM_GETDLGCODE
+UINT
+OnGetDlgCode
+(HWND hWnd, LPMSG lpmsg)

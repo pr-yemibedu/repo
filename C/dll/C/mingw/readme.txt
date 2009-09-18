@@ -1,0 +1,1 @@
+How to create a win32 dll using mingw (minimalists gnu for win32

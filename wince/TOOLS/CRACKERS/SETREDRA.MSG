@@ -1,0 +1,4 @@
+WM_SETREDRAW
+void
+OnSetRedraw
+(HWND hWnd, BOOL fRedraw)

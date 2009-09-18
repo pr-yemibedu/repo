@@ -1,0 +1,4 @@
+WM_PAINTCLIPBOARD
+void
+OnPaintClipboard
+(HWND hWnd, HWND hWndCBViewer, const LPPAINTSTRUCT lpPaintStruct)

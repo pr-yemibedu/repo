@@ -1,0 +1,4 @@
+WM_MBUTTONDOWN
+void
+OnMButtonDown
+(HWND hWnd, BOOL fDoubleClick, int x, int y, UINT keyFlags)

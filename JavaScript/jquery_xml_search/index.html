@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title></title>
+    
+    <script type="text/javascript" src="base64.js"></script>
+    <script type="text/javascript" src="jquery-1.2.6.js"></script>
+    <script type="text/javascript" src="jquery.delayedobserver.js"></script>
+    
+    <script type="text/javascript">
+
+var documentContents;
+
+    jQuery(document).ready(function($) {
+   
+      function log() {
+        text = '';
+        for(i = 0; i < arguments.length; i++) {
+          text += arguments[i];
+        }
+        $('#log').val(  text + "\n" + $('#log').val( ) );
+      }
+    
+      $('#load').click(function() {
+        username = $('#username').val();
+        password = $('#password').val();
+        url = $('#url').val();
+        
+        authorization = Base64.encode(username + ':' + password);
+        log( 'username = ', username );
+        log( 'password = ', password );
+        log( 'url = ', url );
+        log( 'authorization = ', authorization);
+        
+        $.ajax({
+          url: url,
+          method: 'GET',
+          beforeSend: function(req) {
+            req.setRequestHeader('Authorization', 'Basic ' + authorization);
+          },
+          success: function(data) {
+            documentContents = data;
+            $('#content').val( documentContents );
+          }
+        });
+      });
+      
+      $('#jquery_filter_expression').delayedObserver(function() {
+        filter = $.trim( $(this).val() );
+        if (filter) {
+          lines = [];
+          $(filter,  documentContents).each(function(i, e) {
+            lines.push( $(e).parent().html() );
+          });
+          output = lines.join("\n");
+        } else {
+          output = documentContents;
+        }
+        $('#content').val( output );
+      }, 0.25);
+      
+      $('#grep_filter_expression').delayedObserver(function() {
+        filter = $.trim( $(this).val() );
+        if (filter) {
+          regex = new RegExp(filter, "gi");
+          lines = $.grep(documentContents.split("\n"), function(e, i) {
+            return regex.test(e);
+          });
+          output = lines.join("\n");
+        } else {
+          output = documentContents;
+        }
+        $('#content').val( output );
+      }, 0.25);
+      
+      // a .abc file is used instead of an .xml extension so the file isn't treated as xml in the XHR request
+      $('#url').val('doc.xml.abc');
+    });
+    
+  
+    </script>
+  </head>
+  <body>
+    <!-- Input -->
+    <fieldset>
+      <legend></legend>
+      Username: <input id="username" type="text" /> Password: <input id="password" type="password" /><br />
+      Url: <input id="url" type="text" /> <input id="load" type="button" value="load"/><br />
+      Filter <span style="font-size: small">(jQuery Expression)</span>: <input id="jquery_filter_expression" type="text" /> Grep Filter: <input id="grep_filter_expression" type="text" />
+      <textarea id="content" style="width: 100%; height:150px"></textarea>     
+    </fieldset>
+    
+    <!-- Log -->
+    <fieldset>
+      <legend>Log</legend>
+      <textarea id="log" style="width: 100%; height:150px"></textarea>
+    </fieldset>
+  </body>
+</html>

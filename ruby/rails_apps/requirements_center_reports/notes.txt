@@ -1,0 +1,139 @@
+<NodeMeta nodeType="PDMGenericUseCase">
+    <attrMeta attrName="Author" defaultValue="3" hasValidValues="true" attrField="Field1">
+      <validValues value="Bill"/>
+      <validValues value="Jeff"/>
+      <validValues value="Kathy"/>
+      <validValues value="Unassigned"/>
+    </attrMeta>
+  </NodeMeta>
+
+  <useCases xsi:type="pdm:PDMUseCase" uid="_tTP8oHCEEd2lNPd5GFImRA" index="54" prefix="UC">
+    <threads uid="_zDMIUHKwEd241pvZoomOFw" timestamp="1219677898345" author="Bill H">
+      <name value="Include Scientific / Thought Leader information"/>
+      <comments uid="_9UdNsHK5Ed241pvZoomOFw" timestamp="1219677898345" author="Bill H">
+        <text value="Include Scientific / Thought Leader information"/>
+      </comments>
+    </threads>
+    <threads uid="_Rbq2sHOCEd2yfODzO_7lxg" timestamp="1219763955532" author="Bill H">
+      <name value="Account hierarchy is part of this use case (Sub-Account View)"/>
+      <comments uid="_Vj20EHOCEd2yfODzO_7lxg" timestamp="1219763955532" author="Bill H">
+        <text value="Account hierarchy is part of this use case (Sub-Account View)"/>
+      </comments>
+    </threads>
+
+Use Case Name : "Maintain Account Best Times" : useCases systemAttrSet attrs[name="NAME_ID"] linkableString[value]
+Pre Condition : "User has navigated to Account Screen" : useCases proxy preCondition description[value]
+Post Condition : "End" : useCases proxy postCondition description[value]
+reference to the flow id of the basic flow to start at : useCases proxy[flow]
+start of flow : useCases basicFlow[uid = "<flow id reference from previous step>"]
+Step Text : useCases basicFlow steps description[value]
+Step Hyperlink Name : useCases basicFlow steps description fileUrls[name]
+Step Hyperlink Value/Path : useCases basicFlow steps description fileUrls[link]
+Extensions/Branches : useCases basicFlow steps extensions
+Branch Step Text : "SFA User changes a best time" : useCases basicFlow steps extensions preCondition description[value]
+
+  <basicFlow uid="_TeSDMXU5Ed28A8ZwMdgisQ">
+    <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+        bounds="37,113,525,179"/>
+    <steps uid="_A81Z4HU8Ed28A8ZwMdgisQ" stepOfType="SYSTEM">
+      <description value="System displays the My Accounts List">
+        <fileUrls name="Account View" link="..\Common\Assets\Screenshot\Account\Account_List_View.jpg"/>
+      </description>
+    </steps>
+    <steps xsi:type="pdm:PDMBranchingStep" uid="_0drKgHU7Ed28A8ZwMdgisQ" stepOfType="CUSTOM_ACTOR"
+        customActor="#_3RV-kGoPEd2OyvRaVFWfmw">
+      <threads uid="_GDdukHn0Ed2Dhb47Ym1zhg" timestamp="1220472935507" author="KOB">
+        <name value="Who can edit the MVCC Don't call and MVCC Targeted fields?? (Tanya)"/>
+      </threads>
+      <threads uid="_AoVtMHn1Ed2Dhb47Ym1zhg" timestamp="1220472930024" author="KOB">
+        <name value="Will the CIDB Location ID continue in the new SFA?? (Tanya)"/>
+      </threads>
+      <threads uid="_Y5xowH3PEd2VWtTVWzfj1Q" timestamp="1220896580271" author="KOB">
+        <name value="Need to add Team to this step - Need Screen from Tanya"/>
+      </threads>
+      <description value="SFA User reviews their My Accounts which include the following for each accounts:&#xA;Name (r), Account # (ro), Type (r), Parent (o), Single Physician Practice (o), Address (o), Address Line 2 (o), Address Line 3 (o), &#xA;City (o), State (o), Zip (o), Main Phone # (o), Main Fax # (o), &#xA;MVCC Don't Call (o), MVCC Targeted Flag (o), Integration ID (ro), &#xA;CIDB Location ID (ro), Status (r), Team (r)">
+        <fileUrls name="Account List Applet" link="..\Common\Assets\Screenshot\Account\SIS Account List Applet.jpg"/>
+      </description>
+      <extensions uid="_4TKOUHU7Ed28A8ZwMdgisQ" flow="#_sBPwwHU7Ed28A8ZwMdgisQ">
+        <goal uid="_4TKOUXU7Ed28A8ZwMdgisQ">
+          <description/>
+        </goal>
+        <preCondition uid="_4TKOUnU7Ed28A8ZwMdgisQ">
+          <description value="SFA Users adds an account"/>
+        </preCondition>
+        <postCondition uid="_4TKOU3U7Ed28A8ZwMdgisQ">
+          <description/>
+        </postCondition>
+      </extensions>
+      <extensions uid="_gff_0H3WEd2VWtTVWzfj1Q" flow="#_dgZKYH3WEd2VWtTVWzfj1Q">
+        <goal uid="_gff_0X3WEd2VWtTVWzfj1Q">
+          <description/>
+        </goal>
+        <preCondition uid="_gff_0n3WEd2VWtTVWzfj1Q">
+          <description value="SFA User select the All Accounts View"/>
+        </preCondition>
+        <postCondition uid="_gff_033WEd2VWtTVWzfj1Q">
+          <description/>
+        </postCondition>
+      </extensions>
+      <extensions uid="_DYnTwH3XEd2VWtTVWzfj1Q" flow="#_B3MkUH3XEd2VWtTVWzfj1Q">
+        <goal uid="_DYnTwX3XEd2VWtTVWzfj1Q">
+          <description/>
+        </goal>
+        <preCondition uid="_DYnTwn3XEd2VWtTVWzfj1Q">
+          <description value="SFA User select the My Teams Accounts View"/>
+        </preCondition>
+        <postCondition uid="_DYnTw33XEd2VWtTVWzfj1Q">
+          <description/>
+        </postCondition>
+      </extensions>
+    </steps>
+  </basicFlow>
+  <extFlows uid="_sBPwwHU7Ed28A8ZwMdgisQ">
+    <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+        bounds="639,58,445,18" collapsed="true"/>
+    <steps uid="_2p2HI3U7Ed28A8ZwMdgisQ" stepOfType="CUSTOM_ACTOR" customActor="#_3RV-kGoPEd2OyvRaVFWfmw">
+      <description value="SFA Users adds an account"/>
+    </steps>
+    <steps uid="_2p2HJHU7Ed28A8ZwMdgisQ" stepOfType="SYSTEM">
+      <description value="System displays blank new record and defaults Status to &quot;Active&quot;">
+        <fileUrls name="Account List View with Blank Record" link="..\Common\Assets\Screenshot\Account\Account_List_View (blank record).jpg"/>
+      </description>
+    </steps>
+    <steps uid="_BEYlcHn0Ed2Dhb47Ym1zhg" stepOfType="CUSTOM_ACTOR" customActor="#_3RV-kGoPEd2OyvRaVFWfmw">
+      <description value="SFA User enters the account information">
+        <fileUrls name="Contact List - New Record with Address" link="..\Common\Assets\Screenshot\Account\Account_List_View (blank record5).jpg"/>
+      </description>
+    </steps>
+    <steps uid="_t-we8HU-Ed28A8ZwMdgisQ" stepOfType="SYSTEM">
+      <description value="System saves changes and the account is added to the SFA User's Call Deck"/>
+    </steps>
+  </extFlows>
+  <extFlows uid="_dgZKYH3WEd2VWtTVWzfj1Q">
+    <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+        bounds="658,25,481,18" collapsed="true"/>
+    <steps uid="_gkRLEH3WEd2VWtTVWzfj1Q" stepOfType="CUSTOM_ACTOR" customActor="#_3RV-kGoPEd2OyvRaVFWfmw">
+      <description value="SFA User select the All Accounts View"/>
+    </steps>
+    <steps uid="_nvpMoH3WEd2VWtTVWzfj1Q" stepOfType="SYSTEM">
+      <description value="System displays the All Accounts View">
+        <fileUrls name="All Accounts Filter" link="..\Common\Assets\Screenshot\Account\Account Screen (All Acounts).jpg"/>
+      </description>
+    </steps>
+  </extFlows>
+  <extFlows uid="_B3MkUH3XEd2VWtTVWzfj1Q">
+    <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+        bounds="638,92,457,18" collapsed="true"/>
+    <steps uid="_CgAQw33XEd2VWtTVWzfj1Q" stepOfType="CUSTOM_ACTOR" customActor="#_3RV-kGoPEd2OyvRaVFWfmw">
+      <description value="SFA User select the My Teams Accounts View"/>
+    </steps>
+    <steps uid="_CgAQxH3XEd2VWtTVWzfj1Q" stepOfType="SYSTEM">
+      <threads uid="_GtngsH3XEd2VWtTVWzfj1Q" timestamp="1220899878507" author="KOB">
+        <name value="Need Screen from Tanya"/>
+      </threads>
+      <description value="System displays the My Teams Accounts View">
+        <fileUrls name="All Accounts Filter" link="..\Common\Assets\Screenshot\Account\Account Screen (All Acounts).jpg"/>
+      </description>
+    </steps>
+  </extFlows>
+</useCases>

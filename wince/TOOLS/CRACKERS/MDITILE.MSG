@@ -1,0 +1,4 @@
+WM_MDITILE
+BOOL
+MDITile
+(HWND hWnd, UINT cmd)

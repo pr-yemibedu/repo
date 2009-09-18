@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <script type="text/javascript"></script>
+  </head>
+  <body>
+  	<script type="text/javascript" src="scratch.js" ></script>
+    <script type="text/javascript">
+    
+    // logging
+    function l(s) {
+      if ( typeof( document ) == "undefined" ) { // DOM not availaable (not running in browser)
+        print(s);
+      } else { // running in browser
+        var e = document.createElement('div');
+        e.innerHTML = s + "<hr>";
+        document.body.appendChild(e);
+      }
+    }
+    
+    // return all properties of specified object
+    function props( obj ) {
+      var a = [];
+      for( property in obj ) {
+        a.push( property );
+      }
+      return a.toString();
+    }
+    
+    var a = document.createElement('a');
+    var ge;
+    a.innerHTML = "click me";
+    a.href = "javascript:void(0)";
+    a.style.border = "1px solid";
+    
+    // classic method to add event
+    a.onclick = function(e) {
+      l( props( e ) );
+    }
+    
+    // level 2 model event registering
+    /*
+	a.addEventListener("mouseover", function(e) {
+        l( "mouseover" );
+      },
+      false );
+      */
+    
+    document.body.appendChild( a );
+    
+    </script>
+  </body>
+</html>

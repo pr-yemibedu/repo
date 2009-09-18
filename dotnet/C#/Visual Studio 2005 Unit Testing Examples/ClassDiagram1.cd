@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Visual_Studio_2005_Unit_Testing_Examples.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Program.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Visual_Studio_2005_Unit_Testing_Examples.Person">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Person.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAQIAAAAQAAAAAAAAAAAQAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>

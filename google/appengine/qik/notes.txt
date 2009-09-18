@@ -1,0 +1,44 @@
+var toolbar = ws.ItemList.getTopToolbar();
+  toolbar.add({xtype: 'tbfill'}); // forces search to be right aligned (ref Ext.Toolbar.Fill)
+  toolbar.addText('search:');
+  ws.ItemSearch = new Ext.form.TextField({});
+  ws.ItemSearch.enableKeyEvents = true;
+  ws.ItemSearch.on('keypress', function(textField, e) {
+  	if (e.getKey() == Ext.EventObject.TAB) {
+			ws.ItemList.getSelectionModel().selectFirstRow();
+			//e.stopEvent();
+	} else {
+		setTimeout(function(){
+			ws.ItemStore.clearFilter();
+			//ws.ItemStore.filter('title', /* search field */ ws.ItemSearch.getValue(), /* search string */ true /* match any part of string */, false /*case sensitive */);
+			q = ws.ItemSearch.getValue();
+			var searches = [];
+			
+			// specific field search. e.g. title:ruby
+			if (q.match(/:/)) {
+                queries = q.split(' ');
+                for (i = 0; i < queries.length; i++) {
+                    if (queries[i].trim() != '') {
+                        parts = queries[i].split(':');
+                        searches.push({name: parts[0], regexp: new RegExp(parts[1], 'gim')});
+                    }
+                }
+			}
+			
+			ws.ItemStore.filterBy(function(record, id) {
+			    if (searches.length == 0) { // search all fields for a match
+			        var re = new RegExp(q, 'gim');
+			        return record.data.title.match(re) || record.data.body.match(re) || record.data.tags.match(re);
+			    } else { // search specified fields for a match
+			        result = false;
+			        Ext.each(searches, function(search, index, allItems){
+			            result = result || record.data[search.name].match(search.regexp);
+			        });
+			        return result;
+			    }
+			});
+		}, 250);
+	}
+  });
+  
+  toolbar.addField( ws.ItemSearch );

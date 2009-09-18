@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<project name="Person" default="build" basedir=".">
+    <description>Builds person example.</description>
+    <property name="debug" value="true" overwrite="false" />
+    <target name="clean" description="remove all generated files">
+        <delete file="Person.exe" failonerror="false" />
+        <delete file="Person.pdb" failonerror="false" />
+    </target>
+    <target name="build" description="compiles the source code">
+        <csc target="exe" output="Person.exe" debug="${debug}">
+            <sources>
+                <includes name="Person.cs" />
+            </sources>
+        </csc>
+    </target>
+</project>

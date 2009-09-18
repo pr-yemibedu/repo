@@ -1,0 +1,4 @@
+WM_MBUTTONDBLCLK
+void
+OnMButtonDblClk
+(HWND hWnd, BOOL fDoubleClick, int x, int y, UINT keyFlags)

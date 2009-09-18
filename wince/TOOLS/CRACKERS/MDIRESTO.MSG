@@ -1,0 +1,4 @@
+WM_MDIRESTORE
+void
+MDIRestore
+(HWND hWnd, HWND hWndRestore)

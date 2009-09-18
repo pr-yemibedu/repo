@@ -1,0 +1,4 @@
+WM_DESTROYCLIPBOARD
+void
+OnDestroyClipboard
+(HWND hWnd)

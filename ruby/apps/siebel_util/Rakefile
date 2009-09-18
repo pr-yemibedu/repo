@@ -1,0 +1,14 @@
+APP_NAME = 'siebtil'
+DEPLOY_PATHS = ["\\\\uswpfspfeilbr\\c$\\temp"]
+
+task :default => [:build]
+
+desc 'creates standalone exe that contains ruby + required libraries + application'
+task :build do
+  sh %{rubyscript2exe.bat #{APP_NAME}.rb}
+end
+
+desc 'Deploys the exe to: ' + DEPLOY_PATHS.join(',')
+task :deploy => [:build] do
+  DEPLOY_PATHS.each{|path| cp "#{APP_NAME}.exe", path }
+end

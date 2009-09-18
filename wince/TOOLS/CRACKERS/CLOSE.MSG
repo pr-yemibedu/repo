@@ -1,0 +1,4 @@
+WM_CLOSE
+void
+OnClose
+(HWND hWnd)

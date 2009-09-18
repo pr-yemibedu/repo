@@ -1,0 +1,4 @@
+WM_CHAR
+void
+OnChar
+(HWND hWnd, TCHAR ch, int cRepeat)

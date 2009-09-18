@@ -1,0 +1,171 @@
+# Logfile created on Sun Sep 03 15:11:01 Eastern Daylight Time 2006 by logger.rb/1.5.2.7
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSQLite3::SQLException: no such table: site_links: DROP TABLE site_links[0m
+  [4;36;1mSQL (0.080000)[0m   [0;1mCREATE TABLE site_links ("id" INTEGER PRIMARY KEY NOT NULL NOT NULL, "name" varchar(255), "url" varchar(255)) [0m
+  [4;35;1mSQL (0.000000)[0m   [0mPRAGMA table_info(site_links)[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mINSERT INTO site_links ("name", "url") VALUES('Google', 'http://www.google.com')[0m
+  [4;35;1mSQL (0.010000)[0m   [0mINSERT INTO site_links ("name", "url") VALUES('Yahoo', 'http://www.yahoo.com')[0m
+  [4;36;1mSite::Models::Link Load (0.000000)[0m   [0;1mSELECT * FROM site_links [0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+  [4;35;1mSite::Models::Link Load (0.030000)[0m   [0mSELECT * FROM site_links [0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSite::Models::Link Load (0.000000)[0m   [0;1mSELECT * FROM site_links [0m
+allow_concurrency=false
+  [4;36;1mSQL (0.010000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.000000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.010000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.000000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.010000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.000000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.000000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+  [4;35;1mSite::Models::Link Load (0.010000)[0m   [0mSELECT * FROM site_links [0m
+  [4;36;1mSQL (0.020000)[0m   [0;1mPRAGMA table_info(site_links)[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.010000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.010000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.010000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m
+allow_concurrency=false
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT name FROM sqlite_master WHERE type = 'table'[0m

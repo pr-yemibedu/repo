@@ -1,0 +1,4 @@
+WM_NCCREATE
+BOOL
+OnNCCreate
+(HWND hWnd, LPCREATESTRUCT lpCreateStruct)

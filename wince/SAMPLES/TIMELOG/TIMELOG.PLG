@@ -1,0 +1,48 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TIMELOG - Win32 (WCE ARM) Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /r /fo"WCEARMDbg/TIMELOG.res" /d "ARM" /d "_ARM_" /d UNDER_CE=211 /d _WIN32_WCE=211 /d "H/PC Pro 2.11" /d "UNICODE" /d "DEBUG" "C:\Code\CE\TIMELOG\TIMELOG.rc"" 
+Creating temporary file "D:\TEMP\RSPD.tmp" with contents
+[
+/nologo /MC /W3 /Zi /Od /D _WIN32_WCE=211 /D "H/PC Pro 2.11" /D "DEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=211 /D "UNICODE" /D "_MBCS" /Fp"WCEARMDbg/TIMELOG.pch" /Yu"stdafx.h" /Fo"WCEARMDbg/" /Fd"WCEARMDbg/" /c 
+"C:\Code\CE\TIMELOG\db.cpp"
+"C:\Code\CE\TIMELOG\TIMELOG.cpp"
+]
+Creating command line "clarm.exe @D:\TEMP\RSPD.tmp" 
+Creating temporary file "D:\TEMP\RSPE.tmp" with contents
+[
+/nologo /MC /W3 /Zi /Od /D _WIN32_WCE=211 /D "H/PC Pro 2.11" /D "DEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=211 /D "UNICODE" /D "_MBCS" /Fp"WCEARMDbg/TIMELOG.pch" /Yc"stdafx.h" /Fo"WCEARMDbg/" /Fd"WCEARMDbg/" /c 
+"C:\Code\CE\TIMELOG\StdAfx.cpp"
+]
+Creating command line "clarm.exe @D:\TEMP\RSPE.tmp" 
+Creating temporary file "D:\TEMP\RSPF.tmp" with contents
+[
+coredll.lib commctrl.lib /nologo /entry:"WinMainCRTStartup" /base:"0x00010000" /align:"4096" /incremental:yes /pdb:"WCEARMDbg/TIMELOG.pdb" /debug /machine:ARM /nodefaultlib:"libc.lib /nodefaultlib:libcd.lib /nodefaultlib:libcmt.lib /nodefaultlib:libcmtd.lib /nodefaultlib:msvcrt.lib /nodefaultlib:msvcrtd.lib" /out:"WCEARMDbg/TIMELOG.exe" /subsystem:windowsce,2.11 /STACK:65536,4096 
+.\WCEARMDbg\db.obj
+.\WCEARMDbg\StdAfx.obj
+.\WCEARMDbg\TIMELOG.obj
+.\WCEARMDbg\TIMELOG.res
+]
+Creating command line "link.exe @D:\TEMP\RSPF.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+db.cpp
+TIMELOG.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+TIMELOG.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

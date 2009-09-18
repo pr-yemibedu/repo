@@ -1,0 +1,4 @@
+WM_PAINT
+void
+OnPaint
+(HWND hWnd)

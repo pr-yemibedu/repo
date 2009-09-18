@@ -1,0 +1,4 @@
+WM_COMPAREITEM
+int
+OnCompareItem
+(HWND hWnd, const COMPAREITEMSTRUCT * lpCompareItem)

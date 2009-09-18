@@ -1,0 +1,6 @@
+----------------------------------------------------------------
+2008-04-21 17:55:19.279 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.3.2.1 - (599110): instance c013800d-0119-7220-23e1-000001027500
+on database directory /Users/brianpfeil/Temp/jruby_on_rails_app/db/db/development  
+
+Database Class Loader started - derby.database.classpath=''

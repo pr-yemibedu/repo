@@ -1,0 +1,8 @@
+NAME    CRACKERS
+
+EXETYPE WINDOWS
+
+DESCRIPTION 'Message Cracker Utility (c) 1995-1998 By Paul Yao. All rights reserved.'
+
+HEAPSIZE     512
+STACKSIZE   5120

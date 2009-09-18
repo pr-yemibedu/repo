@@ -1,0 +1,11 @@
+<div id="title">Editing product in place</div>
+<script type="text/javascript">
+    <%= visual_effect(:highlight, "title", :duration => 1.5) %>
+</script>
+
+<%= form_remote_tag :action => 'update' %>
+
+    <%= in_place_editor_field :product, :title %><br>
+    <%= in_place_editor_field :product, :description, {}, :rows => 5 %><br>
+
+<%= end_form_tag %>

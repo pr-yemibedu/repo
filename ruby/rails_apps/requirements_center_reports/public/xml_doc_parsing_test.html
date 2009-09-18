@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>XML Document Parsing Testing</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Brian Pfeil">
+	
+ 	<link rel="stylesheet" type="text/css" href="lib/ext-2.2/resources/css/ext-all.css" />
+ 	<link rel="stylesheet" type="text/css" href="lib/ext-2.2/resources/css/xtheme-gray.css?" />
+ 	
+	<script type="text/javascript" src="lib/ext-2.2/adapter/ext/ext-base.js"></script>
+ 	<script type="text/javascript" src="lib/ext-2.2/ext-all.js"></script>
+	
+	
+	<script src="lib/jquery/jquery-1.2.6.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+var doc;
+
+jQuery.noConflict();
+jQuery(function($) {
+	
+	$('#expression').keypress(function() {
+		setTimeout(function() {
+			var expression = $.trim( $('#expression').val() );
+			try {
+				var matchedElementCount = $(expression, doc).size();
+				$('#result').val(matchedElementCount);
+			} catch (e) {
+				$('#result').val('0');
+			}
+		}, 250);
+	});
+	
+	function parseXmlDoc(doc) {
+		
+	}
+	
+	$.ajax({
+		url: 'SFA.xml',
+		dataType: 'xml',
+		success: function(data) {
+			doc = data;
+		},
+		error: function(status, message, q) {
+			alert(status + message);
+		}
+	});
+});	
+</script>
+</head>
+<body>
+
+	Expression: <input id='expression' type='text' size='80'/><br/>
+	Result:<br/>
+	<textarea id='result' cols='80' rows='40'></textarea>
+
+</body>
+</html>

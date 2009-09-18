@@ -1,0 +1,4 @@
+WM_MDICASCADE
+BOOL
+MDICascade
+(HWND hWnd, UINT cmd)

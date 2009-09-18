@@ -1,0 +1,5 @@
+:backup_directory_path: //wpccr04/dev/insight/team/brian.pfeil/backup
+:archive_count: 5
+:syncbak_program_path: C:\program files\2BrightSparks\SyncBack\SyncBack.exe
+:syncbak_profiles:
+  - All

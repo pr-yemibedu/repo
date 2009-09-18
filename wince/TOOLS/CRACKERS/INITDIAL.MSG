@@ -1,0 +1,4 @@
+WM_INITDIALOG
+BOOL
+OnInitDialog
+(HWND hWnd, HWND hWndFocus, LPARAM lParam)

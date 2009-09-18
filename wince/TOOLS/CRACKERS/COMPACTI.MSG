@@ -1,0 +1,4 @@
+WM_COMPACTING
+void
+OnCompacting
+(HWND hWnd, UINT compactRatio)

@@ -1,0 +1,4 @@
+WM_COPY
+void
+OnCopy
+(HWND hWnd)

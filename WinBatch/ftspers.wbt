@@ -1,0 +1,2578 @@
+;xMigrate = 1 if we are migrating, 0 for a new user setup
+;ISid = ISID
+;FName = First Name
+;LName = Last Name
+;FullName = First Last
+;Softiddir = directory where softid file is
+;Softidfile = softid filename
+;wbComputerName
+;wbResDomName
+;wbActDomName
+Debug(@ON)
+;Set Windows Sendkeys and Winactive settings back to pre-Win2K
+IntControl( 61, 1, 0, 0, 0 )
+IntControl( 62, 0, 0, 0, 0 )
+zworkdir=DirHome()
+WinDir = DirWindows(0)
+WinSysDir = DirWindows(1)
+;set resource and account domains - same for all users
+wbResDomName = "USHHSALES" ;
+wbActDomName = "NORTHAMERICA"
+
+Ver = "2.5.x.x"
+BldEng = "2.5.1.4"
+
+;1.4.1.2 -> 1.4.1.3 = correction in setLogonHk to remove leading space in run command
+;1.4.1.2 -> 1.4.1.3 = modification in chk4updt to check for versions less than or equal to current
+;1.4.1.3 -> 1.5.1.3 = creation of modOutlookTmp for changing Outlook temp folder path to c:\temp
+;1.4.1.3 -> 1.5.1.3 = modification in cfgMC to change the browser start page to http://my.merck.com
+;1.4.1.3 -> 1.5.1.3 = modification in cfgMSIE to set HQ model homepage to http://my.merck.com
+;1.4.1.3 -> 1.5.1.3 = modification in PRorCZ to change FSNet Logon shortcut to launch http://fsnet.merck.com/prcr/ for the Caribbean Reps
+;1.5.1.3 -> 1.5.1.4 = modification in PRorCZ to allow ABSlauncher to remain in the startup
+;1.5.1.4 -> 2.5.1.4 = modifications for ecoreXP 3.00 and new version of Winbatch 2002b
+
+DEV = 1 
+
+gosub getbootnum
+Select bootnum
+	case 1
+		goto boot1
+		break
+	case 2
+		goto boot2
+		break
+	case 3
+		goto boot3
+		break
+	case 4
+		goto boot4
+		break 
+	case 99
+		Message("Install Complete","You are done")
+		break
+	case bootnum
+		Message("Error","Error")
+EndSelect
+exit
+
+;======================================================
+:boot1
+;debug(@on)
+BoxTitle("FTSPERS - Boot 1")
+ISID = "administrator"
+gosub winsyserror
+gosub syssetchange
+gosub cleanup
+Display(5,"Status","initial cleanup performed")
+gosub MSIfix
+Display(5,"Status","MSI's redirected")
+gosub winsyserror
+gosub syssetchange
+gosub askUserID
+gosub winsyserror
+gosub syssetchange
+gosub setcomputername
+Display(5,"Status","Computer name changed")
+bootnum="2"
+gosub setbootnum
+gosub setvar
+gosub getvar
+gosub autoadminon
+;gosub PS2 ; Do I still need this?????
+gosub changeSID
+exit
+
+;======================================================
+:boot2
+;debug(@on)
+BoxTitle("FTSPERS - Boot 2")
+gosub getvar
+If WinWaitExist("Windows - System Error", 5)
+	WinActivate("Windows - System Error")
+	SendKey("~")
+	Message("WARNING","A machine with the name %wbComputerName% is already on the network.%@CRLF%%@CRLF%This machine will now be shut off.%@CRLF%%@CRLF%Please remove the other machine from the network before turning this machine back on.%@CRLF%%@CRLF%")
+	IntControl (68, 0, 1, 0, 0)
+EndIf
+gosub checkfornet
+wbAddParams = strCat("ADD ", wbComputerName, " /D:",wbResDomName, " /UD:",wbResDomName,"\ComputerAdmin /PD:addnode")
+gosub ntadd
+Display(5,"Status","Machine name added to domain")
+wbJoinParams = strCat(" JOIN ", wbComputerName, " /D:",wbResDomName, " /UD:",wbResDomName,"\ComputerAdmin /PD:addnode")
+gosub ntjoin
+Display(5,"Status","Machine has joined domain")
+bootnum="3"
+gosub setbootnum
+gosub autoadminoff
+gosub reboot
+exit
+
+;======================================================
+:boot3
+;debug(@on)
+BoxTitle("FTSPERS - Boot 3")
+;gosub setver
+gosub getvar
+gosub chk4updt
+Display(5,"Status","Checked for update")
+gosub chkLogInVsISId
+Display(5,"Status","Confirmed that the correct user has logged in")
+gosub cfgPgFile
+Display(5,"Status","Configured paging file")
+gosub cfgSecPol
+Display(5,"Status","Configured security policy")
+gosub cfgPSWDunlock
+;gosub OLEfix
+;gosub cfgMyDocs
+gosub cfgPower
+Display(5,"Status","Configured power settings")
+gosub cfgDefaultPrnt
+Display(5,"Status","Configured default printer")
+gosub fndModem
+Display(5,"Status","Identified default modem and com port")
+gosub checkfornet
+If OnNetwork=="yes"
+	RunWait("%WinSysDir%net.exe","use S: \\wpccr03\softid /user:wpccr03\FTSISINS football /persistent:no")
+	SoftIDdir="S:\"
+	softidfile="%ISID%.inf"
+Else
+	SoftIDdir=""
+Endif
+gosub cfgSoftID ; this should config and lock SoftID as in Win95
+Display(5,"Status","Configured SoftID")
+Run("%WinSysDir%net.exe","use S: /delete")
+gosub cfgInsightDB
+Display(5,"Status","Installed Insight DB")
+gosub setvar
+gosub askMigrate
+gosub setvar
+gosub getvar
+gosub cfgConnectoids
+Display(5,"Status","Configured connectoids")
+gosub cfgMC
+Display(5,"Status","Configured Merck Connect")
+gosub cfgMSIE
+Display(5,"Status","Configured MSIE")
+gosub cfgNAV
+Display(5,"Status","Configured NAV")
+;gosub cfgOffice
+;gosub Officefix
+gosub cfgOracle
+Display(5,"Status","Configured Oracle DSN's")
+gosub cfgRealPlayer
+Display(5,"Status","Configured Real PLayer")
+gosub cfgSmrtFrcPlyr
+Display(5,"Status","Configured Smart Force Player")
+gosub cfgUUNet
+Display(5,"Status","Configured UUNet")
+gosub cleanup
+Display(5,"Status","First post configuration cleanup complete")
+gosub getvar
+q="@YES"
+IF wMigrate=="now"
+	RunWait("regedit","/s %zworkdir%MRKinfo.reg")
+	gosub cfgOutlook
+	Display(5,"Status","Configured Outlook")
+	IF role=="HQ" THEN gosub setLogonHk
+	bootnum="99"
+	gosub setbootnum
+	gosub FTScleanup
+	Display(5,"Status","Second post configuration cleanuo complete")
+	RunWait("%WinSysDir%attrib.exe","-R -S -H c:\ftstmp /s /d")
+	RegSetValue(@REGCURRENT,"Software\Microsoft\windows\CurrentVersion\RunOnce[boot]","cmd.exe /C RD /S /Q C:\ftstmp")
+ELSE
+	bootnum="4"
+	gosub setbootnum
+ENDIF
+Display(5,"Status","Configuration complete")
+Display(5,"Status","Final cleanup will occur at next login")
+IntControl(66,0,1,0,0)
+exit
+
+;======================================================
+:boot4
+;debug(@on)
+BoxTitle("FTSPERS - Boot 4")
+gosub getvar
+gosub askMigrate
+gosub setvar
+gosub getvar
+If wMigrate=="now"
+	gosub checkfornet
+	q="@YES"
+	IF OnNetwork!="yes"
+		q=askyesno("Error","No network connection detected.%@CRLF%Do you wish to intiate a dial-up session?%@CRLF%")
+		IF q=="@YES"
+			Pause("ERROR","This ability not available at this time.")
+			Run("C:\Connect\connect.exe","/cmd=fsnet")
+			message("Remote Connection","When dial up to Merck network is successful%@CRLF%click OK to continue personilaztion%@CRLF%")
+		ENDIF
+	ENDIF
+	IF q=="@YES"
+		RunWait("regedit","/s %zworkdir%MRKinfo.reg")
+		gosub cfgOutlook
+		Display(5,"Status","Configured Outlook")
+		IF role=="HQ" THEN gosub setLogonHk
+		bootnum="99"
+		gosub setbootnum
+		gosub FTScleanup
+		Display(5,"Status","Second post configuration cleanuo complete")
+		RunWait("%WinSysDir%attrib.exe","-R -S -H c:\ftstmp /s /d")
+		RegSetValue(@REGCURRENT,"Software\Microsoft\windows\CurrentVersion\RunOnce[boot]","cmd.exe /C RD /S /Q C:\ftstmp")
+		Display(5,"Status","Configuration complete")
+		Display(5,"Status","Final cleanup will occur at next login")
+		IntControl(66,0,1,0,0)
+	ENDIF
+EndIf
+
+EXIT
+
+;======================================================
+;======================================================
+:askUserID
+BoxTitle("FTSPERS - %bootnum% - askUserID")
+UseridDialogFormat=`WWWDLGED,5.0`
+
+UseridDialogCaption=`FTS Personalization - User Info`
+UseridDialogX=100
+UseridDialogY=150
+UseridDialogWidth=123
+UseridDialogHeight=73
+UseridDialogNumControls=7
+
+UseridDialog01=`48,10,64,DEFAULT,EDITBOX,FName,"First"`
+UseridDialog02=`48,22,64,DEFAULT,EDITBOX,LName,"Last"`
+UseridDialog03=`48,34,64,DEFAULT,EDITBOX,ISid,"ISID"`
+UseridDialog04=`10,10,38,DEFAULT,STATICTEXT,DEFAULT,"First Name"`
+UseridDialog05=`10,22,38,DEFAULT,STATICTEXT,DEFAULT,"Last Name"`
+UseridDialog06=`10,34,36,DEFAULT,STATICTEXT,DEFAULT,"ISID"`
+UseridDialog07=`44,54,36,DEFAULT,PUSHBUTTON,DEFAULT,"OK",1`
+
+ButtonPushed=Dialog("UseridDialog")
+FullName = "%FName% %LName%"
+ISID=StrUpper(ISID)
+DropWild("UseridDia*")
+
+UseridDialogFormat=`WWWDLGED,5.0`
+
+UseridDialogCaption=`FTS Personalization - User Info`
+UseridDialogX=160
+UseridDialogY=154
+UseridDialogWidth=122
+UseridDialogHeight=79
+UseridDialogNumControls=4
+
+UseridDialog01=`48,34,64,DEFAULT,EDITBOX,ISid2,"ISID"`
+UseridDialog02=`10,34,36,DEFAULT,STATICTEXT,DEFAULT,"ISID"`
+UseridDialog03=`18,14,86,DEFAULT,STATICTEXT,DEFAULT,"Please re-enter the ISID to confirm"`
+UseridDialog04=`44,54,36,DEFAULT,PUSHBUTTON,DEFAULT,"OK",1`
+
+ButtonPushed=Dialog("UseridDialog")
+ISID2=StrUpper(ISID2)
+DropWild("UseridDia*")
+
+If ISID != ISID2
+	message("ERROR","ISID's did not match!%@CRLF%%@CRLF%Please try again.")
+	gosub askUserID
+EndIf
+return
+;======================================================
+:setcomputername
+BoxTitle("FTSPERS - %bootnum% - setcomputername")
+wbComputerName = strupper(ISid)
+If DEV == "1" Then wbComputerName = "ZZZ%wbComputerName%"
+If DEV == "0" Then wbComputerName = "USWPA%wbComputerName%"
+wbNewSidParam = strCat("/name:", "%wbComputername% /start")
+;Set up DNS
+RegSetValue(@REGMACHINE, "System\ControlSet001\Services\Tcpip\Parameters[Hostname]", wbComputerName)
+RegSetValue(@REGMACHINE, "System\ControlSet001\Services\Tcpip\Parameters[NV Hostname]", wbComputerName)
+RegSetValue(@REGMACHINE, "System\ControlSet002\Services\Tcpip\Parameters[Hostname]", wbComputerName)
+RegSetValue(@REGMACHINE, "System\ControlSet002\Services\Tcpip\Parameters[NV Hostname]", wbComputerName)
+RegSetValue(@REGMACHINE, "System\CurrentControlSet\Services\Tcpip\Parameters[NV Hostname]", wbComputerName)
+RegSetValue(@REGMACHINE, "System\CurrentControlSet\Services\Tcpip\Parameters[Hostname]", wbComputerName)
+return
+;======================================================
+:PS2
+RunWait("c:\utl\hardware.bat","")
+return
+;======================================================
+:changeSID
+BoxTitle("FTSPERS - %bootnum% - changeSID")
+DirChange(zworkdir)
+Run("sidgen.exe", wbNewSidParam)
+return
+;======================================================
+;======================================================
+:ntadd
+BoxTitle("FTSPERS - %bootnum% - ntadd")
+RunWait("netdom.exe", wbAddParams)  ;attempt to add computer account
+a=IntControl (64, 0, 0, 0, 0)
+If a==2224 ; pc name already existed
+	str1="PC %wbComputerName% already created - are you sure you want to use this name? %@CRLF%"
+	str2="(should only be used for hotswapping an existing user's PC) %@CRLF%%@CRLF%If this is a NEW user, please CANCEL and check the ISID."
+	str3=StrCat(str1,str2)
+	Pause("THIS PC ALREADY EXISTS! - %wbComputerName%", str3) 
+	return
+Endif
+
+If a==53
+	Message ("ERROR!", "Network path not found.  We are resetting to boot2.%@CRLF%You will be logged off.  Please make sure you%@CRLF%have a network connection before continuing")
+	IntControl(66,0,1,0,0)
+	Exit
+Endif
+
+If a==1231
+	Message ("ERROR!", "No network detected.  We are resetting to boot2.%@CRLF%You will be logged off.  Please make sure you%@CRLF%have a network connection before continuing")
+	IntControl(66,0,1,0,0)
+	Exit
+EndIf
+
+If a>0
+	Message ("ERROR!", "UNKNOWN ERROR!  PLEASE CONTACT YOUR SYSTEM ADMINISTRATOR")
+	IntControl(66,0,1,0,0)
+	Exit
+EndIf
+return
+;======================================================
+:ntjoin
+BoxTitle("FTSPERS - %bootnum% - ntjoin")
+RunWait("netdom.exe", wbJoinParams)
+a=IntControl (64, 0, 0, 0, 0)
+If a>0 
+		Message ("ERROR!", "Failed to join Domain. We are resetting to boot2.%@CRLF%You will be logged off.  Please make sure you%@CRLF%have a network connection before continuing")
+		IntControl(66,0,1,0,0)  
+		Exit
+	else
+		Display (3,"Success!","%wbcomputername% has joined the domain %wbResDomName%")
+endif
+return
+;======================================================
+;======================================================
+:cfgPgFile
+BoxTitle("FTSPERS - %bootnum% - cfgPgFile")
+RegSetDword(@REGMACHINE,"System\CurrentControlSet\Control\Session Manager\Memory Management[ClearPageFileAtShutdown]","0")
+RegSetDword(@REGMACHINE,"System\ControlSet001\Control\Session Manager\Memory Management[ClearPageFileAtShutdown]","0")
+RegSetDword(@REGMACHINE,"System\ControlSet002\Control\Session Manager\Memory Management[ClearPageFileAtShutdown]","0")
+return
+;======================================================
+:cfgSecPol
+BoxTitle("FTSPERS - %bootnum% - cfgSecPol")
+RunWait("%zworkdir%ntrights.exe","-u NORTHAMERICA\%ISID% +r SeTcbPrivilege")
+RunWait("%WinSysDir%gpupdate.exe","/force")
+;RunWait("%WinSysDir%secedit.exe","/refreshpolicy machine_policy /enforce")
+;RunWait("%WinSysDir%secedit.exe","/refreshpolicy user_policy /enforce")
+return
+;======================================================
+:cfgPSWDunlock
+BoxTitle("FTSPERS - %bootnum% - cfgPSWDunlock")
+RegSetDword(@REGMACHINE,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon[ForceUnlockLogon]","1")
+return
+;======================================================
+:OLEfix
+BoxTitle("FTSPERS - %bootnum% - OLEfix")
+RunHideWait("%WinSysDir%expand.exe","c:\core\win2k\packager.ex_ %WinSysDir%packager.exe")
+RunHideWait("%WinSysDir%expand.exe","c:\core\win2k\packager.ch_ %WinDir%help\packager.chm")
+key01=RegCreateKey(@REGCLASSES,"CLSID\{0003000C-0000-0000-C000-000000000046}\")
+RegSetValue(key01,"", "Package")
+RegCloseKey(key01)
+key02=RegCreateKey(@REGCLASSES,"CLSID\{0003000C-0000-0000-C000-000000000046}\Ole1Class\")
+RegSetValue(key02,"", "Package")
+RegCloseKey(key02)
+key03=RegCreateKey(@REGCLASSES,"CLSID\{0003000C-0000-0000-C000-000000000046}\ProgID\")
+RegSetValue(key03,"", "Package")
+RegCloseKey(key03)
+key04=RegCreateKey(@REGCLASSES,"Package\CLSID\")
+RegSetValue(key04,"", "{0003000C-0000-0000-C000-000000000046}")
+RegCloseKey(key04)
+key05=RegCreateKey(@REGCLASSES,"Package\")
+RegSetValue(key05,"", "Package")
+RegCloseKey(key05)
+key06=RegCreateKey(@REGCLASSES,"Package\protocol\StdFileEditing\verb\0\")
+RegSetValue(key06,"", "Activate &Contents")
+RegCloseKey(key06)
+key07=RegCreateKey(@REGCLASSES,"Package\protocol\StdFileEditing\verb\1\")
+RegSetValue(key07,"", "Edit &Package")
+RegCloseKey(key07)
+key08=RegCreateKey(@REGCLASSES,"Package\protocol\StdFileEditing\server\")
+RegSetValue(key08,"", "packager.exe")
+RegCloseKey(key08)
+return
+;======================================================
+:cfgMyDocs
+BoxTitle("FTSPERS - %bootnum% - cfgMyDocs")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\[My Pictures]","C:\My Documents\My Pictures")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\[Personal]","C:\My Documents")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\[My Pictures]","C:\My Documents\My Pictures")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\[Personal]","C:\My Documents")
+RegSetValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\[Personal]","C:\My Documents")
+RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\[My Pictures]","C:\My Documents\My Pictures")
+RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\[Personal]","C:\My Documents")
+RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\[My Pictures]","C:\My Documents\My Pictures")
+RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\[Personal]","C:\My Documents")
+return
+;======================================================
+:cfgPower
+BoxTitle("FTSPERS - %bootnum% - cfgPower")
+Run("rundll32.exe", "shell32.dll,Control_RunDLL powercfg.cpl")
+AddExtender("wwctl34i.dll")
+powerwnd=DllHwnd("Power Options Properties")
+
+cfgpwr= cWndByName(powerwnd,"Power Schemes")
+cbPwrSchm=cWndByid(cfgpwr,1000)
+response=cGetCBText(cbPwrSchm)
+pwschm=ItemLocate("Portable/Laptop", response, @tab)
+cSetCBItem(cbPwrSchm,pwschm)
+
+cbPwr=cWndByid(cfgpwr,1007)
+response=cGetCBText(cbPwr)
+monitor=ItemLocate("Never", response, @tab)
+cSetCBItem(cbPwr,monitor)
+cbPwr=cWndByid(cfgpwr,1008)
+response=cGetCBText(cbPwr)
+monitor=ItemLocate("After 10 mins", response, @tab)
+cSetCBItem(cbPwr,monitor)
+
+cbPwr=cWndByid(cfgpwr,1016)
+response=cGetCBText(cbPwr)
+hd=ItemLocate("Never", response, @tab)
+cSetCBItem(cbPwr,hd)
+cbPwr=cWndByid(cfgpwr,1017)
+response=cGetCBText(cbPwr)
+hd=ItemLocate("After 5 mins", response, @tab)
+cSetCBItem(cbPwr,hd)
+
+cbPwr=cWndByid(cfgpwr,1005)
+response=cGetCBText(cbPwr)
+standby=ItemLocate("Never", response, @tab)
+cSetCBItem(cbPwr,standby)
+cbPwr=cWndByid(cfgpwr,1006)
+response=cGetCBText(cbPwr)
+standby=ItemLocate("After 15 mins", response, @tab)
+cSetCBItem(cbPwr,standby)
+
+cbPwr=cWndByid(cfgpwr,1019)
+response=cGetCBText(cbPwr)
+hiber=ItemLocate("Never", response, @tab)
+cSetCBItem(cbPwr,hiber)
+cbPwr=cWndByid(cfgpwr,1020)
+response=cGetCBText(cbPwr)
+hiber=ItemLocate("Never", response, @tab)
+cSetCBItem(cbPwr,hiber)
+
+systabwnd=cWndByClass(powerwnd,"SysTabControl32")
+cSetTabItem(systabwnd,4) ; Advanced tab
+Achild2=cWndByID(powerwnd,0)
+Achild3=cWndByID(Achild2,1301) ; Combo Box below "When I close the lid of my portable computer:"
+wintext=cGetCBText(Achild3)
+LCO=ItemLocate("Do nothing",wintext,@TAB) ; Find "Do nothing" from dropdown list
+cSetCBItem(Achild3,LCO) ; Select "None" for action when lid is closed
+Achild4=cWndByID(Achild2,1303) ; Combo Box below "When I press the power button on my computer:"
+wintext=cGetCBText(Achild4)
+PBO=ItemLocate("Shut down",wintext,@TAB) ; Find "Shut down" from dropdown list
+cSetCBItem(Achild4,PBO) ; Select "Shut down" for action when power button pushed
+Achild5=cWndByID(Achild2,1311) ; Combo Box below "When I press the sleep button on my computer:"
+wintext=cGetCBText(Achild5)
+SBO=ItemLocate("Stand by",wintext,@TAB) ; Find "Stand by" from dropdown list
+cSetCBItem(Achild5,SBO) ; Select "Stand by" for action when sleep button pushed
+
+cSetTabItem(systabwnd,5)
+hiberwnd=cWndByName(powerwnd,"Hibernate")
+prefchkbox=cWndByname(hiberwnd,"Enable hibernation")
+chk=cCheckbox(prefchkbox,-1)
+If chk!="1"
+	SendKeysTo("~Power Options Properties","!H")
+	Applybutton=cWndByName(powerwnd,"Apply") ; Apply Button
+	cClickButton(Applybutton)
+EndiF
+
+cSetTabItem(systabwnd,2)
+Bchild2=cWndByID(powerwnd,0)
+prefchkbox=cWndByID(Bchild2,1107)
+chk=cCheckbox(prefchkbox,-1)
+If chk!="1"
+	SendKeysTo("~Power Options Properties","!C")
+EndiF
+Bchild3=cWndByID(Bchild2,1100) ; Button "Alarm Action..." in the critical battery alarm section
+cPostButton(Bchild3)
+
+TimeDelay(1)
+CBAAwnd=DllHwnd("Critical Battery Alarm Actions")
+prefchkbox=cWndByID(CBAAwnd,1600)
+chk=cCheckbox(prefchkbox,-1)
+If chk!="1"
+	SendKeysTo("Critical Battery Alarm Actions","!A")
+EndiF
+CBAA=cWndByid(CBAAwnd,1601)
+response=cGetCBText(CBAA)
+setting=ItemLocate("Hibernate", response, @tab)
+cSetCBItem(CBAA,setting)
+prefchkbox=cWndByID(CBAAwnd,1602)
+chk=cCheckbox(prefchkbox,-1)
+If chk!="1"
+	SendKeysTo("Critical Battery Alarm Actions","!F")
+EndiF
+OKbutton=cWndByName(CBAAwnd,"OK") ; OK Button
+cClickButton(OKbutton)
+
+powerwnd=DllHwnd("Power Options Properties")
+Applybutton=cWndByName(powerwnd,"Apply") ; Apply Button
+cClickButton(Applybutton)
+OKbutton=cWndByName(powerwnd,"OK") ; OK Button
+cClickButton(OKbutton)
+return
+;======================================================
+:cfgDefaultPrnt
+BoxTitle("FTSPERS - %bootnum% - cfgDefaultPrnt")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Windows NT\CurrentVersion\Windows\[Device]","HP OfficeJet Series Printer,winspool,LPT1:")
+RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows NT\CurrentVersion\Windows\[Device]","HP OfficeJet Series Printer,winspool,LPT1:")
+return
+;======================================================
+;======================================================
+:askSftID
+BoxTitle("FTSPERS - %bootnum% - askSftID")
+q=AskYesNo("FTS Configuration","Do you wish to configure SoftID?%@CRLF%You must have the appropriate files if you choose YES%@CRLF%")
+return
+;======================================================
+:askSoftID
+BoxTitle("FTSPERS - %bootnum% - askSoftID")
+types="SoftID Files|*.inf"
+softidstring=AskFileName("SoftID File",SoftIDdir,types,"%ISID%.inf",1)
+length=StrLen(softidstring)
+position=StrScan(softidstring,"\",length,@BACKSCAN)
+position=position+1
+softidfile=StrSub(softidstring,position,-1)
+SoftIDdir = DirGet( )
+RegSetValue(machkey,"[Softiddir]", Softiddir)
+RegSetValue(machkey,"[Softidfile]", Softidfile)
+return
+;======================================================
+:askMigrate
+BoxTitle("FTSPERS - %bootnum% - askMigrate")
+migrateDialogFormat=`WWWDLGED,5.0`
+migrateDialogCaption=`FTS Personalization - Migrate?`
+migrateDialogX=100
+migrateDialogY=150
+migrateDialogWidth=124
+migrateDialogHeight=39
+migrateDialogNumControls=3
+
+migrateDialog01=`42,22,36,DEFAULT,PUSHBUTTON,DEFAULT,"OK",1`
+migrateDialog02=`12,6,48,DEFAULT,RADIOBUTTON,xMigrate,"Migrate User",1`
+migrateDialog03=`70,6,38,DEFAULT,RADIOBUTTON,xMigrate,"New User",2`
+
+ButtonPushed=Dialog("migrateDialog")
+
+If xMigrate=="1" Then
+	machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+	RegSetValue(machkey,"[xMigrate]", "yes")
+	gosub WhenMigrate
+Else
+	xMigrate="0"
+	machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+	RegSetValue(machkey,"[xMigrate]", "no")
+	RegSetValue(machkey,"[wMigrate]", "now")
+EndIf
+
+DropWild("migrateDia*")
+return
+;======================================================
+:WhenMigrate
+BoxTitle("FTSPERS - %bootnum% - WhenMigrate")
+whenmigrateFormat=`WWWDLGED,5.0`
+
+whenmigrateCaption=`whenMigrate`
+whenmigrateX=189
+whenmigrateY=167
+whenmigrateWidth=147
+whenmigrateHeight=81
+whenmigrateNumControls=3
+
+whenmigrate01=`36,44,38,DEFAULT,PUSHBUTTON,DEFAULT,"Now",1`
+whenmigrate02=`88,44,38,DEFAULT,PUSHBUTTON,DEFAULT,"Later",2`
+whenmigrate03=`30,22,100,DEFAULT,STATICTEXT,DEFAULT,"When do you wish to migrate user data ?"`
+
+ButtonPushed=Dialog("whenmigrate")
+If ButtonPushed==1
+	machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+	RegSetValue(machkey,"[wMigrate]", "now")
+	RunWait("C:\UTL\migrate\DEST.exe","")
+	If FileExist("C:\data\outlook\migrate.txt")!=@TRUE
+		m=AskYesNo("ERROR","Migration was not successful.%@CRLF%%@CRLF%Do you wish to try again?%@CRLF%%@CRLF%If you choose No you will be prompted on reboot")
+		If m==@YES
+			RunWait("C:\UTL\migrate\DEST.exe","")
+		Else
+			machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+			RegSetValue(machkey,"[wMigrate]", "later")
+		EndIf
+	EndIf
+Else
+	machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+	RegSetValue(machkey,"[wMigrate]", "later")
+EndIf
+DropWild("whenmigrate*")
+return
+;======================================================
+:cfgSoftID
+BoxTitle("FTSPERS - %bootnum% - cfgSoftID")
+IF FileExist("c:\Rescue\SoftIDInst\setup.inf") == @FALSE ; Check to see if SoftID was restored to the HD already
+	FileCopy("%SoftIDdir%%softidfile%","c:\rescue\SoftIDInst",@FALSE)
+	FileAttrSet("c:\rescue\SoftIDInst\%softidfile%","r")
+	FileRename("c:\rescue\SoftIDInst\%softidfile%","c:\rescue\SoftIDInst\setup.inf")
+	TimeDelay(2)
+	IF FileExist("c:\Rescue\SoftIDInst\setup.inf") == @FALSE
+		Pause("ERROR","Unable to locate %fullname%'s SoftID file.%@CRLF%	Select OK to try again.%@CRLF%")
+		gosub askSoftID
+		Goto cfgSoftID
+	ENDIF
+ENDIF
+IF FileExist("c:\SOFTID\SETUSR.inf") != @TRUE
+	gosub checkfornet ; check for network connectivity
+	IF OnNetwork=="yes"
+		Run("cmd", "/c net time \wpccr03 /set /y") ; Set machine time to wpccr03
+	ENDIF
+	IntControl(29, @TAB, 0, 0, 0)
+	Run("%WinSysDir%control.exe", "%WinSysDir%timedate.cpl") ; launch time/date applet
+	Message("Set Time & Time Zone", "Please set the machine time and time zone before continuing%@CRLF%")
+	TimeDelay(2)
+	WHILE WinExist("~Date/Time Properties") == @TRUE
+		TimeDelay(2)
+	ENDWHILE
+
+	RunWait("c:\fts\setsoftid.exe", "lock") ; Configure SoftID using Purnell's "Black-Box"
+	TimeDelay(2)
+	WinClose("~SoftID")
+	TimeDelay(2)
+	FileDelete("c:\docume~1\alluse~1\startm~1\programs\softid\*.*")
+	DirRemove("c:\docume~1\alluse~1\startm~1\programs\softid")
+ELSE
+	Display(5,"SoftID Status","SoftID has already been installed and configured on this machine.%@CRLF%It will not be attempted again.%@CRLF%")
+ENDIF
+DirChange(DirHome())
+return
+;======================================================
+:setLogonHk
+BoxTitle("FTSPERS - %bootnum% - setLogonHk")
+RegSetValue(@REGMACHINE, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run[Afaria]","C:\FTS\Utils\AfariaSessionLauncher.exe /SILENT")
+return
+;======================================================
+:cfgConnectoids
+BoxTitle("FTSPERS - %bootnum% - cfgConnectoids")
+ErrorMode(@off)
+FileDelete("C:\DOCUME~1\ALLUSE~1\APPLIC~1\MICROS~1\NETWORK\CONNEC~1\PBK\RASPHONE.PBK")
+FileDelete("C:\DOCUME~1\ADMINI~1\APPLIC~1\MICROS~1\NETWORK\CONNEC~1\PBK\RASPHONE.PBK")
+FileDelete("C:\DOCUME~1\%ISID%\APPLIC~1\MICROS~1\NETWORK\CONNEC~1\PBK\RASPHONE.PBK")
+FileCopy("%zworkdir%rasphone.pbk","C:\DOCUME~1\ALLUSE~1\APPLIC~1\MICROS~1\NETWORK\CONNEC~1\PBK",@FALSE)
+ErrorMode(@cancel)
+return
+;======================================================
+:cfgInsightDB
+BoxTitle("FTSPERS - %bootnum% - cfgInsightDB")
+AddExtender("wwsop34i.DLL")
+If role=="PR"
+	qPR = AskYesNo("Question","Do you wish to download the Insight training database?%@CRLF%%@CRLF%On a slow link this could take over 100 minutes.")
+	If qPR==@NO Then return
+EndIf
+If OnNetwork=="yes" 
+	RunWait("%WinSysDir%net.exe","use I: \\Wpushh78\InsightOps\Training_Databases\Models /persistent:no")
+	If role!="MVD"
+		aFileCopy("I:\OBR\OBR.mdb","c:\data\insight\insight.mdb",128)
+		FC=FileCompare("I:\OBR\OBR.mdb","c:\data\insight\insight.mdb")
+	Else
+		aFileCopy("I:\MVD\MVD.mdb","c:\data\insight\insight.mdb",128)
+		FC=FileCompare("I:\MVD\MVD.mdb","c:\data\insight\insight.mdb")
+	EndIf
+	Run("%WinSysDir%net.exe","use I: /delete")
+Else
+	gosub askInsightDB
+	aFileCopy("%InsightDBdir%insight.mdb","c:\data\insight\insight.mdb",128)
+	FC=FileCompare("%InsightDBdir%insight.mdb","c:\data\insight\insight.mdb")
+EndIf
+If FC!="0"
+	QI=AskYesNo("Insight Db result","Insight training database did not update properly%@CRLF%%@CRLF%Do you wish to try again?")
+	If QI==@YES Then GOTO cfgInsightDB
+Endif
+return
+;======================================================
+:askInsightDB
+BoxTitle("FTSPERS - %bootnum% - askInsightDB")
+types="Insight Training DB|*.mdb"
+insightdbstring=AskFileName("Insight Training DB",InsightDBdir,types,"*.mdb",1)
+length=StrLen(insightdbstring)
+position=StrScan(insightdbstring,"\",length,@BACKSCAN)
+position=position+1
+InsightDBfile=StrSub(insightdbstring,position,-1)
+InsightDBdir = DirGet( )
+return
+;======================================================
+:cfgMC
+BoxTitle("FTSPERS - %bootnum% - cfgMC")
+IniWritePvt("Network", "DomainID","%ISid%","%WinDir%Connect.ini")
+IniWritePvt("Network", "UserID","%ISid%","%WinDir%Connect.ini")
+IniWritePvt("Network", "MailProfile","FTS Settings","%WinDir%Connect.ini")
+IniWritePvt("Settings", "DataSession","Afaria","%WinDir%Connect.ini")
+IniWritePvt("Netscape", "BrowserCmd","http://my.merck.com/","%WinDir%Connect.ini")
+;if Role Type is a Trainer set additional parameters
+If role=="HQ" Then gosub setMCHQ
+return
+:setMCHQ
+IniWritePvt("Dial", "RASPhoneNumber","877 866-3725","%WinDir%Connect.ini")
+IniWritePvt("Dial", "RepType","NonField","%WinDir%Connect.ini")
+IniWritePvt("Numbers", "Number1","877 866-3725","%WinDir%Connect.ini")
+IniWritePvt("Numbers", "Number2","215 616-0200","%WinDir%Connect.ini")
+IniWritePvt("Numbers", "Number3","908 423-0200","%WinDir%Connect.ini")
+IniWritePvt("Numbers", "Number4","732 340-0200","%WinDir%Connect.ini")
+IniWritePvt("Session", "UpdateData","False","%WinDir%Connect.ini")
+IniWritePvt("Session", "Email","False","%WinDir%Connect.ini")
+IniWritePvt("Session", "Network","True","%WinDir%Connect.ini")
+DirChange(DirHome())
+return
+;======================================================
+:cfgMSIE
+BoxTitle("FTSPERS - %bootnum% - cfgMSIE")
+If role=="HQ"
+	RunWait("regedit","/s %zworkdir%HQIECon.reg")
+	RegSetValue(@REGCURRENT,"Software\Microsoft\Internet Explorer\Main\[Start Page]","http://my.merck.com")
+	RegSetValue(@REGMACHINE,"SOFTWARE\Microsoft\Internet Explorer\Main\[Start Page]","http://my.merck.com")
+Else
+	RegSetDword(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Internet Settings\[ProxyHttp1.1]","0")
+	RegSetValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Internet Settings\[AutoConfigURL]","http://fsnet.merck.com/ap/fsnet.ins")
+	RegSetValue(@REGCURRENT,"Software\Microsoft\Internet Explorer\Main\[Start Page]","http://www.merck.com")
+	RegSetValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\[AutoConfigURL]","http://fsnet.merck.com/ap/fsnet.ins")
+	RegSetValue(@REGMACHINE,"SOFTWARE\Microsoft\Internet Explorer\Main\[Start Page]","http://www.merck.com")
+	RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Internet Settings\[AutoConfigURL]","http://fsnet.merck.com/ap/fsnet.ins")
+	RunWait("regedit","/s %zworkdir%IECon.reg")
+	RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Connwiz Admin Lock]","1")
+	RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Autoconfig]","1")
+	RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Connection Settings]","1")
+	RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Proxy]","1")
+EndIf
+Run("C:\Program Files\Internet Explorer\IEXPLORE.EXE","")
+WinWaitExist("Security Warning",10)
+If WinExist("Security Warning") Then SendKeysTo("Security Warning","!y")
+WinWaitExist("~Microsoft Internet Explorer",-1)
+TimeDelay(5)
+WinClose("~Microsoft Internet Explorer")
+return
+;======================================================
+:cfgNAV
+BoxTitle("FTSPERS - %bootnum% - cfgNAV")
+;Lock down client and set unmanaged
+targ = "C:\DOCUME~1\ALLUSE~1\APPLIC~1\SYMANTEC\NORTON~1\7.5"
+src = "%zworkdir%GRC.DAT"
+flags = 1024
+gosub shellcopy
+targ = "C:\PROGRA~1\SYMANTEC\LIVEUP~1"
+src = "%zworkdir%liveupdt.hst"
+flags = 1024
+gosub shellcopy
+RunWait("C:\PROGRA~1\NAVNT\VPDN_LU.EXE","/S")
+DirChange(DirHome())
+return
+;======================================================
+:cfgOffice ; redirect the default saveto folders
+BoxTitle("FTSPERS - %bootnum% - cfgOffice")
+ErrorMode(@off)
+FileCopy("%zworkdir%Forms97.dot", "c:\progra~1\microsoft office\office\startup",@FALSE)
+If !direxist("C:\My Documents\Excel") Then DirMake("C:\My Documents\Excel")
+If !direxist("C:\My Documents\PowerPnt") Then DirMake("C:\My Documents\PowerPnt")
+If !direxist("C:\My Documents\WinWord") Then DirMake("C:\My Documents\WinWord")
+MyDocs ="C:\My Documents"
+officekey =RegOpenKey(@REGMACHINE,"Software\Microsoft\Office\8.0\New User Settings\Excel\Microsoft Excel")
+RegSetValue(officekey,"[DefaultPath]", "%MyDocs%\Excel")
+officekey =RegOpenKey(@REGMACHINE,"Software\Microsoft\Office\8.0\New User Settings\PowerPoint\Recent Folder List\Default")
+RegSetValue(officekey,"", "%MyDocs%\PowerPnt")
+officekey =RegOpenKey(@REGMACHINE,"Software\Microsoft\Office\8.0\New User Settings\Word\Options")
+RegSetValue(officekey,"[DOC-PATH]", "%MyDocs%\WinWord")
+RegSetValue(officekey,"[AUTOSAVE-PATH]", "%MyDocs%\WinWord")
+officekey =RegOpenKey(@REGCURRENT,"Software\Microsoft\Office\8.0\Excel\Microsoft Excel")
+RegSetValue(officekey,"[DefaultPath]", "%MyDocs%\Excel")
+officekey =RegOpenKey(@REGCURRENT,"Software\Microsoft\Office\8.0\PowerPoint\Recent Folder List\Default")
+RegSetValue(officekey,"", "%MyDocs%\PowerPnt")
+officekey =RegOpenKey(@REGCURRENT,"Software\Microsoft\Office\8.0\Word\Options")
+RegSetValue(officekey,"[DOC-PATH]", "%MyDocs%\WinWord")
+RegSetValue(officekey,"[AUTOSAVE-PATH]", "%MyDocs%\WinWord")
+RunWait("regedit","/S %zworkdir%Toolbar.reg")
+RegDeleteKey(@REGMACHINE,"SOFTWARE\Microsoft\Office\8.0\Common\FileNew\NFT\General\Blank Database")
+RegDelValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\Discardable\PostSetup\ShellNew\[Microsoft Access Database]")
+DirChange(DirHome())
+ErrorMode(@cancel)
+return
+;======================================================
+:Officefix
+BoxTitle("FTSPERS - %bootnum% - Officefix")
+aFileCopy("C:\Program Files\Microsoft Office\Office\WINWORD8.DOC","C:\Documents and Settings\All Users\Templates",1024)
+aFileCopy("C:\Program Files\Microsoft Office\Office\EXCEL8.XLS","C:\Documents and Settings\All Users\Templates",1024)
+return
+;======================================================
+:cfgOracle
+BoxTitle("FTSPERS - %bootnum% - cfgOracle")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[Buffersize]","65535")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[Description]","")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[Driver]","@SYSTEM\msorcl32.dll")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[DSN]","MerlinHQ-A99")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[GuessTheColDef]","0")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[PWD]","")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[Remarks]","0")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[SERVER]","P5721")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[StdDayOfWeek]","1")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[StripTrailingZero]","0")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[SynonymColumns]","1")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinHQ-A99\[UID]","")
+
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[Buffersize]","65535")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[Description]","")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[Driver]","@SYSTEM\msorcl32.dll")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[DSN]","MerlinMD-A99")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[GuessTheColDef]","0")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[PWD]","")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[Remarks]","0")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[SERVER]","P5744a99")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[StdDayOfWeek]","1")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[StripTrailingZero]","0")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[SynonymColumns]","1")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\MerlinMD-A99\[UID]","")
+
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\ODBC Data Sources\[MerlinHQ-A99]","Microsoft ODBC for Oracle")
+RegSetValue(@REGMACHINE,"SOFTWARE\ODBC\ODBC.INI\ODBC Data Sources\[MerlinMD-A99]","Microsoft ODBC for Oracle")
+
+filehandle = FileOpen("%WinDir%ODBCTEMP.INI","WRITE")
+FileWrite(filehandle,"[MerlinHQ-A99]")
+FileWrite(filehandle,"[MerlinMD-A99]")
+FileClose(filehandle)
+FileAppend("%WinDir%ODBCTEMP.INI","%WinDir%ODBC.INI")
+IniWritePvt("ODBC 32 bit Data Sources", "MerlinHQ-A99","Microsoft ODBC for Oracle (32 bit)","%WinDir%ODBC.INI")
+IniWritePvt("ODBC 32 bit Data Sources", "MerlinMD-A99","Microsoft ODBC for Oracle (32 bit)","%WinDir%ODBC.INI")
+IniWritePvt("MerlinHQ-A99", "Driver32","%WinSysDir%msorcl32.dll","%WinDir%ODBC.INI")
+IniWritePvt("MerlinMD-A99", "Driver32","%WinSysDir%msorcl32.dll","%WinDir%ODBC.INI")
+FileDelete("%WinDir%ODBCTEMP.INI")
+return
+;======================================================
+:cfgRealPlayer
+BoxTitle("FTSPERS - %bootnum% - cfgRealPlayer")
+RegsetValue(@REGCLASSES,"Software\RealNetworks\RealMediaSDK\6.0\Preferences\PNAProxySupport\[]","0")
+RegsetValue(@REGCLASSES,"Software\RealNetworks\RealMediaSDK\6.0\Preferences\RTSPProxySupport\[]","0")
+return
+;======================================================
+:cfgSmrtFrcPlyr
+BoxTitle("FTSPERS - %bootnum% - cfgSmrtFrcPlyr")
+IniWritePvt("DOAP","Proxy Address","","C:\cbtlib\cbtplay\DOAP.INI")
+return
+;======================================================
+:cfgUUNet
+BoxTitle("FTSPERS - %bootnum% - cfgUUNet")
+gosub getvar
+RunWait ("%zworkdir%cfgUUNet.vbs", "")
+IniWritePvt("UUNET", "PreferredPort",CommPort,"C:\DOCUME~1\ALLUSE~1\APPLIC~1\MICROS~1\NETWORK\CONNEC~1\PBK\RASPHONE.PBK")
+IniWritePvt("UUNET", "PreferredDevice",ModemType,"C:\DOCUME~1\ALLUSE~1\APPLIC~1\MICROS~1\NETWORK\CONNEC~1\PBK\RASPHONE.PBK")
+DirChange(DirHome())
+return
+;======================================================
+:cfgOutlook
+;debug(@on)
+gosub cfgMxOST
+gosub dwnldOAB
+gosub F9sync
+gosub cfgOptions
+gosub cfgOffline
+gosub tstOstPstCktl
+return
+;======================================================
+;======================================================
+:cfgMxOST
+BoxTitle("FTSPERS - %bootnum% - cfgMxOST")
+AddExtender("wwctl34i.dll")
+
+;Launch Program
+Run("C:\Program Files\Common Files\System\Mapi\1033\MLCFG32.CPL","")
+
+;Title: Mail
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+WinWaitExist("Mail", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: A&dd...
+;ID: 752
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`Microsoft Outlook Profiles~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,752)
+; or ControlHandle=cWndByName(window2,`Add...~`)
+; or ControlHandle=cWndBySeq(window2,4)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: New Profile
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",6,65535,65535,65535,901,1,2)
+WinWaitExist("New Profile", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+;Title: <untitled>
+;ID: 901
+;Class: RichEdit20W
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,65535,65535,65535,901,1,2)
+ControlHandle=cWndByID(window1,901)
+cSetWndText(Controlhandle,`FTS Settings`)     ; Changes the title/text of a control
+
+
+;Title: OK
+;ID: 1
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,65535,65535,65535,901,1,2)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: E-mail Accounts
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+WinWaitExist("E-mail Accounts", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: Add a new &e-mail account
+;ID: 420
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`E-mail Accounts~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,420)
+; or ControlHandle=cWndByName(window2,`Add a new e-mail account~`)
+; or ControlHandle=cWndBySeq(window2,6)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &Microsoft Exchange Server
+;ID: 440
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",10,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,440)
+; or ControlHandle=cWndByName(window2,`Microsoft Exchange Server~`)
+; or ControlHandle=cWndBySeq(window2,10)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",10,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,6)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+TimeDelay(3)
+
+;Title: <untitled>
+;ID: 400
+;Class: RichEdit20W
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,400)
+cSetWndText(Controlhandle,`USWPMX09`)     ; Changes the title/text of a control
+
+
+;Title: <untitled>
+;ID: 355
+;Class: RichEdit20W
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,355)
+cSetWndText(Controlhandle,`%ISid%`)     ; Changes the title/text of a control
+
+
+;Title: Chec&k Name
+;ID: 411
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,411)
+; or ControlHandle=cWndByName(window2,`Check Name~`)
+; or ControlHandle=cWndBySeq(window2,11)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+:CheckStatus
+;Title: Chec&k Name
+;ID: 411
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,411)
+; or ControlHandle=cWndByName(window2,`Check Name~`)
+; or ControlHandle=cWndBySeq(window2,11)
+result=cEnableState(ControlHandle,-1)
+If result == "1"
+	TimeDelay(2)
+	GoTo CheckStatus
+EndIf
+
+
+;Title: &More Settings ...
+;ID: 354
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,354)
+; or ControlHandle=cWndByName(window2,`More Settings ...~`)
+; or ControlHandle=cWndBySeq(window2,12)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Microsoft Exchange Server
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+WinWaitExist("Microsoft Exchange Server", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: <untitled>
+;ID: 12320
+;Class: SysTabControl32
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,12320)
+; or ControlHandle=cWndByClass(window1,`SysTabControl32`)
+; or ControlHandle=cWndBySeq(window1,6)
+result=cSetTABItem(ControlHandle,2)     ;Sets a Tabbed dialog item
+
+
+;Title: Offline &Folder File Settings...
+;ID: 753
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",7,0,1,2,12321,9,12320,0)
+window2=cWndByName(window1,`Advanced~`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,753)
+; or ControlHandle=cWndByName(window2,`Offline Folder File Settings...~`)
+; or ControlHandle=cWndBySeq(window2,12)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Offline Folder File Settings
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",13,2625,2627,2626,2617,2620,2621,2622,2604,102,2629,103,1,2)
+WinWaitExist("Offline Folder File Settings", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: <untitled>
+;ID: 2627
+;Class: Edit
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,2625,2627,2626,2617,2620,2621,2622,2604,102,2629,103,1,2)
+ControlHandle=cWndByID(window1,2627)
+cSetEditText(ControlHandle,`C:\Documents and Settings\%ISid%\Local Settings\Application Data\Microsoft\Outlook\outlook.ost`)
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,2625,2627,2626,2617,2620,2621,2622,2604,102,2629,103,1,2)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,12)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Microsoft Outlook Offline Folders
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",4,6,7,20,65535)
+WinWaitExist("Microsoft Outlook Offline Folders", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+If WinExist("Microsoft Outlook Offline Folders") == @TRUE
+SendKeysTo("Microsoft Outlook Offline Folders","Y")
+EndIf
+
+
+;Title: &Yes
+;ID: 6
+;Class: Button1
+;Level: 2
+;window1=cWndByWndSpec("#32770","rundll32",4,6,7,20,65535)
+;ControlHandle=cWndByID(window1,6)
+; or ControlHandle=cWndByName(window1,`Yes~`)
+; or ControlHandle=cWndBySeq(window1,1)
+;cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: <untitled>
+;ID: 12320
+;Class: SysTabControl32
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",7,0,1,2,12321,9,12320,0)
+ControlHandle=cWndByID(window1,12320)
+; or ControlHandle=cWndByClass(window1,`SysTabControl32`)
+; or ControlHandle=cWndBySeq(window1,6)
+result=cSetTABItem(ControlHandle,3)     ;Sets a Tabbed dialog item
+
+
+;Title: Connect using my &Local Area Network (LAN)
+;ID: 10716
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",8,0,1,2,12321,9,12320,0,0)
+window2=cWndByName(window1,`Connection~`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,10716)
+; or ControlHandle=cWndByName(window2,`Connect using my Local Area Network (LAN)~`)
+; or ControlHandle=cWndBySeq(window2,4)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Apply
+;ID: 12321
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",8,0,1,2,12321,9,12320,0,0)
+ControlHandle=cWndByID(window1,12321)
+; or ControlHandle=cWndByName(window1,`Apply~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",8,0,1,2,12321,9,12320,0,0)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,2)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: E-mail Accounts
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+cSetFocus(ControlHandle)  ; Activates Window
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,7)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+TimeDelay(5)
+
+;Title: Finish
+;ID: 12325
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",12,0,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12325)
+; or ControlHandle=cWndByName(window1,`Finish~`)
+; or ControlHandle=cWndBySeq(window1,9)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Mail
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+cSetFocus(ControlHandle)  ; Activates Window
+
+
+;Title: &Apply
+;ID: 12321
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,12321)
+; or ControlHandle=cWndByName(window1,`Apply~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,2)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+Display(5,"Status","Outlook configured for OST use.")
+return
+;======================================================
+;======================================================
+:dwnldOAB
+BoxTitle("FTSPERS - %bootnum% - dwnldOAB")
+;RoboScripter
+; Made with 
+;   RoboScripter ver: 28
+;   CtlMgr ver: 20026
+AddExtender("wwctl34i.dll")
+
+;Launch Program
+;pause("NOTICE","Please launch MS Word, set the username and intials, and then close MS Word before proceeding")
+;pause("NOTICE","No smart@#* comments, I will remove this step in the next build")
+Run("C:\Program Files\Microsoft Office\Office10\OUTLOOK.EXE","")
+
+;Title: Microsoft® Outlook®
+;ID: 0
+;Class: MsoSplash
+;Level: 1
+ControlHandle=cWndByWndSpec("MsoSplash","OUTLOOK",0)
+WinWaitExist("Microsoft® Outlook®", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: Microsoft® Outlook®
+;ID: 0
+;Class: MsoSplash
+;Level: 1
+ControlHandle=cWndByWndSpec("MsoSplash","OUTLOOK",0)
+WinWaitClose("Microsoft® Outlook®")     ;Wait for window to close  ;TODO - Check title 
+
+
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+WinWaitExist("Inbox - Microsoft Outlook", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+:WaitForApp1
+;Title: Menu Bar
+;ID: 0
+;Class: MsoCommandBar
+;Level: 3
+window1=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+window2=cWndByName(window1,`MsoDockTop~`)
+; or window2=cWndBySeq(window1,3)
+ControlHandle=cWndByName(window2,`Menu Bar~`)
+; or ControlHandle=cWndBySeq(window2,2)
+result=cWndState(ControlHandle)
+If result=="-1"
+	TimeDelay(2)
+	Goto WaitForApp1
+EndIf
+
+:SendKeys1
+;Title: Menu Bar
+;ID: 0
+;Class: MsoCommandBar
+;Level: 3
+;window1=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+;window2=cWndByName(window1,`MsoDockTop~`)
+; or window2=cWndBySeq(window1,3)
+;ControlHandle=cWndByName(window2,`Menu Bar~`)
+; or ControlHandle=cWndBySeq(window2,2)
+;cSetFocus(ControlHandle)  ; Activates Window
+;TimeDelay(1)
+WinActivate("~Inbox - Microsoft Outlook")
+SendKeysTo("~Inbox - Microsoft Outlook","!TEB")
+
+;Title: Offline Address Book
+;ID: 0
+;Class: #32770
+;Level: 1
+;ControlHandle=cWndByWndSpec("#32770","OUTLOOK",11,1,2,4512,4224,4514,4160,4161,4515,4513,4480,4873)
+WinWaitExist("Offline Address Book", 5 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+time = 1
+While WinExist("Offline Address Book") != @True
+	If time == 10 Then Goto SendKeys1
+	time = time +1
+EndWhile
+
+;Title: Download &changes since last Send/Receive
+;ID: 4224
+;Class: Button3
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",11,1,2,4512,4224,4514,4160,4161,4515,4513,4480,4873)
+ControlHandle=cWndByID(window1,4224)
+; or ControlHandle=cWndByName(window1,`Download changes since last Send/Receive~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cCheckBox(ControlHandle,1)      ;Checks a checkbox
+
+
+;Title: &No Details.  This choice takes less time to download the offline address book.  However address details are not provided and you cannot send encrypted messages with Remote Mail.
+;ID: 4161
+;Class: Button9
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",11,1,2,4512,4224,4514,4160,4161,4515,4513,4480,4873)
+ControlHandle=cWndByID(window1,4161)
+; or ControlHandle=cWndByName(window1,`No Details.  This choice takes less time to download the offline address book.  However address details are not provided and you cannot send encrypted messages with Remote Mail.~`)
+; or ControlHandle=cWndBySeq(window1,7)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: OK
+;ID: 1
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",11,1,2,4512,4224,4514,4160,4161,4515,4513,4480,4873)
+;ControlHandle=cWndByID(window1,1)
+ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,1)
+cSetFocus(ControlHandle)  ; Activates Window
+
+
+;Title: OK
+;ID: 1
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",11,1,2,4512,4224,4514,4160,4161,4515,4513,4480,4873)
+;ControlHandle=cWndByID(window1,1)
+ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,1)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+If WinExist("Offline Address Book")==@TRUE Then cPostButton(ControlHandle)
+
+
+;Title: Outlook Send/Receive Progress
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","OUTLOOK",13,4101,11,4355,4353,4224,4512,4640,4354,4641,4103,4102,4648,4352)
+WinWaitExist("Outlook Send/Receive Progress", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+:ProgressCheck1
+;Title: Outlook Send/Receive Progress
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","OUTLOOK",13,4101,11,4355,4353,4224,4512,4640,4354,4641,4103,4102,4648,4352)
+result=cWndState(ControlHandle)
+If result != "-1"
+	TimeDelay(2)
+	GoTo ProgressCheck1
+EndIf
+
+
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+winid=cWinidConvert(ControlHandle)
+WinClose(winid)     ;Close top level window
+
+Display(5,"Status","OAB's downloaded.")
+return
+;======================================================
+;======================================================
+:F9sync
+BoxTitle("FTSPERS - %bootnum% - F9sync")
+;RoboScripter
+; Made with 
+;   RoboScripter ver: 28
+;   CtlMgr ver: 20026
+AddExtender("wwctl34i.dll")
+
+;Launch Program
+Run("C:\Program Files\Microsoft Office\Office10\OUTLOOK.EXE","")
+
+;Title: Microsoft® Outlook®
+;ID: 0
+;Class: MsoSplash
+;Level: 1
+ControlHandle=cWndByWndSpec("MsoSplash","OUTLOOK",0)
+WinWaitExist("Microsoft® Outlook®", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: Microsoft® Outlook®
+;ID: 0
+;Class: MsoSplash
+;Level: 1
+ControlHandle=cWndByWndSpec("MsoSplash","OUTLOOK",0)
+WinWaitClose("Microsoft® Outlook®")     ;Wait for window to close  ;TODO - Check title 
+
+
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+WinWaitExist("Inbox - Microsoft Outlook", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+:SendF9forSync
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+cSetFocus(ControlHandle)  ; Activates Window
+TimeDelay(1)
+SendKey(`{F9}`)     ;Sends Keystrokes
+
+;Title: <untitled>
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 3
+window1=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+window2=cWndByID(window1,101)
+; or window2=cWndByClass(window1,`msctls_statusbar32`)
+; or window2=cWndBySeq(window1,5)
+ControlHandle=cWndByID(window2,0)
+; or ControlHandle=cWndByClass(window2,`rctrl_renwnd32`)
+; or ControlHandle=cWndBySeq(window2,1)
+result=cWndState(ControlHandle)
+If result=="-1"
+	TimeDelay(2)
+	Goto SendF9forSync
+EndIf
+
+
+:ProgressCheck2
+;Title: Outlook Send/Receive Progress
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","OUTLOOK",13,4101,11,4355,4353,4224,4512,4640,4354,4641,4103,4102,4648,4352)
+result=cWndState(ControlHandle)
+If result != "-1"
+	TimeDelay(2)
+	GoTo ProgressCheck2
+EndIf
+
+
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+winid=cWinidConvert(ControlHandle)
+WinClose(winid)     ;Close top level window
+
+Display(5,"Status","OST Synchronized")
+return
+;======================================================
+;======================================================
+:cfgOptions
+BoxTitle("FTSPERS - %bootnum% - cfgOptions")
+AddExtender("wwctl34i.dll")
+
+;Launch Program
+Run("C:\Program Files\Microsoft Office\Office10\OUTLOOK.EXE","")
+
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+WinWaitExist("Inbox - Microsoft Outlook", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+:WaitForApp2
+;Title: Menu Bar
+;ID: 0
+;Class: MsoCommandBar
+;Level: 3
+window1=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+window2=cWndByName(window1,`MsoDockTop~`)
+; or window2=cWndBySeq(window1,3)
+ControlHandle=cWndByName(window2,`Menu Bar~`)
+; or ControlHandle=cWndBySeq(window2,2)
+result=cWndState(ControlHandle)
+If result=="-1"
+	TimeDelay(2)
+	Goto WaitForApp2
+EndIf
+TimeDelay(5)
+
+:SendKeys2
+;Title: Menu Bar
+;ID: 0
+;Class: MsoCommandBar
+;Level: 3
+;window1=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+;window2=cWndByName(window1,`MsoDockTop~`)
+; or window2=cWndBySeq(window1,3)
+;ControlHandle=cWndByName(window2,`Menu Bar~`)
+; or ControlHandle=cWndBySeq(window2,2)
+;cSetFocus(ControlHandle)  ; Activates Window
+;TimeDelay(1)
+WinActivate("~Inbox - Microsoft Outlook")
+SendKeysTo("~Inbox - Microsoft Outlook","!TO")
+
+;Title: Options
+;ID: 0
+;Class: #32770
+;Level: 1
+;ControlHandle=cWndByWndSpec("#32770","OUTLOOK",6,0,1,2,12321,9,12320)
+WinWaitExist("Options", 5 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+time = 1
+While WinExist("Options") != @True
+	If time == 10 Then Goto SendKeys2
+	time = time +1
+EndWhile
+
+;Title: <untitled>
+;ID: 12320
+;Class: SysTabControl32
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,12320)
+; or ControlHandle=cWndByClass(window1,`SysTabControl32`)
+; or ControlHandle=cWndBySeq(window1,6)
+result=cSetTABItem(ControlHandle,6)     ;Sets a Tabbed dialog item
+
+
+;Title: &Empty the Deleted Items folder upon exiting
+;ID: 4224
+;Class: Button3
+;Level: 3
+window1=cWndByWndSpec("#32770","OUTLOOK",7,0,1,2,12321,9,12320,0)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,4224)
+; or ControlHandle=cWndByName(window2,`Empty the Deleted Items folder upon exiting~`)
+; or ControlHandle=cWndBySeq(window2,4)
+cCheckBox(ControlHandle,1)      ;Checks a checkbox
+
+
+;Title: Advanced &Options...
+;ID: 4356
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","OUTLOOK",7,0,1,2,12321,9,12320,0)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,4356)
+; or ControlHandle=cWndByName(window2,`Advanced Options...~`)
+; or ControlHandle=cWndBySeq(window2,6)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Advanced Options
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","OUTLOOK",13,4512,4513,4480,4224,4225,4226,4228,4229,4514,4515,4352,4098,4227)
+WinWaitExist("Advanced Options", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: Warn &before permanently deleting items
+;ID: 4224
+;Class: Button3
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",13,4512,4513,4480,4224,4225,4226,4228,4229,4514,4515,4352,4098,4227)
+ControlHandle=cWndByID(window1,4224)
+; or ControlHandle=cWndByName(window1,`Warn before permanently deleting items~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cCheckBox(ControlHandle,0)      ;Clears a checkbox
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",13,4512,4513,4480,4224,4225,4226,4228,4229,4514,4515,4352,4098,4227)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,22)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &Apply
+;ID: 12321
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",7,0,1,2,12321,9,12320,0)
+ControlHandle=cWndByID(window1,12321)
+; or ControlHandle=cWndByName(window1,`Apply~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","OUTLOOK",7,0,1,2,12321,9,12320,0)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,2)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Inbox - Microsoft Outlook
+;ID: 0
+;Class: rctrl_renwnd32
+;Level: 1
+ControlHandle=cWndByWndSpec("rctrl_renwnd32","OUTLOOK",9,0,0,0,0,101,106,103,104,0)
+winid=cWinidConvert(ControlHandle)
+WinClose(winid)     ;Close top level window
+
+
+Display(5,"Status","Options configured.")
+return
+;======================================================
+;======================================================
+:cfgOffline
+BoxTitle("FTSPERS - %bootnum% - cfgOffline")
+AddExtender("wwctl34i.dll")
+
+;Launch Program
+Run("C:\Program Files\Common Files\System\Mapi\1033\MLCFG32.CPL","")
+
+;Title: Mail Setup - FTS Settings
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+WinWaitExist("Mail Setup - FTS Settings", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: &E-mail Accounts...
+;ID: 1108
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+ControlHandle=cWndByID(window1,1108)
+; or ControlHandle=cWndByName(window1,`E-mail Accounts...~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &E-mail Accounts...
+;ID: 1108
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+ControlHandle=cWndByID(window1,1108)
+; or ControlHandle=cWndByName(window1,`E-mail Accounts...~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: E-mail Accounts
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+WinWaitExist("E-mail Accounts", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: &View or change existing e-mail accounts
+;ID: 421
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`E-mail Accounts~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,421)
+; or ControlHandle=cWndByName(window2,`View or change existing e-mail accounts~`)
+; or ControlHandle=cWndBySeq(window2,7)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: List2
+;ID: 204
+;Class: SysListView32
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",10,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,204)
+; or ControlHandle=cWndByName(window2,`List2~`)
+; or ControlHandle=cWndByClass(window2,`SysListView32`)
+; or ControlHandle=cWndBySeq(window2,6)
+cSetLVitem(ControlHandle,1)     ;Set a SysListView32 item
+
+
+;Title: &Change...
+;ID: 424
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",10,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,424)
+; or ControlHandle=cWndByName(window2,`Change...~`)
+; or ControlHandle=cWndBySeq(window2,7)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &More Settings ...
+;ID: 354
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,354)
+; or ControlHandle=cWndByName(window2,`More Settings ...~`)
+; or ControlHandle=cWndBySeq(window2,12)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Microsoft Exchange Server
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+WinWaitExist("Microsoft Exchange Server", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: &Manually control connection state
+;ID: 628
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`General~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,628)
+; or ControlHandle=cWndByName(window2,`Manually control connection state~`)
+; or ControlHandle=cWndBySeq(window2,12)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: Work &offline and use dial-up networking
+;ID: 626
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`General~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,626)
+; or ControlHandle=cWndByName(window2,`Work offline and use dial-up networking~`)
+; or ControlHandle=cWndBySeq(window2,16)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Apply
+;ID: 12321
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,12321)
+; or ControlHandle=cWndByName(window1,`Apply~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,2)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,7)
+cClickButton(ControlHandle)      ;Alternate to cClickButton
+;TimeDelay(5)
+
+;Title: Finish
+;ID: 12325
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12325)
+; or ControlHandle=cWndByName(window1,`Finish~`)
+; or ControlHandle=cWndBySeq(window1,8)
+;result=cWndState(ControlHandle)
+;Message("Window State",result)     ;TODO - Remove Message.  Add code
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+;TimeDelay(5)
+
+;Title: &Close
+;ID: 1111
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+ControlHandle=cWndByID(window1,1111)
+; or ControlHandle=cWndByName(window1,`Close~`)
+; or ControlHandle=cWndBySeq(window1,17)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+Display(5,"Status","Outlook configured for Offline use.")
+return
+;======================================================
+;======================================================
+:tstOstPstCktl
+BoxTitle("FTSPERS - %bootnum% - tstOstPstCktl")
+rtn="0"
+attempt="0"
+;aFileCopy("%zworkdir%*.msg","C:\UTL",1024)
+gosub check_forms_cache
+While rtn==0
+
+PAUSE("ERROR","Security forms were not applied")
+
+	attempt=attempt + 1
+	gosub cfgMXonline
+	gosub F9sync
+	gosub cfgOffline
+	gosub check_forms_cache
+	If rtn==0
+		Display(5,"Failure !!","Security Forms Test Failed %attempt% times")
+	EndIf
+	If attempt==3 && rtn==0
+		fq = AskYesNo("Failure !!","Security Forms test Failed %attempt% times.%CRLF%%CRLF%Do you wish to try 3 more times?")
+		If fq==@YES
+			attempt="0"
+		Else
+			rtn="1"
+			machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+			RegSetValue(machkey,"[Outlook Forms Test]", "Failed")
+			RegSetValue(machkey,"[Forms Test time stamp]", TimeDate ( ))
+			RegCloseKey(machkey)
+		EndIf
+	EndIf
+EndWhile
+Display(5,"Status","Outlook forms tested successfully.")
+return
+;======================================================
+;======================================================
+:cfgMXonline
+BoxTitle("FTSPERS - %bootnum% - cfgMXonline")
+;RoboScripter
+; Made with 
+;   RoboScripter ver: 28
+;   CtlMgr ver: 20026
+AddExtender("wwctl34i.dll")
+
+;Launch Program
+Run("C:\Program Files\Common Files\System\Mapi\1033\MLCFG32.CPL","")
+
+;Title: Mail Setup - FTS Settings
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+WinWaitExist("Mail Setup - FTS Settings", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: &E-mail Accounts...
+;ID: 1108
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+ControlHandle=cWndByID(window1,1108)
+; or ControlHandle=cWndByName(window1,`E-mail Accounts...~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: E-mail Accounts
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+WinWaitExist("E-mail Accounts", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: &View or change existing e-mail accounts
+;ID: 421
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`E-mail Accounts~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,421)
+; or ControlHandle=cWndByName(window2,`View or change existing e-mail accounts~`)
+; or ControlHandle=cWndBySeq(window2,7)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",9,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,5)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: List2
+;ID: 204
+;Class: SysListView32
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",10,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,204)
+; or ControlHandle=cWndByName(window2,`List2~`)
+; or ControlHandle=cWndByClass(window2,`SysListView32`)
+; or ControlHandle=cWndBySeq(window2,6)
+cSetLVitem(ControlHandle,1)     ;Set a SysListView32 item
+
+
+;Title: &Change...
+;ID: 424
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",10,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,424)
+; or ControlHandle=cWndByName(window2,`Change...~`)
+; or ControlHandle=cWndBySeq(window2,7)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &More Settings ...
+;ID: 354
+;Class: Button0
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,354)
+; or ControlHandle=cWndByName(window2,`More Settings ...~`)
+; or ControlHandle=cWndBySeq(window2,12)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: Microsoft Exchange Server
+;ID: 0
+;Class: #32770
+;Level: 1
+ControlHandle=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+WinWaitExist("Microsoft Exchange Server", -1 )  ;Wait for window to exist ;TODO Check title and timeout value
+
+
+;Title: &Connect with the network
+;ID: 625
+;Class: Button9
+;Level: 3
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+window2=cWndByID(window1,0)
+; or window2=cWndByName(window1,`General~`)
+; or window2=cWndByClass(window1,`#32770`)
+; or window2=cWndBySeq(window1,1)
+ControlHandle=cWndByID(window2,625)
+; or ControlHandle=cWndByName(window2,`Connect with the network~`)
+; or ControlHandle=cWndBySeq(window2,15)
+cRadioButton(ControlHandle,1)   ;Sets a radio button
+
+
+;Title: &Apply
+;ID: 12321
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,12321)
+; or ControlHandle=cWndByName(window1,`Apply~`)
+; or ControlHandle=cWndBySeq(window1,4)
+cClickButton(ControlHandle)
+
+
+;Title: OK
+;ID: 1
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",6,0,1,2,12321,9,12320)
+ControlHandle=cWndByID(window1,1)
+; or ControlHandle=cWndByName(window1,`OK~`)
+; or ControlHandle=cWndBySeq(window1,2)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &Next >
+;ID: 12324
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12324)
+; or ControlHandle=cWndByName(window1,`Next >~`)
+; or ControlHandle=cWndBySeq(window1,7)
+cClickButton(ControlHandle)
+
+
+;Title: Finish
+;ID: 12325
+;Class: Button1
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",11,0,0,0,12320,12326,12323,12324,12325,2,9,12327)
+ControlHandle=cWndByID(window1,12325)
+; or ControlHandle=cWndByName(window1,`Finish~`)
+; or ControlHandle=cWndBySeq(window1,8)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+;Title: &Close
+;ID: 1111
+;Class: Button0
+;Level: 2
+window1=cWndByWndSpec("#32770","rundll32",13,1001,1002,1102,1003,1108,1004,1005,1103,1006,1109,1007,1008,1104)
+ControlHandle=cWndByID(window1,1111)
+; or ControlHandle=cWndByName(window1,`Close~`)
+; or ControlHandle=cWndBySeq(window1,17)
+cPostButton(ControlHandle)      ;Alternate to cClickButton
+
+
+Display(5,"Status","Outlook configured for Online use.")
+return
+;======================================================
+;======================================================
+:check_forms_cache
+BoxTitle("FTSPERS - %bootnum% - check_forms_cache")
+;returns value "rtn" equal to 1 if forms ok, 0 if it failed
+BoxOpen("Checking Outlook Forms...","Please wait")
+Run("C:\Program Files\Microsoft Office\Office10\OUTLOOK.EXE","")
+WinWaitExist("Inbox - Microsoft Outlook",-1)
+BoxText("Launching Test.msg...")
+ShellExecute("C:\utl\test.msg","","",@normal,"")
+BoxText("Checking to see if macros work..")
+x=WinWaitExist("Warning:",20)
+If x==1
+	SendKeysTo("Warning:","~")
+	TimeDelay(2)
+	WinWaitExist("FTS Helpline",10)
+	WinClose("FTS Helpline")
+	TimeDelay(2)
+	WinClose("Inbox - Microsoft Outlook")
+	BoxText("Outlook forms check succeeded")
+	rtn="1"
+	BoxText("closing outlook...")
+	TimeDelay(10)
+	BoxShut()
+	BoxTitle("WBT - FTSPERS.exe")
+	return
+Else
+	BoxText("Outlook forms check Failed!!")
+	WinWaitExist("FTS Helpline",10)
+	WinClose("FTS Helpline")
+	TimeDelay(2)
+	WinClose("Inbox - Microsoft Outlook")
+	BoxText("closing outlook...")
+	TimeDelay(10)
+	BoxShut()
+	BoxTitle("FTSPERS - %bootnum% - check_forms_cache")
+	rtn="0"
+	return
+EndIf
+BoxTitle("FTSPERS - %bootnum% - check_forms_cache")
+return
+;======================================================
+;======================================================
+;======================================================
+;======================================================
+;======================================================
+;======================================================
+;======================================================
+:releaseIP
+BoxTitle("FTSPERS - %bootnum% - releaseIP")
+RunWait("ipconfig.exe"," /release")
+;======================================================
+:reboot
+BoxTitle("FTSPERS - %bootnum% - reboot")
+IntControl (67, 0, 0, 0, 0)
+;======================================================
+:syssetchange
+BoxTitle("FTSPERS - %bootnum% - sssetchange")
+If WinWaitExist("System Settings Change", 0)
+	WinActivate("System Settings Change")
+	SendKey("!N")
+endif
+return
+;======================================================
+:winsyserror
+BoxTitle("FTSPERS - %bootnum% - winsyserror")
+If WinWaitExist("Windows - System Error", 0)
+	WinActivate("Windows - System Error")
+	SendKey("~")
+endif
+return
+;======================================================
+:getbootnum
+BoxTitle("FTSPERS - %bootnum% - getbootnum")
+machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+ErrorMode(@OFF)
+bootnum = RegQueryValue(machkey,"[boot]")
+ErrorMode(@CANCEL)
+RegCloseKey(machkey)
+return
+;======================================================
+:setvar
+BoxTitle("FTSPERS - %bootnum% - setvar")
+machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+RegSetValue(machkey,"[ISid]", ISid)
+RegSetValue(machkey,"[FName]", FName)
+RegSetValue(machkey,"[LName]", LName)
+RegSetValue(machkey,"[FullName]", FullName)
+RegSetValue(machkey,"[wbComputerName]", wbComputerName)
+RegSetValue(machkey,"[wbResDomName]", wbResDomName)
+RegSetValue(machkey,"[wbActDomName]", wbActDomName)
+RegCloseKey(machkey)
+gosub setver
+IniWritePvt("Support Information", "Line8",ISid,"%WinSysDir%oeminfo.ini")
+IniWritePvt("Support Information", "Line9",FullName,"%WinSysDir%oeminfo.ini")
+return
+;======================================================
+:setver
+BoxTitle("FTSPERS - %bootnum% - setver")
+machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+RegSetValue(machkey,"[Version]", Ver)
+RegSetValue(machkey,"[Version Time Stamp]", TimeDate ( ))
+RegSetValue(machkey,"[Build Engine]", BldEng)
+RegCloseKey(machkey)
+IniWritePvt("Support Information", "Line1","FTS Windows 2000","%WinSysDir%oeminfo.ini")
+IniWritePvt("Support Information", "Line2",Ver,"%WinSysDir%oeminfo.ini")
+IniWritePvt("Support Information", "Line5","Build Engine v.%BldEng%","%WinSysDir%oeminfo.ini")
+return
+;======================================================
+:getvar
+BoxTitle("FTSPERS - %bootnum% - getvar")
+ErrorMode(@off)
+machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+ISid = RegQueryValue(machkey,"[ISid]")
+FName = RegQueryValue(machkey,"[FName]")
+LName = RegQueryValue(machkey,"[LName]")
+FullName = RegQueryValue(machkey,"[FullName]")
+Softiddir = RegQueryValue(machkey,"[Softiddir]")
+Softidfile = RegQueryValue(machkey,"[Softidfile]")
+wbComputerName = RegQueryValue(machkey,"[wbComputerName]")
+wbResDomName = RegQueryValue(machkey,"[wbResDomName]")
+wbActDomName = RegQueryValue(machkey,"[wbActDomName]")
+role = RegQueryValue(machkey,"[Role]")
+xMigrate = RegQueryValue(machkey,"[xMigrate]")
+wMigrate = RegQueryValue(machkey,"[wMigrate]")
+ModemType = RegQueryValue(machkey,"[ModemType]")
+CommPort = RegQueryValue(machkey,"[CommPort]")
+BldEng = RegQueryValue(machkey,"[Build Engine]")
+Ver = RegQueryValue(machkey,"[Version]")
+RegCloseKey(machkey)
+return
+;======================================================
+:chkLogInVsISId
+BoxTitle("FTSPERS - %bootnum% - chkLogInVsISid")
+currentkey = RegCreateKey(@REGCURRENT,"Software\Microsoft\WIndows\CurrentVersion\Explorer\")
+LogIn = RegQueryValue(currentkey,"[Logon User Name]")
+If StriCmp(ISid,LogIn) != "0"
+	bootnum = "1"
+	gosub setbootnum
+	gosub autoadminon
+	RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultDomainName]", wbComputerName)
+	wbLeaveParams = strCat(" REMOVE ", wbComputerName, " /D:",wbResDomName, " /UD:",wbResDomName,"\ComputerAdmin /PD:addnode")
+	RunWait("netdom.exe", wbLeaveParams)
+	Message("ERROR !!","The User ID, %LOGIN%, that you logged in with does not match the ISID, %ISID%%@CRLF%%@CRLF% that you entered when initiating the configuration process.%@CRLF%%@CRLF%%@CRLF%The configuration process will be reset now.%@CRLF%%@CRLF%")
+	gosub reboot
+EndIf
+return
+;======================================================
+:setbootnum
+BoxTitle("FTSPERS - %bootnum% - setbootnum")
+machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+RegSetValue(machkey,"[boot]", bootnum)
+RegSetValue(machkey,"[cfg time stamp]", TimeDate ( ))
+RegCloseKey(machkey)
+return
+;======================================================
+:autoadminon
+BoxTitle("FTSPERS - %bootnum% - autoadminon")
+RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\[AutoLogonCount]")
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultUserName]", "administrator")
+If role=="PR"
+	RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultPassword]", "")
+Else
+	RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultPassword]", "")
+EndIf
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[AutoAdminLogon]", "1") 
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows\CurrentVersion\Run[boot]","%zworkdir%FTSPERS.exe")
+return
+;======================================================
+:autoadminoff
+BoxTitle("FTSPERS - %bootnum% - autoadminoff")
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultDomainName]", wbActDomName)
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultUserName]", ISID)
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[DefaultPassword]", "")
+RegSetValue(@REGMACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon[AutoAdminLogon]", "0")
+return
+;======================================================
+:checkfornet
+AddExtender("WWWNT34i.DLL")
+BoxTitle("FTSPERS - %bootnum% - checkfornet")
+ErrorMode(@OFF)
+LastError( )
+test=wntServerInfo( "WPFSDC00", 1) ; Should really query for PDC by asking domain not asking specific server
+err=LastError( )
+
+if err==530 || err==0
+	Display (1, err, "Verified - connected to Network, Domain present")
+	OnNetwork="yes"
+	return
+endif
+
+If bootnum=="4"
+	OnNetwork="no"
+	return
+EndIf
+
+if err==684
+	Pause (err, "Not connected to the Network! Cannot join domain.")  
+	;logoff
+	IntControl(66,0,1,0,0)
+	Exit
+endif
+
+if err==524
+	Pause (err, "Connected to Network, but Domain missing or you have a disconnected NIC")  
+	;logoff
+	IntControl(66,0,1,0,0)
+	Exit
+endif
+
+if err>0
+	Pause (err, "Error - check to see if network connection exists!")  
+	;logoff
+	IntControl(66,0,1,0,0)
+	Exit
+endif
+
+return
+;======================================================
+:shellcopy
+BoxTitle("FTSPERS - %bootnum% - shellcopy")
+;Requires the following to be defined prior to execution
+;src  must be format of c:\dir\*.* to get subdirectory structure
+;targ must be format of c:\dir\dir\dir with no trailing \ or stars
+;flags    0 is the best
+If !direxist(targ) then DirMake(targ)
+afilecopy(src,targ,flags)
+err = aGetLastError()
+If err != 0 Then Pause("Error %err%","copy files from [%src%] to [%targ%] failed")
+DirChange(DirHome())
+return
+;======================================================
+:fndModem
+BoxTitle("FTSPERS - %bootnum% - fndModem")
+AddExtender("wwctl34i.dll")
+Run("%WinSysDir%winmsd.exe","/category componentsmodem") ; open system information
+WinWaitExist("System Information",-1)
+TimeDelay(2)
+:SCAN
+window1=cWndByWndSpec("PCHShell Window","HelpCtr",5,0,0,0,0,0)
+window2=cWndBySeq(window1,4)
+window3=cWndByID(window2,0)
+window4=cWndByID(window3,0)
+window5=cWndByID(window4,0)
+window6=cWndByID(window5,0)
+ControlHandle=cWndByID(window6,202) ; set control focus to the right hand window pane
+wintextc1=cGetLVText(ControlHandle) ; Get first column of SysLsitView32 text
+DevIDpos=ItemLocate("Device ID",wintextc1,@TAB) ; find position of device id  from list
+wintextc2=cGetLVColText(ControlHandle,2) ; Get second column of SysListView32 text
+DeviceID=ItemExtract(DevIDpos,wintextc2,@TAB) ; get text of device id at specified position
+If DeviceID=="Modem0" ; this would be a non-present piece of hardware
+	DevIDst=StrIndexWild(wintextc2,"PCI\*%@TAB%",1) ; find the installed modem in the list via PCI allocation
+	DeviceID=StrSubWild(wintextc2,"PCI\*%@TAB%",DevIDst) ; get the exact string for the PCI allocation
+	DeviceID=StrTrim(DeviceID)
+	DeviceIDpos2=ItemLocate(DeviceID,wintextc2,@TAB) ; get the location in the list of the PCI modem
+
+	ModemTypepos2=(DeviceIDpos2-1) ; set the location of the modem type in the list
+	ModemType=ItemExtract(ModemTypepos2,wintextc2,@TAB) ; get the modem type at the specified position
+
+	CommPortpos2=(DeviceIDpos2+2) ; set the location of the com port number in the list
+	CommPort=ItemExtract(CommPortpos2,wintextc2,@TAB) ; get the com port number at the specified position
+Else
+	ModemTypepos=ItemLocate("Description",wintextc1,@TAB) ; set the location of the modem type in the list
+	ModemType=ItemExtract(ModemTypepos,wintextc2,@TAB) ; get the modem type at the specified position
+
+	CommPortpos=ItemLocate("Attached To",wintextc1,@TAB) ; set the location of the com port number in the list
+	CommPort=ItemExtract(CommPortpos,wintextc2,@TAB) ; get the com port number at the specified position
+EndIf
+If ModemType=="" || CommPort=="" Then goto SCAN
+machkey =RegCreateKey(@REGMACHINE,"Software\MerckFTS\Build\")
+RegSetValue(machkey,"[ModemType]", ModemType)
+RegSetValue(machkey,"[CommPort]", CommPort)
+WinClose("System Information")
+IniWritePvt("Support Information", "Line14",ModemType,"%WinSysDir%oeminfo.ini")
+IniWritePvt("Support Information", "Line15",CommPort,"%WinSysDir%oeminfo.ini")
+return
+;======================================================
+:MSIfix
+BoxTitle("FTSPERS - %bootnum% - MSIfix")
+RunHideWait("%WinSysDir%cscript.exe","%zworkdir%sourcemsia.vbs")
+return
+;======================================================
+:cleanup
+BoxTitle("FTSPERS - %bootnum% - cleanup")
+AddExtender("wwsop34i.DLL")
+ErrorMode(@off)
+; empty RunOnce and Recent Documents
+RegDeleteKey(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Runonce")
+RegCreateKey(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Runonce")
+RegDeleteKey(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs")
+RegCreateKey(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs")
+; set autoarrange on desktop icons
+;RegSetValue(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx[Title]","Pre-Shell-Load Configuration")
+;RegSetDword(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx[Flag]","0")
+;RegCreateKey(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx\0001")
+;RegSetValue(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx\0001[IconAutoArrange]","||regedit.exe /s ICON.reg")
+; remove screen saver
+RegDelValue(@REGCURRENT,"Control Panel\Desktop\[SCRNSAVE.EXE]")
+RegDelValue(@REGUSERS,".Default\Control Panel\Desktop\[SCRNSAVE.EXE]")
+
+RegSetDword(@REGMACHINE, "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon[DisableCAD]","1") ; disable "Require usres to press Ctrl-Alt-Delete before logging on."
+;RegDelValue(@REGCLASSES,".bfc\ShellNew\[Command]") ; remove "Briefcase" from the New menu
+;RegDelValue(@REGCLASSES,".mdb\ShellNew\[Command]") ; remove "Microsoft Access Database" from the New menu
+;RegDelValue(@REGCLASSES,".obd\Office.Binder.8\ShellNew\[Filename]") ; remove "Microsoft Office Binder" from the New menu
+;RegSetBin(@REGMACHINE,"SYSTEM\CurrentControlSet\Services\cwcspud\CS461x\ControlPanel\[ShowStatus]","00 00 00 00") ; remove SoundFusion tray icon
+;RegSetDword(@REGMACHINE,"SOFTWARE\IBM\TrackPoint[SYSTRAY_ICON]","0") ; remove TrackPoint tray icon
+;RegSetDword(@REGCURRENT,"SOFTWARE\IBM\TrackPoint[SYSTRAY_ICON]","0") ; remove TrackPoint tray icon for current user
+;RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run\[BMMGAG]") ; remove BatteryMiser from startup
+;RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run\[Modify Profile Utility]") ; remove MS ModProf from startup
+;RegSetDword(@REGCURRENT,"SOFTWARE\Intel\PRPC[UserPrefs]","9") ; remove Intel SpeedStep tray icon for current user
+;RegSetDword(@REGMACHINE,"SOFTWARE\Intel\PRPC[UserPrefs]","9") ; remove Intel SpeedStep tray icon for all users
+;RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run\[TPTRAY]") ; remove ThinkPad configuration tray icon
+;aFileCopy("C:\Documents and Settings\Default User\Start Menu\Programs\Accessories\Windows Explorer.lnk","C:\Documents and Settings\All Users\Start Menu\Programs",128)
+;aFileCopy("C:\Documents and Settings\Default User\Start Menu\Programs\Accessories\Windows Explorer.lnk","C:\Documents and Settings\Default User\Application Data\Microsoft\Internet Explorer\Quick Launch",128)
+;aFileCopy("C:\Documents and Settings\Default User\Start Menu\Programs\Accessories\Windows Explorer.lnk","C:\Documents and Settings\%ISID%\Application Data\Microsoft\Internet Explorer\Quick Launch",128)
+;FileCopy("%zworkdir%ICON.reg","C:\",@FALSE)
+;FileDelete("c:\Documents and Settings\Default User\Application Data\Microsoft\Internet Explorer\Quick Launch\Microsoft Outlook.lnk")
+;FileDelete("C:\Documents and Settings\All Users\Desktop\Dial-Up Networking.*")
+ShortcutMake("C:\Documents and Settings\All Users\Start Menu\Programs\Accessories\System Tools\Inbox Repair Tool.lnk","C:\Program Files\Common Files\System\Mapi\1033\NT\SCANPST.EXE","","",0)
+FileDelete("C:\Documents and Settings\All Users\Start Menu\Dial-Up Networking.*")
+;FileDelete("C:\Documents and Settings\All Users\Start Menu\Windows Update.*")
+;FileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Microsoft Binder.*")
+;FileMove("C:\Documents and Settings\All Users\Start Menu\Programs\Microsoft Photo Editor.lnk","C:\Documents and Settings\All Users\Start Menu\Programs\Accessories\Microsoft Photo Editor.lnk",@FALSE)
+;FileMove("C:\Documents and Settings\All Users\Start Menu\Programs\RealPlayer 8 Intranet.lnk","C:\Documents and Settings\All Users\Start Menu\Programs\Accessories\Entertainment\RealPlayer 8 Intranet.lnk",@FALSE)
+;aFileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Oracle - ora_client_home",1024)
+;aFileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Oracle Installation Products",1024)
+;aFileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Readiris",1024)
+;aFileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\SmartForce Player",1024)
+;aFileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Accessories\Communications\Internet Connection Wizard.*",1024)
+;aFileDelete("C:\Documents and Settings\Default User\Desktop\Connect to the Internet.*",1024)
+;aFileDelete("C:\Documents and Settings\Default User\Start Menu\Programs\Outlook Express.*",1024)
+FileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Startup\*.*")
+;FileDelete("C:\My documents\OLDEXC~1.LNK")
+;FileDelete("C:\My documents\OLDWOR~1.LNK")
+FileDelete("C:\Documents and Settings\%ISID%\Recent\*.*")
+ErrorMode(@cancel)
+DirChange(DirHome())
+return
+;======================================================
+:FTScleanup
+BoxTitle("FTSPERS - %bootnum% - FTScleanup")
+ErrorMode(@off)
+RegDeleteKey(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Runonce")
+RegCreateKey(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Runonce")
+RegDeleteKey(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs")
+RegCreateKey(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs")
+;RegSetBin(@REGMACHINE,"SYSTEM\CurrentControlSet\Services\cwcspud\CS461x\ControlPanel\[ShowStatus]","00 00 00 00") ; remove SoundFusion tray icon
+;RegSetDword(@REGMACHINE,"SOFTWARE\IBM\TrackPoint[SYSTRAY_ICON]","0") ; remove TrackPoint tray icon
+;RegSetDword(@REGCURRENT,"SOFTWARE\IBM\TrackPoint[SYSTRAY_ICON]","0") ; remove TrackPoint tray icon for current user
+;RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run\[BMMGAG]") ; remove BatteryMiser from startup
+;RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run\[Modify Profile Utility]") ; remove MS ModProf from startup
+;RegSetDword(@REGCURRENT,"SOFTWARE\Intel\PRPC[UserPrefs]","9") ; remove Intel SpeedStep tray icon for current user
+;RegSetDword(@REGMACHINE,"SOFTWARE\Intel\PRPC[UserPrefs]","9") ; remove Intel SpeedStep tray icon for all users
+;RegDelValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run\[TPTRAY]") ; remove ThinkPad configuration tray icon
+RegSetValue(@REGCURRENT,"Control Panel\Desktop\[ScreenSaveActive]","1") ; set screen saver active
+RegSetValue(@REGCURRENT,"Control Panel\Desktop\[ScreenSaverIsSecure]","1") ; set password protection on screen saver
+RegSetValue(@REGCURRENT,"Control Panel\Desktop\[SCRNSAVE.EXE]","%WinSysDir%sstext3d.scr") ; set screen saver to 3D OpenGL
+RegSetValue(@REGCURRENT,"Control Panel\Desktop\[ScreenSaveTimeout]","900") ; set screen saver timeout to 15 minutes for current user
+RegSetValue(@REGCURRENT,"Control Panel\Screen Saver.3DText\[Text]","Merck & Co, Inc") ; set 3D screen saver text
+RegSetValue(@REGCURRENT,"Control Panel\Screen Saver.Marquee\[Text]","Merck & Co, Inc") ; set marquee screen saver text
+RegSetValue(@REGUSERS,".Default\Control Panel\Desktop\[ScreenSaveActive]","1") ; set screen saver active
+RegSetValue(@REGUSERS,".Default\Control Panel\Desktop\[ScreenSaverIsSecure]","1") ; set password protection on screen saver
+RegSetValue(@REGUSERS,".Default\Control Panel\Desktop\[SCRNSAVE.EXE]","logon.scr") ; set screen saver to 3D OpenGL
+RegSetValue(@REGUSERS,".Default\Control Panel\Desktop\[ScreenSaveTimeout]","900") ; set screen saver timeout to 15 minutes for all users
+RegSetValue(@REGUSERS,".Default\Control Panel\Screen Saver.3DText\[Text]","Merck & Co, Inc") ; set 3D screen saver text
+RegSetValue(@REGUSERS,".Default\Control Panel\Screen Saver.Marquee\[Text]","Merck & Co, Inc") ; set marquee screen saver text
+
+RunWait("cmd.exe","/C RD /S /Q C:\TEMP")
+RunWait("cmd.exe","/C MD C:\TEMP")
+FileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Startup\*.*")
+FileDelete("C:\Documents and Settings\%ISID%\Start Menu\Programs\Startup\*.*")
+RegDelValue(@REGMACHINE, "Software\Microsoft\Windows\CurrentVersion\Run[boot]")
+;FileDelete("C:\My documents\OLDEXC~1.LNK")
+;FileDelete("C:\My documents\OLDWOR~1.LNK")
+FileDelete("C:\Documents and Settings\%ISID%\Recent\*.*")
+;RegSetValue(@REGCURRENT,"Software\Microsoft\windows\CurrentVersion\RunOnce[1boot]","cmd.exe /C Del /F /Q C:\ICON.reg")
+FileDelete("C:\DATA\OUTLOOK\migrate.txt")
+ShortcutMake("C:\Documents and Settings\All Users\Start Menu\Programs\Startup\ABSplus Launcher.lnk","C:\Program Files\CMS Peripherals\ABSplus Backup\Launcher.exe","","C:\Program Files\CMS Peripherals\ABSplus Backup",0)
+ErrorMode(@cancel)
+DirChange(DirHome())
+IF role=="PR" Then gosub PRorCZ
+return
+;======================================================
+:close_OutlookMAPI
+BoxTitle("FTSPERS - %bootnum% - close_MAPI")
+	;Subroutine to close Outlook and make sure it really exits.  This
+	;does *not* take care of any message boxes like "Are you sure you
+	;want to exit" or anything.  Its purpose is to make sure Outlook is
+	;really gone before going on to the next step
+	
+	;Try to close Outlook
+	While WinExist("~Outlook") 
+		WinActivate("~Outlook")
+		WinClose("~Outlook")
+		Display(1,"Waiting for Application to exit...","Outlook")
+	Endwhile
+	
+
+	
+	;Try to close the MAPI Spooler
+	While WinExist("~WMS")
+		WinClose("~WMS")
+		Display(1,"Waiting for Application to exit...","MAPI Spooler")
+	Endwhile
+
+return
+;======================================================
+:chk4updt
+gosub checkfornet
+If OnNetwork=="yes"
+	RunWait("%WinSysDir%net.exe","use U: \\wpccr03\models /user:wpccr03\FTSISINS football /persistent:no")
+	If FileExist("U:\CODE\%Ver%\FTSPERS.exe")==@TRUE
+		:FVersion
+		FVersion=FileVerInfo("U:\CODE\%Ver%\FTSPERS.exe","","FileVersion")
+		If FVersion=="" Then goto FVersion
+		If FVersion <= "%BldEng%" Then
+			Run("%WinSysDir%net.exe","use U: /delete")
+			return
+		Else
+			aFileCopy("U:\CODE\%Ver%\FTSPERS.exe","c:\temp\",128)
+			RegSetValue(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx[Title]","Pre-Shell-Load Fix")
+			RegSetDword(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx[Flag]","0")
+			RegCreateKey(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx\0001")
+			RegSetValue(@REGMACHINE, "SOFTWARE\Microsoft\windows\CurrentVersion\RunOnceEx\0001[replaceFTSpers]","cmd.exe /C MOVE /Y C:\Temp\FTSPERS.exe C:\ftstmp\")
+			Run("%WinSysDir%net.exe","use U: /delete")
+			timedelay(2)
+			gosub reboot
+		EndIf
+	EndIf
+	Run("%WinSysDir%net.exe","use U: /delete")
+EndIf
+return
+;======================================================
+:PRorCZ
+BoxTitle("FTSPERS - %bootnum% - PRorCZ")
+gosub getvar
+;FileDelete("C:\Documents and Settings\All Users\Start Menu\Programs\Startup\ABSplus Launcher.lnk")
+FileDelete("C:\Documents and Settings\All Users\Desktop\Group*.lnk")
+FileDelete("C:\Documents and Settings\All Users\Desktop\Merlin.lnk")
+FileDelete("C:\Documents and Settings\All Users\Desktop\Insight.lnk")
+FileDelete("C:\Documents and Settings\All Users\Desktop\SyncPlus.lnk")
+FileDelete("C:\Documents and Settings\%ISID%\Application Data\Microsoft\Internet Explorer\Quick Launch\Merlin.lnk")
+FileDelete("C:\Documents and Settings\%ISID%\Application Data\Microsoft\Internet Explorer\Quick Launch\Insight.lnk")
+
+RegSetDword(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Internet Settings\[ProxyHttp1.1]","0")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Windows\CurrentVersion\Internet Settings\[AutoConfigURL]","http://fsnet.merck.com/ap/fsnet.ins")
+RegSetValue(@REGCURRENT,"Software\Microsoft\Internet Explorer\Main\[Start Page]","http://www.merck.com")
+RegSetValue(@REGMACHINE,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\[AutoConfigURL]","http://fsnet.merck.com/ap/fsnet.ins")
+RegSetValue(@REGMACHINE,"SOFTWARE\Microsoft\Internet Explorer\Main\[Start Page]","http://www.merck.com")
+RegSetValue(@REGUSERS,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Internet Settings\[AutoConfigURL]","http://fsnet.merck.com/ap/fsnet.ins")
+RunWait("regedit","/s %zworkdir%IECon.reg")
+RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Connwiz Admin Lock]","0")
+RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Autoconfig]","0")
+RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Connection Settings]","0")
+RegSetDword(@REGCURRENT, "Software\Policies\Microsoft\Internet Explorer\Control Panel\[Proxy]","0")
+
+PRorCZFormat=`WWWDLGED,5.0`
+
+PRorCZCaption=`PRorCZ`
+PRorCZX=192
+PRorCZY=167
+PRorCZWidth=158
+PRorCZHeight=81
+PRorCZNumControls=3
+
+PRorCZ01=`36,44,38,DEFAULT,PUSHBUTTON,DEFAULT,"Puerto Rico",1`
+PRorCZ02=`88,44,38,DEFAULT,PUSHBUTTON,DEFAULT,"Caribbean",2`
+PRorCZ03=`52,22,56,DEFAULT,STATICTEXT,DEFAULT,"Which model is this ?"`
+
+ButtonPushed=Dialog("PRorCZ")
+
+If ButtonPushed==1
+	IniWritePvt("Support Information", "Line4","Puerto Rico","%WinSysDir%oeminfo.ini")
+	FileDelete("C:\Documents and Settings\All Users\Desktop\Contivity VPN Client.lnk")
+Else
+	IniWritePvt("Support Information", "Line4","Caribbean","%WinSysDir%oeminfo.ini")
+	FileDelete("C:\Documents and Settings\All Users\Desktop\UUNET.lnk")
+EndIf
+DropWild("PRorCZ*")
+
+;; Change keyboard locale to international
+BoxTitle("FTSPERS - %bootnum% - PR/CZ KEYBOARD")
+Run("rundll32.exe", "shell32.dll,Control_RunDLL intl.cpl")
+AddExtender("wwctl34i.dll")
+intl=DllHwnd("Regional Options")
+systabwnd=cWndByClass(intl,"SysTabControl32")
+cSetTabItem(systabwnd,6) ; Input Locales tab
+Achild2=cWndByID(intl,0)
+Prop=cWndByID(Achild2,1205) ; Properties push-button
+cPostButton(Prop)
+WinWaitExist("Input Locale Properties",-1)
+	locale=DllHwnd("Input Locale Properties")
+	cfglocale= cWndByID(locale,1223)
+	response=cGetCBText(cfglocale)
+	monitor=ItemLocate("United States-International", response, @tab)
+	cSetCBItem(cfglocale,monitor)
+	OKbutton=cWndByName(locale,"OK") ; OK Button
+	cClickButton(OKbutton)
+Applybutton=cWndByName(intl,"Apply") ; Apply Button
+cClickButton(Applybutton)
+TimeDelay(2)
+OKbutton=cWndByName(intl,"OK") ; OK Button
+cClickButton(OKbutton)
+return
+;======================================================
+:EOF

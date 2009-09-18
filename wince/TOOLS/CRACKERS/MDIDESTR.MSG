@@ -1,0 +1,4 @@
+WM_MDIDESTROY
+void
+MDIDestroy
+(HWND hWnd, HWND hWndDestroy)

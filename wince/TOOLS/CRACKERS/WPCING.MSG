@@ -1,0 +1,4 @@
+WM_WINDOWPOSCHANGING
+BOOL
+OnWindowPosChanging
+(HWND hWnd, LPWINDOWPOS lpwpos)

@@ -1,0 +1,4 @@
+WM_QUERYNEWPALETTE
+BOOL
+OnQueryNewPalette
+(HWND hWnd)

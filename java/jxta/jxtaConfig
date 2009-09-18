@@ -1,0 +1,3 @@
+#Default properties. Edit if you want.
+InitialNetPeerGroupAppCode=net.jxta.impl.shell.bin.Shell.Shell
+InitialNetPeerGroupAppCodeURL=http:/www.jxta.org/download/jxta.jar

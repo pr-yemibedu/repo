@@ -1,0 +1,4 @@
+WM_INITMENU
+void
+OnInitMenu
+(HWND hWnd, HMENU hMenu)

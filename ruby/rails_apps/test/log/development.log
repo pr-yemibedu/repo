@@ -1,0 +1,258 @@
+
+
+Processing HomeController#index (for 72.94.175.115 at 2007-04-15 19:08:39) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00699 (142 reqs/sec) | Rendering: 0.00433 (61%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 72.94.175.115 at 2007-04-15 19:09:57) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00698 (143 reqs/sec) | Rendering: 0.00424 (60%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 72.94.175.115 at 2007-04-15 19:10:22) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00676 (147 reqs/sec) | Rendering: 0.00428 (63%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 72.94.175.115 at 2007-04-15 19:16:08) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00712 (140 reqs/sec) | Rendering: 0.00460 (64%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:36:54) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00685 (145 reqs/sec) | Rendering: 0.00442 (64%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:09) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00505 (197 reqs/sec) | Rendering: 0.00253 (50%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:18) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00505 (197 reqs/sec) | Rendering: 0.00263 (51%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:18) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00571 (175 reqs/sec) | Rendering: 0.00339 (59%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:26) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00895 (111 reqs/sec) | Rendering: 0.00613 (68%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:27) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00477 (209 reqs/sec) | Rendering: 0.00247 (51%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:38) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00573 (174 reqs/sec) | Rendering: 0.00293 (51%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:38) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00545 (183 reqs/sec) | Rendering: 0.00245 (44%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:38) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00494 (202 reqs/sec) | Rendering: 0.00247 (49%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:38) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00521 (191 reqs/sec) | Rendering: 0.00272 (52%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:39) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00490 (203 reqs/sec) | Rendering: 0.00250 (51%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:39) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00475 (210 reqs/sec) | Rendering: 0.00255 (53%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:39) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00468 (213 reqs/sec) | Rendering: 0.00235 (50%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:39) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00520 (192 reqs/sec) | Rendering: 0.00236 (45%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:40) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00566 (176 reqs/sec) | Rendering: 0.00252 (44%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:51) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00844 (118 reqs/sec) | Rendering: 0.00589 (69%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:52) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00555 (180 reqs/sec) | Rendering: 0.00286 (51%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:55) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.03877 (25 reqs/sec) | Rendering: 0.03550 (91%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:37:57) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00530 (188 reqs/sec) | Rendering: 0.00254 (47%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:56:03) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00883 (113 reqs/sec) | Rendering: 0.00617 (69%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 19:56:29) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00698 (143 reqs/sec) | Rendering: 0.00457 (65%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 20:00:04) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00669 (149 reqs/sec) | Rendering: 0.00413 (61%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 20:00:23) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00661 (151 reqs/sec) | Rendering: 0.00423 (64%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 20:01:18) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00684 (146 reqs/sec) | Rendering: 0.00427 (62%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 20:03:14) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00687 (145 reqs/sec) | Rendering: 0.00434 (63%) | 200 OK [http://pfeil-test.homeip.net/home/index]
+
+
+Processing HomeController#index (for 155.91.45.231 at 2007-04-15 20:13:41) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {"action"=>"index", "controller"=>"home"}
+Rendering home/index
+Completed in 0.00692 (144 reqs/sec) | Rendering: 0.00431 (62%) | 200 OK [http://pfeil-test.homeip.net/home]
+
+
+Processing ApplicationController#index (for 155.91.45.231 at 2007-04-15 20:13:46) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {}
+
+
+ActionController::RoutingError (no route found to match "/" with {:method=>:get}):
+    /usr/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/routing.rb:1292:in `recognize_path'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/routing.rb:1282:in `recognize'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/dispatcher.rb:40:in `dispatch'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:168:in `process_request'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:143:in `process_each_request!'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:109:in `with_signal_handler'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:142:in `process_each_request!'
+    /usr/lib/ruby/1.8/fcgi.rb:600:in `each_cgi'
+    /usr/lib/ruby/1.8/fcgi.rb:597:in `each_cgi'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:141:in `process_each_request!'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:55:in `process!'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:25:in `process!'
+    /home/notroot/tmp/test/public/dispatch.fcgi:24
+
+
+Rendering /usr/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/templates/rescues/layout.rhtml (404 Page Not Found)
+
+
+Processing ApplicationController#index (for 155.91.45.231 at 2007-04-15 20:26:05) [GET]
+  Session ID: e33686653ba58da290a2244c44cc6868
+  Parameters: {}
+
+
+ActionController::RoutingError (no route found to match "/" with {:method=>:get}):
+    /usr/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/routing.rb:1292:in `recognize_path'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/routing.rb:1282:in `recognize'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/dispatcher.rb:40:in `dispatch'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:168:in `process_request'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:143:in `process_each_request!'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:109:in `with_signal_handler'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:142:in `process_each_request!'
+    /usr/lib/ruby/1.8/fcgi.rb:600:in `each_cgi'
+    /usr/lib/ruby/1.8/fcgi.rb:597:in `each_cgi'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:141:in `process_each_request!'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:55:in `process!'
+    /usr/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:25:in `process!'
+    /home/notroot/tmp/test/public/dispatch.fcgi:24
+
+
+Rendering /usr/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/templates/rescues/layout.rhtml (404 Page Not Found)

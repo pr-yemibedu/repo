@@ -1,0 +1,682 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+#include "newres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "#include ""newres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Contacts.rc2""  // non-Microsoft eMbedded Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""wceres.rc""         // WCE-specific components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Contacts.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Cmdbar.bmp"
+IDB_VIOXX1              BITMAP  DISCARDABLE     "res\\vioxx1.bmp"
+IDB_FORM                BITMAP  DISCARDABLE     "res\\form.bmp"
+IDB_SIGNATURE           BITMAP  DISCARDABLE     "res\\signature.bmp"
+IDB_ADD_SAMPLE          BITMAP  DISCARDABLE     "res\\add.bmp"
+IDB_DELETE_SAMPLE       BITMAP  DISCARDABLE     "res\\delete_s.bmp"
+IDB_LEGAL               BITMAP  DISCARDABLE     "res\\legal.bmp"
+IDB_VIOXX2              BITMAP  DISCARDABLE     "res\\vioxx2.bmp"
+IDB_CLEAR               BITMAP  DISCARDABLE     "res\\clear.bmp"
+IDB_DONE                BITMAP  DISCARDABLE     "res\\done.bmp"
+IDB_CHECKS              BITMAP  DISCARDABLE     "res\\checks.bmp"
+IDB_INSIGHT             BITMAP  DISCARDABLE     "res\\Insight.bmp"
+IDB_TAPE                BITMAP  DISCARDABLE     "res\\tape.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 16
+BEGIN
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menubar
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "New"
+    BEGIN
+        MENUITEM "Customer...",                 ID_NEW_CUSTOMER
+        MENUITEM "Call...",                     ID_NEW_CALL
+    END
+    POPUP "Edit"
+    BEGIN
+        MENUITEM "Undo",                        ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cut",                         ID_EDIT_CUT
+        MENUITEM "Copy",                        ID_EDIT_COPY
+        MENUITEM "Paste",                       ID_EDIT_PASTE
+    END
+    POPUP "View"
+    BEGIN
+        MENUITEM "&Exit",                       ID_APP_EXIT
+        MENUITEM "About Insight Companion...",  ID_APP_ABOUT
+        MENUITEM "Customer List",               ID_VIEW_CUSTOMER
+    END
+END
+
+IDR_POPUP MENU DISCARDABLE 
+BEGIN
+    POPUP "New"
+    BEGIN
+        MENUITEM "Add a Customer....",          ID_NEW_CUSTOMER
+        MENUITEM "Plan a Call...",              ID_NEW_CALL
+        MENUITEM "View Profile...",             ID_VIEW_PROFILE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Data
+//
+
+IDR_MAINFRAME SHMENUBAR MOVEABLE PURE 
+BEGIN
+    IDR_MAINFRAME, 3,
+    I_IMAGENONE, IDR_MAIN_NEW, TBSTATE_ENABLED, 
+    TBSTYLE_DROPDOWN | TBSTYLE_AUTOSIZE, IDS_CAP_NEW, 0, 0,
+    I_IMAGENONE, IDR_MAIN_EDIT, TBSTATE_ENABLED, 
+    TBSTYLE_DROPDOWN | TBSTYLE_AUTOSIZE, IDS_EDIT, 0, 1,
+    I_IMAGENONE, IDR_MAIN_VIEW, TBSTATE_ENABLED, 
+    TBSTYLE_DROPDOWN | TBSTYLE_AUTOSIZE, IDS_VIEW, 0, 2,
+END
+
+IDR_POPUP SHMENUBAR DISCARDABLE 
+BEGIN
+    IDR_POPUP, 1,
+    I_IMAGENONE, IDR_MAIN_NEW, TBSTATE_ENABLED, 
+    TBSTYLE_DROPDOWN | TBSTYLE_AUTOSIZE, IDS_CAP_NEW, 0, 0,
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Q",            ID_APP_EXIT,            VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 140, 93
+STYLE WS_POPUP | WS_CAPTION
+EXSTYLE 0x80000000L
+CAPTION "About Insight Companion"
+FONT 8, "System"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,21,20
+    CTEXT           "Insight Companion Prototype Version 1.0",IDC_STATIC,40,
+                    10,93,22,SS_NOPREFIX
+    CTEXT           "Copyright (C) 2000\nMerck && Co.",IDC_STATIC,40,34,93,
+                    32
+END
+
+IDD_CONTACTS_FORM DIALOG DISCARDABLE  0, 0, 138, 140
+STYLE WS_CHILD
+FONT 8, "System"
+BEGIN
+    LISTBOX         IDC_CUST_LIST,0,26,137,114,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_FILTER,58,2,78,12,ES_AUTOHSCROLL
+    CTEXT           "ijk",IDC_IJK,47,16,13,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "#ab",IDC_AB,0,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "uvw",IDC_UVW,105,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "rst",IDC_RST,90,16,16,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "opq",IDC_OPQ,74,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "lmn",IDC_LMN,59,16,16,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "cde",IDC_CDE,16,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "fgh",IDC_FGH,32,16,16,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "xyz",IDC_XYZ,121,16,17,10,SS_NOTIFY | WS_BORDER
+    COMBOBOX        IDC_COMBO1,1,2,57,97,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_SIGNATURE DIALOG DISCARDABLE  0, 0, 136, 162
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Sample Signature Capture"
+FONT 8, "System"
+BEGIN
+    CONTROL         "List1",IDC_SAMPLES,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,0,0,85,42
+    CTEXT           "Clear",IDC_CLEAR,0,152,23,10,SS_NOTIFY | WS_BORDER
+END
+
+IDD_CALL DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Information"
+FONT 8, "System"
+BEGIN
+    CTEXT           "September 25, 2000  10:00A",IDC_CALL_DATE,0,41,135,10,
+                    SS_NOTIFY | WS_BORDER
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+    LTEXT           "Details:",IDC_CALL_DETAILS_LABEL,5,55,34,10
+    LTEXT           "Topics:",IDC_CALL_TOPICS_LABEL,5,65,34,10
+    LTEXT           "Samples:",IDC_CALL_SAMPLES_LABEL,5,75,34,10
+    LTEXT           "PIR:",IDC_CALL_PIR_LABEL,5,85,34,10
+    LTEXT           "Reprints:",IDC_REPRINTS_LABEL,5,95,34,10
+    LTEXT           "(tap here for call notes)",IDC_CALL_NOTES,2,107,134,30,
+                    SS_NOTIFY | WS_BORDER
+    LTEXT           "tap here for details...",IDC_CALL_DETAILS,47,55,84,10,
+                    SS_NOTIFY
+    LTEXT           "tap here for topics...",IDC_CALL_TOPICS,47,65,84,10,
+                    SS_NOTIFY
+    LTEXT           "tap here for samples...",IDC_CALL_SAMPLES,47,75,84,10,
+                    SS_NOTIFY
+    LTEXT           "tap here for PIR...",IDC_CALL_PIR,47,85,84,10,SS_NOTIFY
+    LTEXT           "tap here for reprints...",IDC_CALL_REPRINT,47,95,84,10,
+                    SS_NOTIFY
+    CONTROL         134,IDC_CALL_FORM,"Static",SS_BITMAP | SS_NOTIFY,3,139,
+                    52,11
+    CONTROL         135,IDC_CALL_SIGNATURE,"Static",SS_BITMAP | SS_NOTIFY,72,
+                    137,63,12
+END
+
+IDD_CUSTOMER DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Customer Information"
+FONT 8, "System"
+BEGIN
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+END
+
+IDD_CALL_DETAILS DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Details"
+FONT 8, "System"
+BEGIN
+    CTEXT           "September 25, 2000  10:00A",IDC_CALL_DATE,0,41,135,10,
+                    SS_NOTIFY | WS_BORDER
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+    CONTROL         "List1",IDC_CALL_DETAILS,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,0,52,135,98
+END
+
+IDD_CALL_NOTES DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Notes"
+FONT 8, "System"
+BEGIN
+    CTEXT           "September 25, 2000  10:00A",IDC_CALL_DATE,0,41,135,10,
+                    SS_NOTIFY | WS_BORDER
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+    EDITTEXT        IDC_CALL_NOTES,0,62,135,89,ES_AUTOHSCROLL
+    CONTROL         161,IDC_VOICE,"Static",SS_BITMAP | SS_NOTIFY,1,51,11,10
+END
+
+IDD_CALL_SAMPLES DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Samples"
+FONT 8, "System"
+BEGIN
+    CTEXT           "September 25, 2000  10:00A",IDC_CALL_DATE,0,41,135,10,
+                    SS_NOTIFY | WS_BORDER
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+    LTEXT           "Samples:",IDC_CALL_SAMPLES_LABEL,5,55,34,10
+    CONTROL         "List1",IDC_CALL_SAMPLE_LIST,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SORTASCENDING | WS_BORDER | 
+                    WS_TABSTOP,4,66,129,83
+    CONTROL         143,IDC_ADD_SAMPLE,"Static",SS_BITMAP | SS_NOTIFY,49,52,
+                    13,12
+    LTEXT           "Add...",IDC_STATIC,65,55,21,8
+    CONTROL         147,IDC_DELETE_SAMPLE,"Static",SS_BITMAP | SS_NOTIFY,94,
+                    52,13,12
+    LTEXT           "Delete",IDC_STATIC,109,55,21,8
+END
+
+IDD_CALL_TOPICS DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Topics"
+FONT 8, "System"
+BEGIN
+    CTEXT           "September 25, 2000  10:00A",IDC_CALL_DATE,0,41,135,10,
+                    SS_NOTIFY | WS_BORDER
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+    CONTROL         "List1",IDC_CALL_TOPICS,"SysListView32",LVS_REPORT | 
+                    LVS_SORTASCENDING | WS_BORDER | WS_TABSTOP,0,53,135,97
+END
+
+IDD_ADD_SAMPLE DIALOG DISCARDABLE  0, 0, 136, 77
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Add Sample"
+FONT 8, "System"
+BEGIN
+    LTEXT           "Product Configuration:",IDC_STATIC,7,5,111,10
+    LTEXT           "Lot Number:",IDC_STATIC,52,36,49,10
+    LTEXT           "Qty:",IDC_STATIC,7,36,34,10
+    COMBOBOX        IDC_SAMPLE_LIST,7,16,123,131,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_SAMPLE_QTY,7,47,35,94,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_SAMPLE_LOT,52,47,77,95,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_CALL_PIN DIALOG DISCARDABLE  0, 0, 136, 158
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call PIN"
+FONT 8, "System"
+BEGIN
+    CTEXT           "Sample signature capture complete.\n\nPlease enter your PIN to continue.",
+                    IDC_STATIC,8,6,118,28
+    EDITTEXT        IDC_CALL_PIN,52,36,32,12,ES_PASSWORD | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    PUSHBUTTON      "1",IDC_PIN_1,34,68,20,16
+    PUSHBUTTON      "2",IDC_PIN_2,59,68,20,16
+    PUSHBUTTON      "3",IDC_PIN_3,84,68,20,16
+    PUSHBUTTON      "4",IDC_PIN_4,34,87,20,16
+    PUSHBUTTON      "5",IDC_PIN_5,59,87,20,16
+    PUSHBUTTON      "6",IDC_PIN_6,84,87,20,16
+    PUSHBUTTON      "6",IDC_PIN_7,34,106,20,16
+    PUSHBUTTON      "7",IDC_PIN_8,59,106,20,16
+    PUSHBUTTON      "8",IDC_PIN_9,84,106,20,16
+    PUSHBUTTON      "0",IDC_PIN_0,59,125,20,16
+    GROUPBOX        "Enter PIN",IDC_STATIC,24,55,88,93
+END
+
+IDD_CALL_SAMPLE_SIGNATURE DIALOG DISCARDABLE  0, 0, 151, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Sample Signature"
+FONT 8, "System"
+BEGIN
+    LTEXT           "Dr. Michael Adler",IDC_CALL_NAME,4,3,128,10
+    LTEXT           "2365 Holly Dr.",IDC_CALL_ADDRESS,4,12,128,10
+    LTEXT           "Gilbertsville,  PA  19525",IDC_CALL_CSZ,4,21,128,10
+    LTEXT           "6466773 PA",IDC_CALL_LICENSE,47,30,84,10
+    LTEXT           "License:",IDC_CALL_LICENSE_LABEL,4,30,34,10
+    CONTROL         "List1",IDC_CALL_SAMPLE_LIST,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,4,41,129,47
+    CONTROL         140,IDC_SIGNATURE_BITMAP,"Static",SS_BITMAP | SS_NOTIFY | 
+                    SS_CENTERIMAGE,0,90,149,44
+    CONTROL         153,IDC_CLEAR,"Static",SS_BITMAP | SS_NOTIFY | NOT 
+                    WS_VISIBLE,9,137,13,12
+    CONTROL         154,IDC_DONE,"Static",SS_BITMAP | SS_NOTIFY | NOT 
+                    WS_VISIBLE,120,137,13,12
+END
+
+IDD_CONTACTS DIALOG DISCARDABLE  0, 0, 138, 141
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+FONT 8, "System"
+BEGIN
+    LISTBOX         IDC_CUST_LIST,0,27,137,114,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_FILTER,58,1,78,12,ES_AUTOHSCROLL
+    CTEXT           "ijk",IDC_IJK,47,16,13,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "#ab",IDC_AB,0,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "uvw",IDC_UVW,105,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "rst",IDC_RST,90,16,16,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "opq",IDC_OPQ,74,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "lmn",IDC_LMN,59,16,16,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "cde",IDC_CDE,16,16,17,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "fgh",IDC_FGH,32,16,16,10,SS_NOTIFY | WS_BORDER
+    CTEXT           "xyz",IDC_XYZ,121,16,17,10,SS_NOTIFY | WS_BORDER
+    COMBOBOX        IDC_COMBO1,1,1,57,97,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_ADD_CUSTOMER DIALOG DISCARDABLE  0, 0, 138, 141
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Add a Customer"
+FONT 8, "System"
+BEGIN
+END
+
+IDD_PROFILE DIALOG DISCARDABLE  0, 0, 138, 141
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Profile"
+FONT 8, "System"
+BEGIN
+END
+
+IDD_CALL_TIME DIALOG DISCARDABLE  0, 0, 136, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Call Time"
+FONT 8, "System"
+BEGIN
+    CONTROL         "MonthCalendar1",IDC_CALL_DATE,"SysMonthCal32",
+                    WS_TABSTOP,0,55,135,96
+    LTEXT           "Call Time:",IDC_STATIC,0,6,44,9
+    COMBOBOX        IDC_CALL_TIME,0,18,56,138,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Duration:",IDC_STATIC,80,6,44,9
+    COMBOBOX        IDC_CALL_DURATION,80,18,56,75,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Contacts WCE MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Contacts\0"
+            VALUE "LegalCopyright", "Copyright (C) 2000\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Contacts.EXE\0"
+            VALUE "ProductName", "Contacts Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 133
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 86
+    END
+
+    IDD_CALL_SAMPLES, DIALOG
+    BEGIN
+        TOPMARGIN, 3
+    END
+
+    IDD_CALL_TOPICS, DIALOG
+    BEGIN
+        TOPMARGIN, 3
+    END
+
+    IDD_CALL_PIN, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 157
+    END
+
+    IDD_CALL_SAMPLE_SIGNATURE, DIALOG
+    BEGIN
+        RIGHTMARGIN, 136
+        TOPMARGIN, 3
+    END
+
+    IDD_CONTACTS, DIALOG
+    BEGIN
+        TOPMARGIN, 1
+    END
+
+    IDD_ADD_CUSTOMER, DIALOG
+    BEGIN
+        TOPMARGIN, 1
+    END
+
+    IDD_PROFILE, DIALOG
+    BEGIN
+        TOPMARGIN, 1
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "Insight Companion\n\nInsight Companion\n\n\nContacts.Document\nContacts Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_CLOSE           "Save the active document with a new name\nSave As"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_NEW                 "New"
+    IDS_FILE                "File"
+    IDS_MHELP               "Help"
+    IDS_SAVE                "Save"
+    IDS_CUT                 "Cut"
+    IDS_COPY                "Copy"
+    IDS_PASTE               "Paste"
+    IDS_ABOUT               "About"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_EDIT                "Edit"
+    IDS_TOOL                "View"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_CAPS       "CAP"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_CAP_NEW             "New"
+    ID_NEW_CUSTOMER         "Create a new Customer Record\nNew Customer"
+    ID_NEW_CALL             "Create a new Call Record\nNew Call"
+    IDS_CAP_MENUITEM32778   "View"
+    IDS_VIEW                "View"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\Contacts.rc2"  // non-Microsoft eMbedded Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "wceres.rc"         // WCE-specific components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

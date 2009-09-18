@@ -1,0 +1,4 @@
+WM_MOUSEMOVE
+void
+OnMouseMove
+(HWND hWnd, int x, int y, UINT keyFlags)

@@ -1,0 +1,16 @@
+<html>
+<body>
+
+<script type="text/javascript">
+var obj = new ActiveXObject("DataServiceManager.Services");
+
+alert( obj.load("hello") );
+alert( obj.ServiceName );
+obj.ServiceName = "New Service Name";
+alert( obj.ServiceName );
+
+alert( obj.GetData("My Data") );
+</script>
+
+</body>
+</html>

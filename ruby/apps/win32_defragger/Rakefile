@@ -1,0 +1,45 @@
+# 
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+ 
+
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+SOURCE_FILE_NAME = "defragger"
+
+desc "build"
+task :build => [:build_exe, :add_binaries]
+
+desc "build executable"
+task :build_exe => [:clean] do
+  sh "rubyscript2exe.bat lib/#{SOURCE_FILE_NAME}.rb --rubyscript2exe-rubyw"
+end
+
+desc "add binary files to packaged exe"
+task :add_binaries => [:build_exe] do
+  rm_rf "tmp"  
+  mkdir "tmp"
+  mv "#{SOURCE_FILE_NAME}.exe", "tmp"
+  cd "tmp" do
+    sh "#{SOURCE_FILE_NAME}.exe --eee-justextract"
+    cp "../bin/contig.exe", "bin"
+    lines = []
+    File.open("app.eee") {|f| lines = f.readlines  }
+    lines.shift
+    lines.unshift "f bin\\contig.exe\n"
+    lines.unshift "d bin\n"    
+    rm_f "app.eee"
+    File.open("app.eee", "w") {|f| f << lines.join }
+    sh "eeew app.eee #{SOURCE_FILE_NAME}.exe"
+  end
+  mv "tmp/#{SOURCE_FILE_NAME}.exe", "#{SOURCE_FILE_NAME}.exe"
+  rm_rf "tmp"  
+end
+
+desc "clean project"
+task :clean do
+  rm_rf "tmp"
+  rm_f "#{SOURCE_FILE_NAME}.exe"
+end

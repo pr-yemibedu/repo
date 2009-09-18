@@ -1,0 +1,4 @@
+WM_INITMENUPOPUP
+void
+OnInitMenuPopup
+(HWND hWnd, HMENU hMenu, UINT item, BOOL fSystemMenu)

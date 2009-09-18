@@ -1,0 +1,67 @@
+require 'utility_pack'
+  
+APP_NAME = 'siebel_tools_svn_source_code_control'
+DEPLOY_PATHS = ["\\\\uswpsiebcli01\\c\\temp", "\\\\uswpshared01\\crndocs\\siebel_tools_svn_integration\\#{UtilityPack::DateTimeHelpers.timestamp_for_filename} (Beta)"]
+ROOT_SKELETON_DIRECTORY_NAME = "Program Files"
+SKELETON_DIRECTORY_PATH = "#{ROOT_SKELETON_DIRECTORY_NAME}\\Siebel\\8.0\\Tools\\bin\\"
+
+task :default => [:build]
+
+desc 'creates standalone exe that contains ruby + required libraries + application'
+task :build => [:clean] do
+  sh %{rubyscript2exe.bat --rubyscript2exe-rubyw #{APP_NAME}.rb}
+end
+
+desc 'creates a self-extracting install exe'
+task :build_install => [:build] do
+  mkdir_p SKELETON_DIRECTORY_PATH
+  ['exe', 'bat'].each { |ext| cp "#{APP_NAME}.#{ext}", SKELETON_DIRECTORY_PATH }
+  UtilityPack::Rar.sfx "#{APP_NAME}_install.exe", ROOT_SKELETON_DIRECTORY_NAME
+  rm_rf ROOT_SKELETON_DIRECTORY_NAME
+end
+
+desc 'Deploys the exe to: ' + DEPLOY_PATHS.join(',')
+task :deploy => [:build] do
+  DEPLOY_PATHS.each do |path|
+    mkdir_p path if !File.exists?(path)
+    cp "#{APP_NAME}.exe", path
+    cp "#{APP_NAME}.bat", path
+    cp "readme.txt", path
+  end
+end
+
+desc 'cleans up build files'
+task :clean do
+  rm_f "#{APP_NAME}.exe"
+  rm_f "#{APP_NAME}_install.exe"
+end
+
+namespace "run" do
+  
+  desc "run a test checkout"
+  task :checkout_project do
+    sh %{ruby #{APP_NAME}.rb checkout "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Projects\\" "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Projects\\comment_file" eCalendar.sif }
+  end
+  
+  desc "run a test checkin"
+  task :checkin_project do
+    sh %{ruby #{APP_NAME}.rb checkin "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Projects\\" "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Projects\\comment_file" eCalendar.sif }
+  end
+  
+  desc "run a test checkout"
+  task :checkout_object do
+    sh %{ruby #{APP_NAME}.rb checkout "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Objects\\" "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Objects\\comment_file" AutoParts.sif }
+  end
+  
+  desc "run a test checkin"
+  task :checkin_object do
+    sh %{ruby #{APP_NAME}.rb checkin "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Objects\\" "C:\\PROGRA~1\\Siebel\\8.0\\Tools\\temp\\Objects\\comment_file" AutoParts.sif }
+  end  
+  
+  desc 'deletes working/temporary directories'
+  task :clean do
+   rm_rf "C:\\DOCUME~1\\Pfeilbr\\LOCALS~1\\Temp\\siebel_tools_svn_source_code_control\\svn_working"
+   rm_rf "C:\\documents and settings\\pfeilbr\\application data\\subversion\\auth"
+  end
+    
+end

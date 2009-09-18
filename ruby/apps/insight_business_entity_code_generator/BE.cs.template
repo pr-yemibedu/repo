@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Merck.SFA.Insight.BusinessEntities
+{
+    public class <%= class_name %> : InsightBaseBE
+    {
+        public class Properties
+        {
+			<% fields.each { |field| %>
+            public const string <%= field.name %> = "<%= field.name %>";
+            <% } %>
+        }
+
+		<% fields.each { |field| %>
+        private string _<%= CamelCase(field.name) %> = DefaultValueForType(field.type);
+
+        public <%= field.type %> <%= field.name %>
+        {
+            get { return _<%= CamelCase(field.name) %>; }
+            set
+            {
+                _<%= CamelCase(field.name) %> = value;
+                NotifyPropertyChanged(Properties.<%= field.name %>);
+            }
+        }
+        <% } %>
+        
+        public override bool Equals(object obj)
+        {
+            <%= class_name %> target = obj as <%= class_name %>;
+            if (target == null) return false;
+
+            return 
+            <% fields.each { |field| %>
+				&& this._<%= CamelCase(field.name) %> == target._<%= CamelCase(field.name) %>
+            <% } %>
+        }
+
+        public override int GetHashCode()
+        {
+            return 
+            <% fields.each { |field| %>
+				^ this._<%= CamelCase(field.name) %>.GetHashCode()
+            <% } %>
+        }        
+    }
+}

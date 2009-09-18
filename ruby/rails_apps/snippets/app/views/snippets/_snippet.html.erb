@@ -1,0 +1,27 @@
+<% @snippet = snippet; s = snippet %>
+<div <%= _attrs(snippet) %> >
+
+  <div <%= _attrs(s, :title) %> >
+    <a onclick="$('<%= _id(snippet, :details) %>').toggle()">^</a>
+    <%= in_place_editor_field :snippet,  :title %>
+  </div>
+  
+  <div <%= _attrs(snippet, :details) %> style="display: none">
+    <div <%= _attrs(snippet, :body) %> >
+      <%= in_place_editor_field :snippet, :html_formatted, {}, :load_text_url => {:controller => 'snippets', :action => 'get_body', :id => snippet } %>
+    </div>
+
+    <div <%= _attrs(snippet, :language) %> >
+      language: <%= in_place_select_editor_field :snippet, :language, {}, :select_options => options_for_select(Snippet::AVAILABLE_LANGUAGES.sort.collect{|l| [l,l] }) %>
+    </div>
+
+    <div <%= _attrs(snippet, :tag_list) %> >
+      tags: <%= in_place_editor_field :snippet, :tag_list %>
+    </div>
+
+    <div <%= _attrs(snippet, :action_menu) %> >
+      <a onclick="$('<%= _id(snippet, :details) %>').toggle()" >close</a>
+    </div>
+  </div>
+  
+</div>

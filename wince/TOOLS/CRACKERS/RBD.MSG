@@ -1,0 +1,4 @@
+WM_RBUTTONDBLCLK
+void
+OnRButtonDown
+(HWND hWnd, BOOL fDoubleClick, int x, int y, UINT keyFlags)

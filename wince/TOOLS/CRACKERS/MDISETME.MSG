@@ -1,0 +1,4 @@
+WM_MDISETMENU
+HMENU
+MDISetMenu
+(HWND hWnd, BOOL fRefresh, HMENU hmenuFrame, HMENU hmenuWindow)

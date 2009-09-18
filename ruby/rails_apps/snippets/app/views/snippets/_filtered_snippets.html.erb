@@ -1,0 +1,9 @@
+<% if @query_field and @query_value %>
+  <% if @query_field == 'tag' %>
+    <%= render :active_scaffold => 'snippets', :label => "Snippets (filtered: #{@query_field} = \"#{@query_value}\")", :conditions => [ "id in (" + Snippet.find_tagged_with(@query_value).collect{|s| s.id}.join(',') + ")"  ], :layout => false %>
+  <% else %>
+    <%= render :active_scaffold => 'snippets', :label => "Snippets (filtered: #{@query_field} = \"#{@query_value}\")", :conditions => [ "#{@query_field} = ?", @query_value ], :layout => false %>
+  <% end %>
+<% else %>
+  <%= render :active_scaffold => 'snippets', :label => 'Snippets', :layout => false %>
+<% end %>

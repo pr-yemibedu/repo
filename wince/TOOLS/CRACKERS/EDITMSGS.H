@@ -1,0 +1,2 @@
+
+BOOL CALLBACK EditMessagesProc(HWND, UINT, WPARAM, LPARAM);

@@ -1,0 +1,51 @@
+<html>
+	  <head>
+	  	  <script src="js/prototype.js" type="text/javascript"></script>
+	  </head>
+	  <body>	  
+
+    <script type="text/javascript">
+
+    // ******************************************************************
+    // defineing classes
+    var Animal = Class.create();
+    Animal.prototype = {
+      initialize: function(name, sound) {
+        this.name  = name;
+        this.sound = sound;
+      },
+
+      speak: function() {
+        alert(this.name + " says: " + this.sound + "!");
+      }
+    };
+
+    var snake = new Animal("Ringneck", "hissssssssss");
+    snake.speak();
+    // -> alerts "Ringneck says: hissssssssss!"
+
+    var Dog = Class.create();
+
+    // inheritance
+    Dog.prototype = Object.extend(new Animal(), {
+      initialize: function(name) {
+        this.name  = name;
+        this.sound = "woof";
+      }  
+    });
+
+    var fido = new Dog("Fido");
+    fido.speak();
+   
+   // ******************************************************************
+   // prototype arrays
+   var arr = [1,2,3,4,5];
+   var sum = 0;
+   arr.each( function(item) { sum += item; } );
+   alert("Sum of elements in array " + arr.inspect() + " = " + sum);
+   
+   alert("this is a test");
+    </script>
+    
+	  </body>
+</html>

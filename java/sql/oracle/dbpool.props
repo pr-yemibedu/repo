@@ -1,0 +1,13 @@
+# Change the following entries to match your database
+DB_DRIVER_NAME=oracle.jdbc.driver.OracleDriver
+DB_CONNECT_STR=jdbc:oracle:thin:@UXWSDV06:25391:USHHGD01
+DB_USER_ID=fsnetdev
+DB_PASSWORD=hifsnet
+
+# You can use the default settings for these
+DB_INIT_CON=7
+DB_MAX_CON=7
+DB_BLOCK=true
+DB_TIMEOUT=2000
+DB_CHECKQUERY=SELECT SYSDATE FROM DUAL
+DB_MAX_TRY=15

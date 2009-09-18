@@ -1,0 +1,23 @@
+<% task = show_task %>
+
+<% if task.id %>
+<%= form_remote_tag(:update => ('task_%i' % task.id), :url => { :action => 'update_state', :id => task.id }, :html => {:class => 'update_task_status_form'} ) %>
+    <div id="<%= "task_title_%i" % task.id %>" class="task_title">
+        <%= check_box_tag 'completed', '1', task.completed, :onclick => "$('" + ('update_task_status_for_task_%i' % task.id) + "').click()" %>
+    
+        <span class="<%= task.completed ? 'task_completed' : 'task_pending' %>"><%= h(task.title) %></span>
+    
+        <span id="<%= "actions_for_task_%i" % task.id %>" class="actions_menu" style="display: none">
+            <a id="<%= 'action_edit_task_%i' % task.id %>" href="#" onclick="Element.toggle('<%= 'edit_task_%i' % task.id %>'); Element.toggle('<%= 'task_title_%i' % task.id %>');">edit</a>
+            <%= link_to_remote 'delete', {:url => {:action => 'delete', :id => task.id}}, :id => 'delete_task_%i' % task.id %>
+        </span>
+    </div>
+    
+    <div id="<%= "task_notes_%i" % task.id %>" class="task_notes" style="display: none">
+        <%= h(task.notes) %>
+    </div>
+    
+    <%= submit_tag "update", :id => ('update_task_status_for_task_%i' % task.id), :style => 'display: none' %>    
+    
+<%= end_form_tag %>
+<% end %>

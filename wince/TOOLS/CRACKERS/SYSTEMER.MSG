@@ -1,0 +1,4 @@
+WM_SYSTEMERROR
+void
+OnSystemError
+(HWND hWnd, int errCode)

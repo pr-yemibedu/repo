@@ -1,0 +1,4 @@
+WM_CHILDACTIVATE
+void
+OnChildActivate
+(HWND hWnd)

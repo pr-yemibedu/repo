@@ -1,0 +1,5 @@
+WM_COPYDATA
+BOOL
+OnCopyData
+(HWND hWnd)
+

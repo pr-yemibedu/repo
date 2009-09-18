@@ -1,0 +1,4 @@
+WM_MDIGETACTIVE
+HWND
+MDIGetActive
+(HWND hWnd)

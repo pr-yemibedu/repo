@@ -1,0 +1,6 @@
+LIBRARY      PDACNCTUTIL.DLL
+
+EXPORTS
+	RunPDAApp       @1
+	ReceiveFile     @2
+	SendFile        @3

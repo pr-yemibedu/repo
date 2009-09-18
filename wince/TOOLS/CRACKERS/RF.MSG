@@ -1,0 +1,4 @@
+WM_RENDERFORMAT
+HANDLE
+OnRenderFormat
+(HWND hWnd, UINT fmt)

@@ -1,0 +1,18 @@
+<div id="tasks_header" class="tasks_header">
+    <a href="#" accesskey="a" onclick="Element.toggle('edit_task_0'); $('title').focus();">add</a>
+    - 
+    Show
+    -
+    <%= link_to_remote 'all', :url => {:action => 'filter'}, :filter_type => 'all' %>
+    <%= link_to_remote 'incomplete', :url => {:action => 'filter'}, :filter_type => 'incomplete' %>
+    <%= link_to_remote 'complete', :url => {:action => 'filter'}, :filter_type => 'complete' %>    
+
+</div>
+
+<div id="tasks">
+    <%= render(:partial => "task" , :collection => @tasks) %>
+</div>
+
+<div id="tasks_footer" class="tasks_footer">
+    <div id="item-count"><%= Task.find(:all).size %> items</div>
+</div>

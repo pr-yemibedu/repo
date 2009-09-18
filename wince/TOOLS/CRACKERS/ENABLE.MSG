@@ -1,0 +1,4 @@
+WM_ENABLE
+void
+OnEnable
+(HWND hWnd, BOOL fEnable)

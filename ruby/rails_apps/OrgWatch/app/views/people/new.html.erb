@@ -1,0 +1,521 @@
+<h1>New person</h1>
+
+<%= error_messages_for :person %>
+
+<% form_for(@person) do |f| %>
+  <p>
+    <b>Assignmentcontact</b><br />
+    <%= f.text_field :assignmentcontact %>
+  </p>
+
+  <p>
+    <b>Assignmentcontactcn</b><br />
+    <%= f.text_field :assignmentcontactcn %>
+  </p>
+
+  <p>
+    <b>Businessdivision</b><br />
+    <%= f.text_field :businessdivision %>
+  </p>
+
+  <p>
+    <b>Businessdivisioncode</b><br />
+    <%= f.text_field :businessdivisioncode %>
+  </p>
+
+  <p>
+    <b>Cn</b><br />
+    <%= f.text_field :cn %>
+  </p>
+
+  <p>
+    <b>Co</b><br />
+    <%= f.text_field :co %>
+  </p>
+
+  <p>
+    <b>Contractagency</b><br />
+    <%= f.text_field :contractagency %>
+  </p>
+
+  <p>
+    <b>Contractagencycode</b><br />
+    <%= f.text_field :contractagencycode %>
+  </p>
+
+  <p>
+    <b>Countrycode</b><br />
+    <%= f.text_field :countrycode %>
+  </p>
+
+  <p>
+    <b>Departmentnumber</b><br />
+    <%= f.text_field :departmentNumber %>
+  </p>
+
+  <p>
+    <b>Departmentname</b><br />
+    <%= f.text_field :departmentname %>
+  </p>
+
+  <p>
+    <b>Description</b><br />
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <b>Dn</b><br />
+    <%= f.text_field :dn %>
+  </p>
+
+  <p>
+    <b>Dnum</b><br />
+    <%= f.text_field :dnum %>
+  </p>
+
+  <p>
+    <b>Employeenumber</b><br />
+    <%= f.text_field :employeeNumber %>
+  </p>
+
+  <p>
+    <b>Empnonempind</b><br />
+    <%= f.text_field :empnonempind %>
+  </p>
+
+  <p>
+    <b>Facsimiletelephonenumber</b><br />
+    <%= f.text_field :facsimileTelephoneNumber %>
+  </p>
+
+  <p>
+    <b>Formalmiddlename</b><br />
+    <%= f.text_field :formalmiddlename %>
+  </p>
+
+  <p>
+    <b>Formalnamesuffix</b><br />
+    <%= f.text_field :formalnamesuffix %>
+  </p>
+
+  <p>
+    <b>Formalsalutation</b><br />
+    <%= f.text_field :formalsalutation %>
+  </p>
+
+  <p>
+    <b>Givenname</b><br />
+    <%= f.text_field :givenName %>
+  </p>
+
+  <p>
+    <b>Hrinfosourcecode</b><br />
+    <%= f.text_field :hrinfosourcecode %>
+  </p>
+
+  <p>
+    <b>Inetemailflag</b><br />
+    <%= f.text_field :inetemailflag %>
+  </p>
+
+  <p>
+    <b>L</b><br />
+    <%= f.text_field :l %>
+  </p>
+
+  <p>
+    <b>Lablocation</b><br />
+    <%= f.text_field :lablocation %>
+  </p>
+
+  <p>
+    <b>Mail</b><br />
+    <%= f.text_field :mail %>
+  </p>
+
+  <p>
+    <b>Manager</b><br />
+    <%= f.text_field :manager %>
+  </p>
+
+  <p>
+    <b>Managercn</b><br />
+    <%= f.text_field :managercn %>
+  </p>
+
+  <p>
+    <b>Mobile</b><br />
+    <%= f.text_field :mobile %>
+  </p>
+
+  <p>
+    <b>Mrkbusinessunitdesc</b><br />
+    <%= f.text_field :mrkBusinessUnitDesc %>
+  </p>
+
+  <p>
+    <b>Mrkbusinessunitid</b><br />
+    <%= f.text_field :mrkBusinessUnitID %>
+  </p>
+
+  <p>
+    <b>Mrkbusinessunitname</b><br />
+    <%= f.text_field :mrkBusinessUnitName %>
+  </p>
+
+  <p>
+    <b>Mrkbusinessunitsetid</b><br />
+    <%= f.text_field :mrkBusinessUnitSetID %>
+  </p>
+
+  <p>
+    <b>Mrkcwdesc</b><br />
+    <%= f.text_field :mrkCWDesc %>
+  </p>
+
+  <p>
+    <b>Mrkcwtype</b><br />
+    <%= f.text_field :mrkCWType %>
+  </p>
+
+  <p>
+    <b>Mrkcompanydesc</b><br />
+    <%= f.text_field :mrkCompanyDesc %>
+  </p>
+
+  <p>
+    <b>Mrkcompanyid</b><br />
+    <%= f.text_field :mrkCompanyID %>
+  </p>
+
+  <p>
+    <b>Mrkcompanyname</b><br />
+    <%= f.text_field :mrkCompanyName %>
+  </p>
+
+  <p>
+    <b>Mrkdivisiondesc</b><br />
+    <%= f.text_field :mrkDivisionDesc %>
+  </p>
+
+  <p>
+    <b>Mrkdivisionid</b><br />
+    <%= f.text_field :mrkDivisionID %>
+  </p>
+
+  <p>
+    <b>Mrkdivisionname</b><br />
+    <%= f.text_field :mrkDivisionName %>
+  </p>
+
+  <p>
+    <b>Mrkfsrbg</b><br />
+    <%= f.text_field :mrkFSRBG %>
+  </p>
+
+  <p>
+    <b>Mrkfsterritoryassignmenteffectivedate</b><br />
+    <%= f.text_field :mrkFSTerritoryAssignmentEffectiveDate %>
+  </p>
+
+  <p>
+    <b>Mrkjobcodesetid</b><br />
+    <%= f.text_field :mrkJobCodeSetID %>
+  </p>
+
+  <p>
+    <b>Mrkorgdesc</b><br />
+    <%= f.text_field :mrkOrgDesc %>
+  </p>
+
+  <p>
+    <b>Mrkorgid</b><br />
+    <%= f.text_field :mrkOrgID %>
+  </p>
+
+  <p>
+    <b>Mrkorgname</b><br />
+    <%= f.text_field :mrkOrgName %>
+  </p>
+
+  <p>
+    <b>Mrkpkisubscriberagreementflag</b><br />
+    <%= f.text_field :mrkPKISubscriberAgreementFlag %>
+  </p>
+
+  <p>
+    <b>Mrkpkia1</b><br />
+    <%= f.text_field :mrkPKIa1 %>
+  </p>
+
+  <p>
+    <b>Mrkpkia2</b><br />
+    <%= f.text_field :mrkPKIa2 %>
+  </p>
+
+  <p>
+    <b>Mrkpositionsetid</b><br />
+    <%= f.text_field :mrkPositionSetID %>
+  </p>
+
+  <p>
+    <b>Mrkrevoked</b><br />
+    <%= f.text_field :mrkRevoked %>
+  </p>
+
+  <p>
+    <b>Mrkrevokedeffective</b><br />
+    <%= f.text_field :mrkRevokedEffective %>
+  </p>
+
+  <p>
+    <b>Mrkrevokedlastmodified</b><br />
+    <%= f.text_field :mrkRevokedLastModified %>
+  </p>
+
+  <p>
+    <b>Mrkrole</b><br />
+    <%= f.text_field :mrkRole %>
+  </p>
+
+  <p>
+    <b>Mrksrchfirstname</b><br />
+    <%= f.text_field :mrkSrchFirstName %>
+  </p>
+
+  <p>
+    <b>Mrksrchlastname</b><br />
+    <%= f.text_field :mrkSrchLastName %>
+  </p>
+
+  <p>
+    <b>Mrksubdivisiondesc</b><br />
+    <%= f.text_field :mrkSubDivisionDesc %>
+  </p>
+
+  <p>
+    <b>Mrksubdivisionid</b><br />
+    <%= f.text_field :mrkSubDivisionID %>
+  </p>
+
+  <p>
+    <b>Mrksubdivisionname</b><br />
+    <%= f.text_field :mrkSubDivisionName %>
+  </p>
+
+  <p>
+    <b>Mrksuperdivisiondesc</b><br />
+    <%= f.text_field :mrkSuperDivisionDesc %>
+  </p>
+
+  <p>
+    <b>Mrksuperdivisionid</b><br />
+    <%= f.text_field :mrkSuperDivisionID %>
+  </p>
+
+  <p>
+    <b>Mrksuperdivisionname</b><br />
+    <%= f.text_field :mrkSuperDivisionName %>
+  </p>
+
+  <p>
+    <b>Mrksuperorgdesc</b><br />
+    <%= f.text_field :mrkSuperOrgDesc %>
+  </p>
+
+  <p>
+    <b>Mrksuperorgid</b><br />
+    <%= f.text_field :mrkSuperOrgID %>
+  </p>
+
+  <p>
+    <b>Mrksuperorgname</b><br />
+    <%= f.text_field :mrkSuperOrgName %>
+  </p>
+
+  <p>
+    <b>Mrkvisible</b><br />
+    <%= f.text_field :mrkVisible %>
+  </p>
+
+  <p>
+    <b>Mrkdisplayname1</b><br />
+    <%= f.text_field :mrkdisplayname1 %>
+  </p>
+
+  <p>
+    <b>Mrkdisplayname2</b><br />
+    <%= f.text_field :mrkdisplayname2 %>
+  </p>
+
+  <p>
+    <b>Mrkmsxmail</b><br />
+    <%= f.text_field :mrkmsxmail %>
+  </p>
+
+  <p>
+    <b>Mrkselfservefirstvisited</b><br />
+    <%= f.text_field :mrkselfservefirstvisited %>
+  </p>
+
+  <p>
+    <b>Mrkselfservelastconfirmed</b><br />
+    <%= f.text_field :mrkselfservelastconfirmed %>
+  </p>
+
+  <p>
+    <b>Mrkselfservelastedited</b><br />
+    <%= f.text_field :mrkselfservelastedited %>
+  </p>
+
+  <p>
+    <b>Mrkselfservelastvisited</b><br />
+    <%= f.text_field :mrkselfservelastvisited %>
+  </p>
+
+  <p>
+    <b>Mrksubdivision</b><br />
+    <%= f.text_field :mrksubdivision %>
+  </p>
+
+  <p>
+    <b>Mrksubdivisioncode</b><br />
+    <%= f.text_field :mrksubdivisioncode %>
+  </p>
+
+  <p>
+    <b>Mvxnumber</b><br />
+    <%= f.text_field :mvxnumber %>
+  </p>
+
+  <p>
+    <b>Nickname</b><br />
+    <%= f.text_field :nickname %>
+  </p>
+
+  <p>
+    <b>Nicknameuseind</b><br />
+    <%= f.text_field :nicknameuseind %>
+  </p>
+
+  <p>
+    <b>Ntuserdomainid</b><br />
+    <%= f.text_field :ntUserDomainId %>
+  </p>
+
+  <p>
+    <b>Ntdomain</b><br />
+    <%= f.text_field :ntdomain %>
+  </p>
+
+  <p>
+    <b>Pager</b><br />
+    <%= f.text_field :pager %>
+  </p>
+
+  <p>
+    <b>Physicaldeliveryofficename</b><br />
+    <%= f.text_field :physicalDeliveryOfficeName %>
+  </p>
+
+  <p>
+    <b>Positiontitlenumber</b><br />
+    <%= f.text_field :positiontitlenumber %>
+  </p>
+
+  <p>
+    <b>Preferredfirstname</b><br />
+    <%= f.text_field :preferredfirstname %>
+  </p>
+
+  <p>
+    <b>Preferredlastname</b><br />
+    <%= f.text_field :preferredlastname %>
+  </p>
+
+  <p>
+    <b>Preferredmiddlename</b><br />
+    <%= f.text_field :preferredmiddlename %>
+  </p>
+
+  <p>
+    <b>Preferrednamequalifier</b><br />
+    <%= f.text_field :preferrednamequalifier %>
+  </p>
+
+  <p>
+    <b>Preferrednamesuffix</b><br />
+    <%= f.text_field :preferrednamesuffix %>
+  </p>
+
+  <p>
+    <b>Preferredsalutation</b><br />
+    <%= f.text_field :preferredsalutation %>
+  </p>
+
+  <p>
+    <b>Roomnumber</b><br />
+    <%= f.text_field :roomNumber %>
+  </p>
+
+  <p>
+    <b>Secretary</b><br />
+    <%= f.text_field :secretary %>
+  </p>
+
+  <p>
+    <b>Secretarycn</b><br />
+    <%= f.text_field :secretarycn %>
+  </p>
+
+  <p>
+    <b>Securidexpdate</b><br />
+    <%= f.text_field :securidexpdate %>
+  </p>
+
+  <p>
+    <b>Securidserialnum</b><br />
+    <%= f.text_field :securidserialnum %>
+  </p>
+
+  <p>
+    <b>Sitecode</b><br />
+    <%= f.text_field :sitecode %>
+  </p>
+
+  <p>
+    <b>Sn</b><br />
+    <%= f.text_field :sn %>
+  </p>
+
+  <p>
+    <b>Telephonenumber2</b><br />
+    <%= f.text_field :telephoneNumber2 %>
+  </p>
+
+  <p>
+    <b>Telephonenumber</b><br />
+    <%= f.text_field :telephoneNumber %>
+  </p>
+
+  <p>
+    <b>Title</b><br />
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <b>Uid</b><br />
+    <%= f.text_field :uid %>
+  </p>
+
+  <p>
+    <b>Version</b><br />
+    <%= f.text_field :version %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', people_path %>

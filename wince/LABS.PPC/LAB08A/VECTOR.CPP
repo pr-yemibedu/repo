@@ -1,0 +1,277 @@
+// vector.cpp : Defines the entry point for the application.
+//
+
+#include "stdafx.h"
+#include "vector.h"
+#include <commctrl.h>
+#include <aygshell.h>
+#include <sipapi.h>
+
+#define MAX_LOADSTRING 100
+
+// Global Variables:
+HINSTANCE			hInst;					// The current instance
+HWND				hwndCB;					// The command bar handle
+
+static SHACTIVATEINFO s_sai;
+
+// Forward declarations of functions included in this code module:
+ATOM				MyRegisterClass	(HINSTANCE, LPTSTR);
+BOOL				InitInstance	(HINSTANCE, int);
+LRESULT CALLBACK	WndProc			(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK	About			(HWND, UINT, WPARAM, LPARAM);
+HWND				CreateRpCommandBar(HWND);
+
+
+int WINAPI WinMain(	HINSTANCE hInstance,
+					HINSTANCE hPrevInstance,
+					LPTSTR    lpCmdLine,
+					int       nCmdShow)
+{
+	MSG msg;
+	HACCEL hAccelTable;
+
+	// Perform application initialization:
+	if (!InitInstance (hInstance, nCmdShow)) 
+	{
+		return FALSE;
+	}
+
+	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_VECTOR);
+
+	// Main message loop:
+	while (GetMessage(&msg, NULL, 0, 0)) 
+	{
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
+	return msg.wParam;
+}
+
+//
+//  FUNCTION: MyRegisterClass()
+//
+//  PURPOSE: Registers the window class.
+//
+//  COMMENTS:
+//
+//    It is important to call this function so that the application 
+//    will get 'well formed' small icons associated with it.
+//
+ATOM MyRegisterClass(HINSTANCE hInstance, LPTSTR szWindowClass)
+{
+	WNDCLASS	wc;
+
+    wc.style			= CS_HREDRAW | CS_VREDRAW;
+    wc.lpfnWndProc		= (WNDPROC) WndProc;
+    wc.cbClsExtra		= 0;
+    wc.cbWndExtra		= 0;
+    wc.hInstance		= hInstance;
+    wc.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_VECTOR));
+    wc.hCursor			= 0;
+    wc.hbrBackground	= (HBRUSH) GetStockObject(WHITE_BRUSH);
+    wc.lpszMenuName		= 0;
+    wc.lpszClassName	= szWindowClass;
+
+	return RegisterClass(&wc);
+}
+
+//
+//  FUNCTION: InitInstance(HANDLE, int)
+//
+//  PURPOSE: Saves instance handle and creates main window
+//
+//  COMMENTS:
+//
+//    In this function, we save the instance handle in a global variable and
+//    create and display the main program window.
+//
+BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
+{
+	HWND	hWnd = NULL;
+	TCHAR	szTitle[MAX_LOADSTRING];			// The title bar text
+	TCHAR	szWindowClass[MAX_LOADSTRING];		// The window class name
+
+	hInst = hInstance;		// Store instance handle in our global variable
+	// Initialize global strings
+	LoadString(hInstance, IDC_VECTOR, szWindowClass, MAX_LOADSTRING);
+	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+
+	//If it is already running, then focus on the window
+	hWnd = FindWindow(szWindowClass, szTitle);	
+	if (hWnd) 
+	{
+		SetForegroundWindow ((HWND) (((DWORD)hWnd) | 0x01));    
+		return 0;
+	} 
+
+	MyRegisterClass(hInstance, szWindowClass);
+	
+	RECT	rect;
+	GetClientRect(hWnd, &rect);
+	
+	hWnd = CreateWindowEx(WS_EX_CAPTIONOKBTN, szWindowClass, szTitle, WS_VISIBLE,
+		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+	if (!hWnd)
+	{	
+		return FALSE;
+	}
+	//When the main window is created using CW_USEDEFAULT the height of the menubar (if one
+	// is created is not taken into account). So we resize the window after creating it
+	// if a menubar is present
+	{
+		RECT rc;
+		GetWindowRect(hWnd, &rc);
+		rc.bottom -= MENU_HEIGHT;
+		if (hwndCB)
+			MoveWindow(hWnd, rc.left, rc.top, rc.right, rc.bottom, FALSE);
+	}
+
+
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
+
+	return TRUE;
+}
+
+//
+//  FUNCTION: WndProc(HWND, unsigned, WORD, LONG)
+//
+//  PURPOSE:  Processes messages for the main window.
+//
+//  WM_COMMAND	- process the application menu
+//  WM_PAINT	- Paint the main window
+//  WM_DESTROY	- post a quit message and return
+//
+//
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	HDC hdc;
+	int wmId, wmEvent;
+	PAINTSTRUCT ps;
+
+	switch (message) 
+	{
+		case WM_COMMAND:
+			wmId    = LOWORD(wParam); 
+			wmEvent = HIWORD(wParam); 
+			// Parse the menu selections:
+			switch (wmId)
+			{	
+				case IDM_HELP_ABOUT:
+					DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
+				    break;
+				case IDOK:
+					SendMessage(hWnd, WM_ACTIVATE, MAKEWPARAM(WA_INACTIVE, 0), (LPARAM)hWnd);
+					SendMessage (hWnd, WM_CLOSE, 0, 0);
+					break;
+				default:
+				   return DefWindowProc(hWnd, message, wParam, lParam);
+			}
+			break;
+		case WM_CREATE:
+			s_sai.cbSize = sizeof(SHACTIVATEINFO);
+			hwndCB = CreateRpCommandBar(hWnd);
+			break;
+		case WM_PAINT:
+		{
+			hdc = BeginPaint(hWnd, &ps);
+
+			HPEN hpen1, hpen2;
+			HBRUSH hbr1, hbr2;
+
+			hpen1 = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+			hpen2 = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+			hbr1 = CreateSolidBrush(RGB(0, 255, 0));
+			hbr2 = CreateSolidBrush(RGB(0, 255, 255));
+
+			SelectObject(hdc, hpen1);
+			POINT pt[2];
+			pt[0].x = 10;
+			pt[0].y = 10;
+			pt[1].x = 110;
+			pt[1].y = 10;
+			Polyline(hdc, pt, 2);
+
+			SelectObject(hdc, hbr1);
+			Rectangle(hdc, 40, 40, 80, 80);
+
+			SelectObject(hdc, hpen2);
+			pt[0].x = 20;
+			pt[0].y = 20;
+			pt[1].x = 20;
+			pt[1].y = 120;
+			Polyline(hdc, pt, 2);
+
+			SelectObject(hdc, hbr2);
+			Rectangle(hdc, 100, 100, 150, 150);
+
+			// Clean Up all objects created.
+			SelectObject(hdc, GetStockObject(BLACK_PEN));
+			SelectObject(hdc, GetStockObject(WHITE_BRUSH));
+			DeleteObject(hpen1);
+			DeleteObject(hpen2);
+			DeleteObject(hbr1);
+			DeleteObject(hbr2);
+			EndPaint(hWnd, &ps);
+		}
+			break; 
+		case WM_DESTROY:
+			CommandBar_Destroy(hwndCB);
+			PostQuitMessage(0);
+			break;
+		case WM_SETTINGCHANGE:
+			SHHandleWMSettingChange(hWnd, wParam, lParam, &s_sai);
+     		break;
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+   }
+   return 0;
+}
+
+HWND CreateRpCommandBar(HWND hwnd)
+{
+	SHMENUBARINFO mbi;
+
+	memset(&mbi, 0, sizeof(SHMENUBARINFO));
+	mbi.cbSize     = sizeof(SHMENUBARINFO);
+	mbi.hwndParent = hwnd;
+	mbi.nToolBarId = IDM_MENU;
+	mbi.hInstRes   = hInst;
+	mbi.nBmpId     = 0;
+	mbi.cBmpImages = 0;
+
+	if (!SHCreateMenuBar(&mbi)) 
+		return NULL;
+
+	return mbi.hwndMB;
+}
+
+// Mesage handler for the About box.
+LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	SHINITDLGINFO shidi;
+
+	switch (message)
+	{
+		case WM_INITDIALOG:
+			// Create a Done button and size it.  
+			shidi.dwMask = SHIDIM_FLAGS;
+			 shidi.dwFlags = SHIDIF_DONEBUTTON | SHIDIF_SIPDOWN | SHIDIF_SIZEDLGFULLSCREEN;
+			shidi.hDlg = hDlg;
+			SHInitDialog(&shidi);
+			return TRUE; 
+
+		case WM_COMMAND:
+			if (LOWORD(wParam) == IDOK) {
+				EndDialog(hDlg, LOWORD(wParam));
+				return TRUE;
+			}
+			break;
+	}
+    return FALSE;
+}

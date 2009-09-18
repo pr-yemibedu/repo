@@ -1,0 +1,6 @@
+user_id, unique_id, user_name, password, domain, alt_domain, first_name, middle_name, last_name, language, gender, dob, address1, address2, city, state, zip, country, employer, email_address, day_phone, night_phone, mobile_phone, fax, timezone, usertype, owner, created_date, primary_group, 
+1, ed962e74077848730c052c933d8afb5d, portaladmin, 5f4dcc3b5aa765d61d8327deb882cf99, , , Admin, , Account, , , , , , , , , , , portaladmin, , , , , 0, 1, -1, 2001-01-05 22:25:56, 1, 
+2, 32c2342eb5207600a4d2d111b0f12e2f, 873jWDvuV9G_92M, 8c9818dd2ffc15d6b0ef368aec7c998b, , , SYSTEM_4, , SYSTEM_4, , , , , , , , , , , , , , , , 0, 4, -1, 2001-01-05 22:25:56, -1, 
+3, e64907b8a06de29b744dd140d3e1fe6c, brian_pfeil@merck.com, 523f6eea91daa62490173b36ecd4de18, , , Brian, , Pfeil, , m, 11/29/77, , , , , 19446, , , brian_pfeil@merck.com, , , , , -5, 0, -1, 2001-01-08 13:36:27, 1, 
+4, a1354931bb2e31d9c7b7abadcc439663, joe_user@merck.com, 5f4dcc3b5aa765d61d8327deb882cf99, , , Joe, , User, , , , , , , , , , , joe_user@merck.com, , , , , -8, 0, 1, 2001-01-10 14:30:50, 2, 
+

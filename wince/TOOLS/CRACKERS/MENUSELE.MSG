@@ -1,0 +1,4 @@
+WM_MENUSELECT
+void
+OnMenuSelect
+(HWND hWnd, HMENU hmenu, int item, HMENU hmenuPopup, UINT flags)

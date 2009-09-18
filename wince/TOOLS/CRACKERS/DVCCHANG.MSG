@@ -1,0 +1,4 @@
+WM_DEVICECHANGE
+BOOL
+OnDeviceChange
+(HWND hWnd, UINT uEvent, DWORD dwEventData)

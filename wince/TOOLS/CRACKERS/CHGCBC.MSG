@@ -1,0 +1,4 @@
+WM_CHANGECBCHAIN
+void
+OnChangeCBChain
+(HWND hWnd, HWND hWndRemove, HWND hWndNext)

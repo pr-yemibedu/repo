@@ -1,0 +1,4 @@
+WM_CUT
+void
+OnCut
+(HWND hWnd)

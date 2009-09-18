@@ -1,0 +1,4 @@
+WM_MDICREATE
+HWND
+MDICreate
+(HWND hWnd, const LPMDICREATESTRUCT lpmcs)

@@ -1,0 +1,4 @@
+WM_NCDESTROY
+void
+OnNCDestroy
+(HWND hWnd)

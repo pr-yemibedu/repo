@@ -1,0 +1,4 @@
+WM_DRAWCLIPBOARD
+void
+OnDrawClipboard
+(HWND hWnd)

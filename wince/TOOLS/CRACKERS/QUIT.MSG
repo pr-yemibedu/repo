@@ -1,0 +1,4 @@
+WM_QUIT
+void
+OnQuit
+(HWND hWnd, int exitCode)

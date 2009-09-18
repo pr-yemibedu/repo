@@ -1,0 +1,227 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "newres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_COMMAND             ICON    DISCARDABLE     "COMMAND.ICO"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""newres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDM_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New Appointment...\tCtrl+N", IDM_FILE_NEW
+        MENUITEM "New All Day &Event...",       IDM_FILE_NEW2
+        MENUITEM "&Make Meeting...",            IDM_FILE_MAKEMEETING
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           IDM_FILE_PRINT
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Cu&t\tCltr+X",                IDM_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               IDM_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              IDM_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "&Edit Item...\tCtrl+E",       IDM_EDIT_EDITITEM
+        MENUITEM SEPARATOR
+        MENUITEM "De&lete Item\tCtrl+D",        IDM_EDIT_DEL
+        MENUITEM SEPARATOR
+        MENUITEM "Category L&ist...",           IDM_EDIT_CATEGORY
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Day\tCtrl+Y",                IDM_VIEW_DAY
+        MENUITEM "&Week\tCtrl+W",               IDM_VIEW_WEEK
+        MENUITEM "&Month\tCtrl+M",              IDM_VIEW_MONTH
+        MENUITEM "&Year\tCtrl+R",               IDM_VIEW_YEAR
+        MENUITEM "&Agenda\tCtrl+A",             IDM_VIEW_AGENDA
+        MENUITEM SEPARATOR
+        POPUP "&Number of Days"
+        BEGIN
+            MENUITEM "&1",                          IDM_1
+            MENUITEM "&2",                          IDM_2
+            MENUITEM "&3",                          IDM_3
+            MENUITEM "&4",                          IDM_4
+            MENUITEM "&5",                          IDM_5
+            MENUITEM "&6",                          IDM_6
+            MENUITEM "&7",                          IDM_7
+            MENUITEM SEPARATOR
+            MENUITEM "5-Day &Work Week",            IDM_5DAY
+            MENUITEM "6-Day W&ork Week",            IDM_6DAY
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Ha&lf-Hour Slots",            IDM_VIEW_HALFHOUR
+        MENUITEM "Wide Day &View",              IDM_VIEW_WIDE
+    END
+    POPUP "&Go"
+    BEGIN
+        MENUITEM "&Calendar",                   IDM_GO_CAL
+        MENUITEM "C&ontacts",                   IDM_GO_CONTACTS
+        MENUITEM "&Inbox",                      IDM_GO_INBOX
+        MENUITEM "T&asks",                      IDM_GO_TASKS
+        MENUITEM SEPARATOR
+        MENUITEM "&Go to Date...\tCtrl+G",      IDM_GODATE
+        MENUITEM "Go to &Today\tCtrl+T",        IDM_GOTODAY
+        MENUITEM "&Previous Day\tCtrl+,",       IDM_GOPREV
+        MENUITEM "&Next Day\tCtrl+.",           IDM_GONEXT
+    END
+    POPUP "&Tools"
+    BEGIN
+        MENUITEM "&Find...\tCtrl+F",            IDM_TOOLS_FIND
+        MENUITEM SEPARATOR
+        MENUITEM "&Customize Columns...",       IDM_TOOLS_CUSTOM
+        MENUITEM SEPARATOR
+        MENUITEM "F&ilter on Categories...",    IDM_TOOLS_FILTER
+        MENUITEM SEPARATOR
+        MENUITEM "&Options...",                 IDM_TOOLS_OPTIONS
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 125, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE 0x80000000L
+CAPTION "About COMMAND"
+FONT 8, "System"
+BEGIN
+    ICON            IDI_COMMAND,IDC_STATIC,11,17,20,20
+    LTEXT           "COMMAND Version 1.0",IDC_STATIC,38,10,70,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2000",IDC_STATIC,38,25,70,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 118
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_COMMAND ACCELERATORS DISCARDABLE 
+BEGIN
+    "/",            IDM_HELP_ABOUT,         ASCII,  ALT, NOINVERT
+    "A",            IDM_VIEW_AGENDA,        VIRTKEY, CONTROL, NOINVERT
+    "C",            IDM_EDIT_COPY,          VIRTKEY, CONTROL, NOINVERT
+    "D",            IDM_EDIT_DEL,           VIRTKEY, CONTROL, NOINVERT
+    "E",            IDM_EDIT_EDITITEM,      VIRTKEY, CONTROL, NOINVERT
+    "F",            IDM_TOOLS_FIND,         VIRTKEY, CONTROL, NOINVERT
+    "G",            IDM_GODATE,             VIRTKEY, CONTROL, NOINVERT
+    "M",            IDM_VIEW_MONTH,         VIRTKEY, CONTROL, NOINVERT
+    "N",            IDM_FILE_NEW,           VIRTKEY, CONTROL, NOINVERT
+    "P",            IDM_FILE_PRINT,         VIRTKEY, CONTROL, NOINVERT
+    "R",            IDM_VIEW_YEAR,          VIRTKEY, CONTROL, NOINVERT
+    "T",            IDM_GOTODAY,            VIRTKEY, CONTROL, NOINVERT
+    "V",            IDM_EDIT_PASTE,         VIRTKEY, CONTROL, NOINVERT
+    VK_F4,          IDM_FILE_EXIT,          VIRTKEY, ALT, NOINVERT
+    "W",            IDM_VIEW_WEEK,          VIRTKEY, CONTROL, NOINVERT
+    "X",            IDM_EDIT_CUT,           VIRTKEY, CONTROL, NOINVERT
+    "Y",            IDM_VIEW_DAY,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_APP_TITLE           "COMMAND"
+    IDS_HELLO               "Hello World!"
+    IDC_COMMAND             "COMMAND"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

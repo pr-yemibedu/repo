@@ -1,0 +1,5 @@
+<div id="<%= "task_%i" % task.id %>" class="task" title="double-click to edit" ondblclick="Element.toggle('<%= "edit_task_%i" % task.id %>'); Element.toggle('<%= 'task_title_%i' % task.id %>');" onmouseover="this.style.backgroundColor='#F3F6FB';Element.toggle('<%= 'actions_for_task_%i' % task.id %>');" onmouseout="this.style.backgroundColor='#FFFFFF';Element.toggle('<%= 'actions_for_task_%i' % task.id %>');">
+  
+  <%= render(:partial => 'show_and_edit_task', :object => task) %>
+  
+</div>

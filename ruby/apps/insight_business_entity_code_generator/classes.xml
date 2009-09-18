@@ -1,0 +1,5 @@
+<classes>
+	<class name="Customer">
+		<property type="string">Name</property>
+	</class>
+</classes>

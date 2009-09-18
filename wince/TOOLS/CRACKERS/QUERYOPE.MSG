@@ -1,0 +1,4 @@
+WM_QUERYOPEN
+BOOL
+OnQueryOpen
+(HWND hWnd)

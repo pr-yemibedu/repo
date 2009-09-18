@@ -1,0 +1,25 @@
+<%
+require 'yaml'
+
+c = YAML.load_file(File.join(RAILS_ROOT, 'config', 'thepfeils.yml'))
+photo_galleries_url_path = c[:photo_galleries_directory_path].sub(c[:web_root_directory_path], "")
+%>
+
+<h2 class="sidebar-title">Photo Galleries</h2>
+<ul>
+<%
+directory_paths = Dir[c[:photo_galleries_directory_path] + "/[0-9][0-9].*"].sort.reverse
+
+directory_paths.slice(0, c[:photo_galleries_display_count]).each do |directory_path|
+    directory_name = File.basename(directory_path)
+    name = directory_name.sub(/^([0-9]+\.)/, "")
+    url = photo_galleries_url_path + "/" + directory_name
+%>
+<li>
+  <a href="<%= url %>" target="_blank"><%= name %></a>
+</li>
+<% end %>
+<li>
+  <a href="<%= photo_galleries_url_path %>" target="_blank">More ...</a>
+</li>
+

@@ -1,0 +1,20 @@
+== Description ==
+This was developed on an ubuntu system.  The following installations were run:
+
+apt-get install gnustep gnustep-devel gnustep-devel-core -y
+
+== Building ==
+
+The compilation of GNUstep programs can be complex, so it's recommended you
+Create the file "GNUmakefile" to be used as input for make.
+
+# Make sure the environment is setup correctly by running ". /usr/share/GNUstep/Makefiles/GNUstep.sh"
+# Run "make" to build
+# This will create a HelloWorld.app directory that contains the entire application and it's portable (move the diretory anywhere).
+# Make sure the directory that HelloWorld.app sits in it part of the PATH environment variable.
+#* export PATH=.:$PATH
+# Run "openapp <appname here>"
+# Run "make clean" to clean up
+
+== Notes ==
+openapp is the program that runs GNUStep applications

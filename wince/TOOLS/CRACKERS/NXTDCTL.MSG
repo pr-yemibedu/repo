@@ -1,0 +1,4 @@
+WM_NEXTDLGCTL
+HWND
+OnNextDlgCtl
+(HWND hWnd, HWND hWndSetFocus, BOOL fNext)

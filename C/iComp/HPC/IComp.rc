@@ -1,0 +1,632 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+#include "newres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "#include ""newres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\IComp.rc2""  // non-Microsoft eMbedded Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""wceres.rc""         // WCE-specific components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\IComp.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Cmdbar.bmp"
+IDB_VIEWS               BITMAP  DISCARDABLE     "res\\bitmap1.bmp"
+IDB_VIOXX               BITMAP  DISCARDABLE     "res\\bmp00001.bmp"
+IDB_SIGNATURE           BITMAP  DISCARDABLE     "res\\bmp00002.bmp"
+IDB_IDS                 BITMAP  DISCARDABLE     "res\\ids.bmp"
+IDB_GRID                BITMAP  DISCARDABLE     "cust.bmp"
+IDB_DUMMY               BITMAP  DISCARDABLE     "res\\dummy.bmp"
+IDB_FLIP                BITMAP  DISCARDABLE     "res\\bmp00003.bmp"
+IDB_FLIP_FLIP           BITMAP  DISCARDABLE     "res\\bmp00004.bmp"
+IDB_VIOXX_FLIP          BITMAP  DISCARDABLE     "res\\vioxx_fl.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 16
+BEGIN
+    BUTTON      ID_GO_BACK
+    BUTTON      ID_GO_FORWARD
+    SEPARATOR
+    BUTTON      ID_GO_CUSTOMERS
+    BUTTON      ID_CALL
+    BUTTON      ID_GO_CALENDAR
+    SEPARATOR
+    BUTTON      ID_VIEW_GRID
+    SEPARATOR
+    BUTTON      ID_BUTTON_HELP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&Go"
+    BEGIN
+        MENUITEM "&Back",                       ID_GO_BACK
+        MENUITEM "&Forward",                    ID_GO_FORWARD
+        MENUITEM SEPARATOR
+        MENUITEM "&Customers",                  ID_GO_CUSTOMERS
+        MENUITEM "Ca&ll",                       ID_CALL
+        MENUITEM "C&alendar",                   ID_GO_CALENDAR
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Grid",                       ID_VIEW_GRID
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About IComp...",             ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 125, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE 0x80000000L
+CAPTION "About IComp"
+FONT 8, "System"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "IComp Version 1.0",IDC_STATIC,40,10,65,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2000",IDC_STATIC,40,25,65,8
+END
+
+IDD_CUSTOMER_VIEW DIALOG DISCARDABLE  0, 0, 299, 103
+STYLE WS_CHILD
+FONT 8, "System"
+BEGIN
+    EDITTEXT        IDC_LAST_NAME,139,63,143,12,ES_AUTOHSCROLL
+    LTEXT           "&Last Name",IDC_LAST_NAME_LABEL,139,52,97,8
+    COMBOBOX        IDC_FLAG_TYPE,186,22,67,55,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Org Name",IDC_ORG_NAME_LABEL,139,33,97,8
+    EDITTEXT        IDC_ORG_NAME,139,44,143,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LOCATION_LINE1,139,20,149,12,ES_AUTOHSCROLL
+    LTEXT           "Flag Type",IDC_FLAG_TYPE_LABEL,139,22,43,10
+    LTEXT           "&First Name",IDC_FIRST_NAME_LABEL,139,20,54,8
+    EDITTEXT        IDC_FIRST_NAME,138,34,114,12,ES_AUTOHSCROLL
+    LISTBOX         IDC_CUST_LIST,25,3,99,97,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "123",IDC_123,2,3,19,10
+    PUSHBUTTON      "abc",IDC_ABC,2,14,19,10
+    PUSHBUTTON      "def",IDC_DEF,2,25,19,10
+    PUSHBUTTON      "ghi",IDC_GHI,2,36,19,10
+    PUSHBUTTON      "jkl",IDC_JKL,2,47,19,10
+    PUSHBUTTON      "mno",IDC_MNO,2,58,19,10
+    PUSHBUTTON      "pqrs",IDC_PQRS,2,69,19,10
+    PUSHBUTTON      "tuv",IDC_TUV,2,80,19,10
+    PUSHBUTTON      "wxyz",IDC_WXYZ,2,91,19,10
+    CONTROL         "List1",IDC_IDS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,139,22,115,70
+    PUSHBUTTON      "New",IDC_ID_NEW,258,22,30,15
+    PUSHBUTTON      "Delete",IDC_ID_DELETE,258,48,30,15
+    PUSHBUTTON      "Edit...",IDC_ID_EDIT,257,76,30,15
+    LISTBOX         IDC_FLAGS,140,38,114,56,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Delete",IDC_FLAG_DELETE,258,58,30,15
+    PUSHBUTTON      "New",IDC_FLAG_NEW,258,38,30,15
+    EDITTEXT        IDC_NOTES,139,20,149,71,ES_MULTILINE | ES_WANTRETURN | 
+                    WS_VSCROLL
+    EDITTEXT        IDC_LOCATION_LINE2,139,36,149,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LOCATION_CITY,138,52,63,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LOCATION_STATE,207,52,23,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LOCATION_ZIP,241,52,47,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LOCATION_PHONE,184,69,103,12,ES_AUTOHSCROLL
+    LTEXT           "Phone:",IDC_LOCATION_PHONE_LABEL,138,71,36,9
+    EDITTEXT        IDC_LOCATION_FAX,184,84,103,12,ES_AUTOHSCROLL
+    LTEXT           "Fax:",IDC_LOCATION_FAX_LABEL,138,85,36,9
+    CONTROL         "Tab1",IDC_TABS,"SysTabControl32",0x0,129,3,165,97
+    CONTROL         "List1",IDC_PROFILE_LIST,"SysListView32",LVS_REPORT | 
+                    NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,129,3,165,97
+END
+
+IDD_CALL_DIALOG DIALOG DISCARDABLE  0, 0, 362, 111
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Call"
+FONT 8, "System"
+BEGIN
+    CONTROL         "DateTimePicker1",IDC_CALL_DATE1,"SysDateTimePick32",
+                    DTS_LONGDATEFORMAT | WS_TABSTOP,42,32,127,14
+    LISTBOX         IDC_AVAILABLE_DETAILS,10,32,120,54,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Available Topics",IDC_AVAILABLE_CALL_TOPICS_LABEL,9,22,
+                    97,8
+    EDITTEXT        IDC_CALL_ACCOMPLISHMENTS,8,31,340,71,ES_MULTILINE | 
+                    ES_AUTOHSCROLL
+    LTEXT           "Call Date:",IDC_CALL_DATE_LABEL,7,34,32,10
+    PUSHBUTTON      "Signature...",IDC_SAMPLE_SIGNATURE,8,91,52,14
+    LTEXT           "Contact:",IDC_CALL_CONTACT_LABEL,7,75,30,9
+    LTEXT           "Location:",IDC_CALL_LOCATION_LABEL,6,55,29,9
+    LTEXT           "Available Details",IDC_AVAILABLE_DETAILS_LABEL,9,19,98,
+                    8
+    COMBOBOX        IDC_CALL_LOCATION,41,53,311,68,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SAMPLED_PRODUCTS,188,33,163,57,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "<< Remove",IDC_SAMPLE_REMOVE,133,53,54,14
+    PUSHBUTTON      "<< Remove All",IDC_SAMPLE_REMOVE_ALL,134,71,53,14
+    PUSHBUTTON      "Add >>",IDC_SAMPLE_ADD,133,35,53,14
+    LTEXT           "Dept:",IDC_CALL_DEPT_LABEL,161,75,20,9
+    COMBOBOX        IDC_CALL_DEPT,183,74,102,12,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_DETAILED_PRODUCTS,190,33,162,56,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Start Time:",IDC_CALL_START_TIME_LABEL,172,34,39,10
+    COMBOBOX        IDC_CALL_START_TIME,213,32,48,90,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "End Time:",IDC_CALL_END_TIME_LABEL,265,34,36,10
+    COMBOBOX        IDC_CALL_END_TIME,304,33,48,89,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CALL_CONTACT,42,74,115,12,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_CALL_COUNT,314,74,27,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "Spin1",IDC_CALL_COUNT_SPIN,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,342,74,9,13
+    CONTROL         "Detail Requested",IDC_DETAIL_REQUESTED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,193,94,78,9
+    CONTROL         "Send Paper Receipt",IDC_PAPER_RECEIPT_REQUESTED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,193,94,78,9
+    CONTROL         "Send eReceipt",IDC_ERECEIPT_REQUESTED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,290,94,60,9
+    EDITTEXT        IDC_NEXT_CALL_STRATEGY,8,31,340,71,ES_MULTILINE | 
+                    ES_AUTOHSCROLL
+    LISTBOX         IDC_AVAILABLE_SAMPLES,8,30,122,57,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_CALL_STRATEGY,8,31,340,71,ES_MULTILINE | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "Form Number...",IDC_SAMPLE_FORM_NUMBER,64,91,63,14
+    LTEXT           "Sampled Products\tLot Number\tQuantity",
+                    IDC_SAMPLED_PRODUCTS_LABEL,188,18,162,8
+    PUSHBUTTON      "Add >>",IDC_DETAIL_ADD,133,35,54,14
+    PUSHBUTTON      "<< Remove",IDC_DETAIL_REMOVE,134,53,53,14
+    PUSHBUTTON      "<< Remove All",IDC_DETAIL_REMOVE_ALL,134,71,54,14
+    LTEXT           "Detailed Products",IDC_DETAILED_PRODUCTS_LABEL,188,19,
+                    162,8
+    LTEXT           "Available Samples",IDC_AVAILABLE_SAMPLES_LABEL,8,19,98,
+                    8
+    EDITTEXT        IDC_CALL_HISTORICAL_NOTES,8,31,340,71,ES_MULTILINE | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_CALL_PERSONAL_NOTES,8,31,340,71,ES_MULTILINE | 
+                    ES_AUTOHSCROLL
+    CONTROL         "Tab1",IDC_CALL_NOTE_TAB,"SysTabControl32",0x0,2,15,350,
+                    91
+    LTEXT           "Count:",IDC_CALL_COUNT_LABEL,289,75,22,9
+    LISTBOX         IDC_SELECTED_CALL_TOPICS,9,80,341,26,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Add >>",IDC_ADD_CALL_TOPIC,114,65,55,12
+    PUSHBUTTON      "<< Remove",IDC_REMOVE_CALL_TOPIC,175,65,55,12
+    PUSHBUTTON      "&Add All >>",IDC_ADD_ALL_CALL_TOPIC,234,65,55,12
+    PUSHBUTTON      "<< Re&move All",IDC_REMOVE_ALL_CALL_TOPIC,294,65,55,12
+    LISTBOX         IDC_AVAILABLE_CALL_TOPICS2,8,35,341,25,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Selected Topics",IDC_SELECTED_CALL_TOPICS_LABEL,10,68,
+                    61,8
+    CONTROL         "Tab1",IDC_TABS,"SysTabControl32",0x0,2,1,356,109
+END
+
+#if defined(APSTUDIO_INVOKED) || !defined(UP)
+IDD_SIGNATURE_DIALOG DIALOG DISCARDABLE  0, 0, 363, 109
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Insight Companion Signature Capture"
+FONT 8, "System"
+BEGIN
+    LISTBOX         IDC_SAMPLES,2,3,93,90,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Flip",IDC_SIGNATURE_FLIP,332,70,27,12
+    PUSHBUTTON      "Clear",IDC_SIGNATURE_CLEAR,332,95,27,12
+    LTEXT           "I have requested and received the Rx items for the medical needs of the patients.  I certify I am currently licensed with the appropriate state authorities to receive the samples indicated on this receipt. ",
+                    IDC_SAMPLE_INSTRUCTIONS,104,3,255,26
+    COMBOBOX        IDC_LOCATION,104,30,255,77,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "State License: 5366626  NJ  Expires: 2000-09-23",
+                    IDC_LICENSE,105,46,254,10
+    CONTROL         139,IDC_LOGO,"Static",SS_BITMAP | SS_NOTIFY | NOT 
+                    WS_VISIBLE,99,58,255,49
+    CONTROL         "Receipt Requested",IDC_RECEIPT_REQUESTED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,2,96,75,11
+END
+#endif
+
+IDD_FORM_NUMBER_DLG DIALOG DISCARDABLE  0, 0, 150, 82
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Form Number"
+FONT 8, "System"
+BEGIN
+    LTEXT           "Date of Call:",IDC_STATIC,4,12,52,10
+    COMBOBOX        IDC_CALL_DATE,63,10,83,68,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Form Number:",IDC_STATIC,4,36,52,10
+    EDITTEXT        IDC_FORM_NUMBER,63,34,83,13,ES_AUTOHSCROLL
+    LTEXT           "Confirm Form:",IDC_STATIC,4,57,52,10
+    EDITTEXT        IDC_CONFIRM_FORM_NUMBER,63,57,83,13,ES_AUTOHSCROLL
+END
+
+IDD_TODAY_VIEW DIALOG DISCARDABLE  0, 0, 283, 102
+STYLE WS_CHILD
+FONT 8, "System"
+BEGIN
+    CONTROL         "DateTimePicker1",IDC_TODAY_CALL_DATE,"SysDateTimePick32",
+                    WS_TABSTOP,4,4,55,13
+    COMBOBOX        IDC_CALL_CUSTOMER,67,4,146,93,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Report",IDC_CALL_REPORT,221,4,46,12
+END
+
+#if defined(APSTUDIO_INVOKED) || defined(UP)
+#if defined(APSTUDIO_INVOKED)
+IDD_SIGNATURE_DIALOG$(UP) DIALOG DISCARDABLE  0, 0, 364, 127
+#else
+IDD_SIGNATURE_DIALOG DIALOG DISCARDABLE  0, 0, 364, 127
+#endif
+STYLE WS_POPUP | WS_BORDER
+FONT 8, "System"
+BEGIN
+    LISTBOX         IDC_SAMPLES,267,17,93,92,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Flip",IDC_SIGNATURE_FLIP,5,26,27,12
+    PUSHBUTTON      "Clear",IDC_SIGNATURE_CLEAR,5,3,27,12
+    LTEXT           "I have requested and received the Rx items for the medical needs of the patients.  I certify I am currently licensed with the appropriate state authorities to receive the samples indicated on this receipt. ",
+                    IDC_SAMPLE_INSTRUCTIONS,5,81,255,26
+    COMBOBOX        IDC_LOCATION,5,62,255,77,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "State License: 5366626  NJ  Expires: 2000-09-23",
+                    IDC_LICENSE,5,49,254,10
+    CONTROL         139,IDC_LOGO,"Static",SS_BITMAP | SS_NOTIFY | NOT 
+                    WS_VISIBLE,5,3,255,49
+    CONTROL         "Receipt Requested",IDC_RECEIPT_REQUESTED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,285,3,75,11
+END
+#endif
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "IComp WCE MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "IComp\0"
+            VALUE "LegalCopyright", "Copyright (C) 2000\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "IComp.EXE\0"
+            VALUE "ProductName", "IComp Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 118
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_CUSTOMER_VIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 294
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 100
+    END
+
+    IDD_CALL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 358
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 109
+    END
+
+    IDD_SIGNATURE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 359
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 107
+    END
+
+    IDD_FORM_NUMBER_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 146
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 78
+    END
+
+    IDD_TODAY_VIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 279
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 97
+    END
+
+    "IDD_SIGNATURE_DIALOG$(UP)", DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 360
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 125
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "IComp\n\nIComp\n\n\nIComp.Document\nIComp Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_CAPS       "CAP"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\IComp.rc2"  // non-Microsoft eMbedded Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "wceres.rc"         // WCE-specific components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,4 @@
+WM_MENUCHAR
+DWORD
+OnMenuChar
+(HWND hWnd, UINT ch, UINT flags, HMENU hmenu)

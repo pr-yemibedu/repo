@@ -1,0 +1,76 @@
+This is pdfeTeX, Version 3.141592-1.20a-rc7.2-2.2 (MiKTeX 2.4) (preloaded format=latex 2005.4.3)  3 APR 2005 12:24
+entering extended mode
+**sample.tex
+(sample.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8a> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+(C:\texmf\tex\latex\base\article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(C:\texmf\tex\latex\base\size10.clo
+File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (sample.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 44.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 44.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
+
+(C:\texmf\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
+ [1
+
+{sfonts.map}] [2] [3] (sample.aux) ) 
+Here is how much of TeX's memory you used:
+ 269 strings out of 95519
+ 2608 string characters out of 1189652
+ 48410 words of memory out of 1049626
+ 3426 multiletter control sequences out of 35000
+ 7626 words of font info for 27 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 607
+ 23i,8n,17p,159b,187s stack positions out of 1500i,500n,5000p,200000b,32768s
+ 49 PDF objects out of 300000
+ 0 named destinations out of 300000
+ 1 words of extra memory for PDF output out of 65536
+<C:\texmf\fonts\type1\bluesky\cm\cmr8.pfb><
+C:\texmf\fonts\type1\bluesky\cm\cmr6.pfb><C:\texmf\fonts\type1\bluesky\cm\cmex1
+0.pfb><C:\texmf\fonts\type1\bluesky\cm\cmsy7.pfb><C:\texmf\fonts\type1\bluesky\
+cm\cmmi7.pfb><C:\texmf\fonts\type1\bluesky\cm\cmmi10.pfb><C:\texmf\fonts\type1\
+bluesky\cm\cmti10.pfb><C:\texmf\fonts\type1\bluesky\cm\cmsy10.pfb><C:\texmf\fon
+ts\type1\bluesky\cm\cmr7.pfb><C:\texmf\fonts\type1\bluesky\cm\cmbx12.pfb><C:\te
+xmf\fonts\type1\bluesky\cm\cmr10.pfb><C:\texmf\fonts\type1\bluesky\cm\cmr12.pfb
+><C:\texmf\fonts\type1\bluesky\cm\cmr17.pfb>
+Output written on sample.pdf (3 pages, 71437 bytes).

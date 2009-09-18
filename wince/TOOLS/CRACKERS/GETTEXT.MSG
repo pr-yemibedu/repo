@@ -1,0 +1,4 @@
+WM_GETTEXT
+INT
+OnGetText
+(HWND hWnd, int cchTextMax, LPTSTR lpszText)

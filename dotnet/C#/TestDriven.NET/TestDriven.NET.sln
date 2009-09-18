@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDriven.NET", "TestDriven.NET.csproj", "{F23CAA0E-B8F0-48DA-A200-0FE57F2EF4FF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F23CAA0E-B8F0-48DA-A200-0FE57F2EF4FF}.Debug.ActiveCfg = Debug|.NET
+		{F23CAA0E-B8F0-48DA-A200-0FE57F2EF4FF}.Debug.Build.0 = Debug|.NET
+		{F23CAA0E-B8F0-48DA-A200-0FE57F2EF4FF}.Release.ActiveCfg = Release|.NET
+		{F23CAA0E-B8F0-48DA-A200-0FE57F2EF4FF}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

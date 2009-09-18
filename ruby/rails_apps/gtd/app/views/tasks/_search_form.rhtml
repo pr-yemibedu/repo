@@ -1,0 +1,8 @@
+<label for="search">search:</label>
+<%= text_field_tag :search %>
+<%= observe_field(:search,
+                  :frequency => 0.5,
+                  :update => :search_results,
+                  :url => { :action => :search, :with => "query" }) %>
+                        
+<div id="search_results" ></div>

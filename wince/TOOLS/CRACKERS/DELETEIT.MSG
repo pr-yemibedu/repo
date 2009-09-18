@@ -1,0 +1,4 @@
+WM_DELETEITEM
+void
+OnDeleteItem
+(HWND hWnd, const DELETEITEMSTRUCT * lpDeleteItem)

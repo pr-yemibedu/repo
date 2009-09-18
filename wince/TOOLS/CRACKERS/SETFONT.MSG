@@ -1,0 +1,4 @@
+WM_SETFONT
+void
+OnSetFont
+(HWND hWndCtl, HFONT hfont, BOOL fRedraw)

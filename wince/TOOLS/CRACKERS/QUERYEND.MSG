@@ -1,0 +1,4 @@
+WM_QUERYENDSESSION
+BOOL
+OnQueryEndSession
+(HWND hWnd)

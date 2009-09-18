@@ -1,0 +1,22 @@
+<%
+require 'yaml'
+
+c = YAML.load_file(File.join(RAILS_ROOT, 'config', 'thepfeils.yml'))
+%>
+
+<h2 class="sidebar-title">Videos</h2>
+<ul>
+<%
+c[:video_list].slice(0, c[:video_display_count]).each do |item|
+    name = item[:name]
+    url = item[:url]
+%>
+<li>
+  <a href="<%= url %>" target="_blank"><%= name %></a>
+</li>
+<% end %>
+<li>
+  <a href="video_list.rhtml" target="_blank">More ...</a>
+</li>
+</ul>
+

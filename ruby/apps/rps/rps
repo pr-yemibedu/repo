@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# A concise ps
+# Usage:
+#   rps [PATTERN]
+# Lists all processes matching PATTERN.  All processes are listed if no PATTERN is provided
+
+require 'rubygems'
+require 'rush'
+
+search_pattern = ARGV[0] ? ARGV[0] : '.*'
+#puts "search_pattern = #{search_pattern}"
+
+local = Rush::Box.new('localhost')
+process_list = local.processes.collect {|p| "#{p.pid}  #{p.cmdline}" }
+process_list.grep(Regexp.new(search_pattern)).each {|p| puts p }

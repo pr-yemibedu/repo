@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>jQuery Examples</title>
+		<script type="text/javascript" src="lib/jQuery/jquery-1.2.6.js" ></script>
+		
+		<style type="text/css">
+			a.click1Class { font-weight: bold; }
+			.hover1 { background-color: red; }
+			.logging_container {
+				background-color:#DDDDDD;
+				border:1px solid #CCCCCC;
+				color:#000000;
+				line-height:1.1em;
+				overflow:auto;
+				padding:5px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<h2>jQuery Examples</h2>
+		<b>Log Messages:</b><br>
+		<div id="logging_container1" class="logging_container"></div><br />
+		<a id="click1" href="http://www.google.com">click me</a><br />
+		<a id="hideme1" href="#">click me to hide</a><br />
+		<a id="changeme1" href="#">click me to change my text</a><br />
+		<a id="appendtome1" href="#">click me to append text</a><br />
+		<a id="hover1" href="#">hover your mouse over me</a><br />
+		<a id="findelement1" href="#">click me to find an element</a><br />
+		<div>
+			<a id="cloneme1" href="#">click me to clone</a><br />
+		</div>
+		Select something:
+		<select id="select1">
+			<option value="1">one</option>
+			<option value="2">two</option>
+			<option value="3">three</option>
+		</select>
+		<br />
+		<div id="appendto1"></div>
+		<a id="clearlist1" href="#">clear list</a><br />
+		<ul id="list1">
+			<li>one</li>
+			<li>two</li>
+			<li>three</li>
+		</ul>
+		<div style="background-color: #DDDDDD">
+			<input id="search_text1" type="text" />
+			<a id="retrievepage1" href="#">search</a><br>
+			<div id="retrievedpage1"></div>
+		</div>
+		<script type="text/javascript">
+		$(document).ready( function() {
+			
+			function l(s) {
+				$("#logging_container1").html( $("#logging_container1").html() + "<br>" + s);
+			}
+			
+			// repond to click event
+			$("#click1").click(function() {
+				l(this.id);
+				return false; // don't follow link in href attribute
+			});
+			
+			// add a class
+			$("#click1").addClass("click1Class");
+			
+			// hide an element
+			$("#hideme1").click(function(){
+				$(this).hide("slow"); // fade out. no param to just hide with no effects
+				return false; // don't follow link in href attribute
+			});
+			
+			// change the innerHTML of an element .html(s)
+			$("#changeme1").click(function(){
+				$(this).html( $(this).html() + " - I've been changed");
+				return false;
+			});
+			
+			// appending to innerHTML
+			$("#appendtome1").click(function(){
+				$(this).append("- a bit more text");
+				return false;
+			});			
+			
+			// hover effect
+			$("#hover1").hover(function(){
+				$(this).addClass("hover1");
+			}, function() {
+				$(this).removeClass("hover1");
+			});
+			
+			// respond to onchange event for a select control
+			$("#select1").change(function(){
+				var index = this.options.selectedIndex;
+				var text = this.options[index].text;
+				var value = this.options[index].value;  
+				l("{text = " + text + ", value = " + value + "} selected");
+			});
+			
+			// iterate over elements
+			$("a").each(function(index, element){
+				l( $(element).html() );
+			});
+			
+			// retrieve a page and display it
+			$("#retrievepage1").click(function() {
+				var searchQuery = $("#search_text1").val();
+				
+				// clear results
+				$("#retrievedpage1").html("searching for \"" + searchQuery + "\" ...<br />");
+				
+				// execute google search
+				$.get("http://www.google.com/search", {q: searchQuery }, function(result) {
+					$("#retrievedpage1").html("");
+					// find all result lines
+					$("a[@class='l']", result).each(function(i,e) {
+						$("<a href='" + $(e).attr("href")+ "'>" + e.innerHTML + "</a><br />").appendTo( $("#retrievedpage1") );
+					});
+				});				
+			});
+			
+			// create an element dynamically and add it to the DOM
+			$("<div><p>This was created dynamically</p></div>").appendTo( $("#appendto1") );
+			
+			// cloning nodes
+			$("#cloneme1").click(function() {
+				$(this).parent().append($(this).clone());
+			});
+			
+			// clear nodes
+			$("#clearlist1").click(function(){
+				$("#list1").empty();
+			});
+			
+			$("#findelement1").click(function(){
+				$("<div><ul><li>one</li><li>two</li></ul></div>").find("li").each(function(i, e){
+					l( e.innerHTML );
+				});
+			});
+			
+			// trim a string
+			l( $.trim("   I've been trimmed of spaces    ") );
+			
+			// map an array to new array with conversion
+			var a1 = $.map([1,2,3], function(e){
+				return e * 2;
+			});
+			l( "a1 = " + a1 );
+			
+			// filtering an array
+			var negativeArray = $.grep([-2,-1,0,1,2], function(e) {
+				return e < 0;
+			});
+			l( "negativeArray = " + negativeArray );
+			
+			// extending object
+			var options1 = { name: "brian", level: 1};
+			var options2 = { difficulty: 10, players: 2};
+			var allOptions = {};
+			
+			$.extend(allOptions, options1, options2);
+			
+			l("<br><b>allOptions:<b>");
+			$.each( allOptions, function(name, value){
+				l("name = " + name + ", value=" + value);
+			});
+			
+			
+			
+			
+
+			
+			
+		});
+		</script>
+		
+	</body>
+</html>

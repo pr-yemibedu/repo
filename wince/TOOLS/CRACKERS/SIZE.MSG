@@ -1,0 +1,4 @@
+WM_SIZE
+void
+OnSize
+(HWND hWnd, UINT state, int cx, int cy)

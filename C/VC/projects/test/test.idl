@@ -1,0 +1,42 @@
+// test.idl : IDL source for test.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (test.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(3070AFF7-D0A8-4504-9F1E-0552C94A463D),
+		dual,
+		helpstring("IFoo Interface"),
+		pointer_default(unique)
+	]
+	interface IFoo : IDispatch
+	{
+		[id(1), helpstring("method add")] HRESULT add(int* a, int* b, [in, out] int* c);
+		[propget, id(2), helpstring("property size")] HRESULT size([out, retval] long *pVal);
+		[propput, id(2), helpstring("property size")] HRESULT size([in] long newVal);
+		[id(3), helpstring("method multiply")] HRESULT multiply(long* a, long* b, [out, retval] long* c);
+	};
+
+[
+	uuid(5DBC22E2-1D14-42EA-B5E0-1170A7C771AF),
+	version(1.0),
+	helpstring("test 1.0 Type Library")
+]
+library TESTLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(8D5E63B4-0FBE-4F43-B7BB-325CD28AC8BB),
+		helpstring("Foo Class")
+	]
+	coclass Foo
+	{
+		[default] interface IFoo;
+	};
+};

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://ns.adobe.com/air/application/1.5"> 
+    <id>samples.AIRHelloWorld</id> 
+    <version>0.1</version> 
+    <filename>AIRHelloWorld</filename> 
+    <initialWindow> 
+        <content>AIRHelloWorld.swf</content> 
+        <visible>true</visible> 
+        <width>400</width> 
+        <height>200</height> 
+    </initialWindow> 
+</application>

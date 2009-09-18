@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+require 'ostruct'
+require 'mongrel'
+require 'pp'
+
+options = OpenStruct.new
+options.directory = File.expand_path('.')
+options.port = 3000
+
+    OptionParser.new do |opts|
+      opts.banner = "Usage: #{__FILE__} [options]"
+
+      opts.separator ""
+      opts.separator "Specific options:"  
+
+      opts.on("-p", "--port=port", Integer, "Port webserver listens on") do |p|
+        options.port = p
+      end
+
+      opts.on("-d", "--directory=directory", String, "Root webserver directory") do |d|
+        options.directory =d
+      end
+
+      opts.separator ""
+      opts.separator "Common options:"
+
+      # No argument, shows at tail.  This will print an options summary.
+      # Try it and see!
+      opts.on_tail("-h", "--help", "Show this message") do
+        puts opts
+        exit
+      end
+      
+      opts.separator ""
+      opts.separator "Examples:"
+      opts.separator "#{@script_name} --directory=/var/www --port=8081"
+      
+      opts.parse!(ARGV)
+    end
+
+trap("INT") do
+  puts "Exiting.  User initialed abort"
+  exit!
+end
+
+h = Mongrel::HttpServer.new("0.0.0.0", options.port)
+puts "Mongrel serving files from #{options.directory} on port #{options.port}"
+puts "Press CTRL-C to exit"
+h.register("/", Mongrel::DirHandler.new(options.directory))
+h.run.join

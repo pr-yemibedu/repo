@@ -1,0 +1,4 @@
+WM_DISPLAYCHANGE
+void
+OnDisplayChange
+(HWND hWnd, UINT bitsPerPixel, UINT cxScreen, UINT cyScreen)

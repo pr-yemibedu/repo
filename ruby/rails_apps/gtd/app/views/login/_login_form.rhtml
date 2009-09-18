@@ -1,0 +1,16 @@
+<div class="login_dialog">
+  <%= form_remote_tag(:update => 'container', :url => { :action => 'login' }, :html => {:id => 'login_form'} ) %>
+    <dl>
+        <dt>Username:</dt>
+        <dd><%= text_field_tag :username %></dd>
+    
+        <dt>Password:</dt>
+        <dd><%= password_field_tag :password %></dd>
+        
+        <dd><%= check_box_tag 'remember_me', '1', false %> Remember me on this computer</dd>
+        <dd><%= submit_tag "Sign in" %></dd>
+    </dl>
+    
+  <%= end_form_tag %>
+</div>
+

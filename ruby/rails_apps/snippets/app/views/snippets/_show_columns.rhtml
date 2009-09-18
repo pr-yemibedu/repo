@@ -1,0 +1,47 @@
+<style type="text/css">
+.snippet .title
+{
+  font-weight: bold;
+}
+
+.snippet .body
+{
+}
+
+.snippet .attribute-label
+{
+  font-size: x-small;
+  font-weight: bold;
+}
+
+.snippet .attribute-value
+{
+  font-size: x-small;
+}
+
+</style>
+<% @snippet = @record %>
+<div class="snippet">
+  <div class="title"><%= in_place_editor_field :snippet, :title %></div>
+  <div class="body"><%= in_place_editor_field :snippet, :html_formatted, {}, :load_text_url => "/snippets/get_body/#{@record.id}" %></div>
+  <div id="<%= _id(@record, :attributes) %>">
+    <span class="attribute-label">lang: </span><span class="attribute-value"><%= in_place_select_editor_field :snippet, :language, {}, :select_options => options_for_select(Snippet::AVAILABLE_LANGUAGES.sort.collect{|l| [l,l] }) %></span>
+    <span class="attribute-label">tags: </span><span class="attribute-value"><%= in_place_editor_field :snippet, :tag_list %></span>
+    <span class="attribute-label">version: </span><span class="attribute-value"><%= link_to @record.version, '#' %></span>
+  </div>
+</div>
+
+<!-- original code -->
+<!--
+<dl>
+<% columns.each :for => @record do |column| %>
+  <% if column.is_a? ActiveScaffold::DataStructures::ActionColumns -%>
+    <dt><%= column.name -%></dt>
+    <dd><%= render :partial => 'show_columns' %></dd>
+  <% else -%>
+    <dt><%= column.label -%></dt>
+    <dd><%= get_column_value(@record, column) -%> &nbsp;</dd>
+  <% end -%>
+<% end -%>
+</dl>
+-->

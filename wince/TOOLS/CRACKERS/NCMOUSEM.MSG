@@ -1,0 +1,4 @@
+WM_NCMOUSEMOVE
+void
+OnNCMouseMove
+(HWND hWnd, int x, int y, UINT codeHitTest)

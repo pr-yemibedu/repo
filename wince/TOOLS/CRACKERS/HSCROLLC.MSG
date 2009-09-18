@@ -1,0 +1,4 @@
+WM_HSCROLLCLIPBOARD
+void
+OnHScrollClipboard
+(HWND hWnd, HWND hWndCBViewer, UINT code, int pos)

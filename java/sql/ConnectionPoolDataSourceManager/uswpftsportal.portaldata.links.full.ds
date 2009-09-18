@@ -1,0 +1,7 @@
+id=uswpftsportal.portaldata.links.full
+servername=uswpftsportal.merck.com
+databasename=PortalData
+port=1433
+maxpoolsize=20
+user=linkman
+password=password

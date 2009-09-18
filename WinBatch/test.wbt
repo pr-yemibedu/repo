@@ -1,0 +1,146 @@
+; Description: Copies the contents of a storage card to a file server.
+; Version: 1.0
+; Author: Brian Pfeil
+; Created: 10/14/2002
+
+;******************************************************************************
+; global variables
+;******************************************************************************
+STORAGE_CARD_DRV = 'E'
+SRC_PATH = '%STORAGE_CARD_DRV%:\'
+DEST_PATH = '\\uswpapfeilbr\c$\temp\SampleRecs'
+ERROR_TITLE = "ERROR"
+SUCCESS_TITLE = "SUCCESS"
+SUCCESS_MSG = "Completed"
+STORAGE_CARD_DRV_MISSING_MSG = 'Storage card drive "%STORAGE_CARD_DRV%:" does not exist!'
+STORAGE_CARD_NOT_IN_DRV = 'Storage card is not in the storage card reader!  Please put storage card in storage card reader and re-run this program.'
+
+;******************************************************************************
+; routines and functions
+;******************************************************************************
+
+; displays the specified error message and then exits the program
+#DefineSubroutine ErrorExit(msg)
+	Message(ERROR_TITLE, msg)
+	exit
+#EndSubroutine
+
+; displays the specified success message and then exits the program
+#DefineSubroutine SuccessExit(msg)
+	Message(SUCCESS_TITLE, msg)
+	exit
+#EndSubroutine 
+
+; returns true is the storage card drive exists, otherwise false
+#DefineSubRoutine StorageCardDriveExists()
+	if DiskExist('%STORAGE_CARD_DRV%')
+		return @true
+	else
+		return @false
+	end if
+#EndSubRoutine
+
+; returns true if a storage card is in the storage card reader, otherwise false
+#DefineSubRoutine IsStorageCardInDrive()
+	ErrorMode(@off)
+	LastError() ; set "last error" indicator to 0
+	DiskVolInfo(SRC_PATH, 1)
+	ErrorMode(@cancel)
+	if LastError() == 0
+		return @true
+	else
+		return @false
+	end if
+#EndSubRoutine
+
+; returns true if the storage card is empty, otherwise false
+#DefineSubRoutine IsStorageCardEmpty()
+	file_names = FileItemize('%SRC_PATH%\*.*')
+	dir_names = DirItemize('%SRC_PATH%\*.*')
+	file_names_array = Arrayize(file_names, @tab)
+	dir_names_array = Arrayize(dir_names, @tab)
+	if (ArrInfo(file_names_array, 1) == 0) || (ArrInfo(dir_names_array, 1) == 0)
+		return @true
+	else
+		return @false
+	end if
+#EndSubRoutine
+
+; returns a random directory name by concatenating the current date with a
+; random number between 0 - 99 inclusive
+#DefineFunction RandomDirName()
+	date_time = TimeYmdHms() ; YYYY:MM:DD:HH:MM:SS
+	year = StrSub(date_time, 1, 4)
+	month = StrSub(date_time, 6, 2)
+	day = StrSub(date_time, 9, 2)
+	hour = StrSub(date_time, 12, 2)
+	minute = StrSub(date_time, 15, 2)
+	second = StrSub(date_time, 18, 2)
+	random_number = random(99)
+	return "%year%.%month%.%day%-%hour%.%minute%.%second%-%random_number%"
+#EndFunction
+
+; returns a destination directory name given the destination directory root.
+; the returned directory is guaranteed not to exist
+#DefineFunction DestDirName(dest_dir_root)
+	found_empty_dir = @false
+	while found_empty_dir == @false
+		dir_name = StrCat('%dest_dir_root%\', RandomDirName())
+		if !DirExist(dir_name) then found_empty_dir = @true
+	endwhile
+	return dir_name
+#EndFunction
+
+; recursively copies the source directory to the destination directory.
+; returns true is everything is copied, otherwise false
+#DefineFunction DirCopy(src, dest)
+	if !DirMake(dest) then return @false
+	
+	file_names = FileItemize(StrCat(src, "\*.*"))
+	if file_names != ''
+		file_names_array = Arrayize(file_names, @tab)
+		for index = 0 to ArrInfo(file_names_array, 1) - 1
+			src_file_path = StrCat('%src%\', file_names_array[index])
+			dest_file_path = StrCat('%dest%\', file_names_array[index]) 
+			FileCopy(src_file_path, dest_file_path, @false)
+		next
+	end if
+
+	dir_names = DirItemize(StrCat(src, "\*.*"))
+	if dir_names != ''
+		dir_names_array = Arrayize(dir_names, @tab)
+		for index = 0 to ArrInfo(dir_names_array, 1) - 1
+			src_dir_path = StrCat('%src%\', dir_names_array[index])
+			dest_dir_path = StrCat('%dest%\', dir_names_array[index]) 
+			DirCopy(src_dir_path, dest_dir_path)
+		next
+	end if
+	return @true
+#EndFunction
+
+;******************************************************************************
+; program entry point
+;******************************************************************************
+WinHide('') ; hide program window
+
+; check that the storage card reader is mounted as a drive
+if !StorageCardDriveExists() then ErrorExit(STORAGE_CARD_DRV_MISSING_MSG)
+
+; check that a storage card is in the storage card reader
+if !IsStorageCardInDrive() then ErrorExit(STORAGE_CARD_NOT_IN_DRV)
+
+; check if the storage card is empty
+if IsStorageCardEmpty() then SuccessExit(SUCCESS_MSG)
+dest_dir_path = DestDirName(DEST_PATH) ; get path to destination directory
+
+;Display(3600, 'Storage Card Copier', 'Copying files ...')
+; attemp to copy directory contents
+dir_copy_success = DirCopy(StrCat(STORAGE_CARD_DRV, ':\'), dest_dir_path)
+;WinClose('~Storage Card Copier')
+if !dir_copy_success
+	Message('', 'DirCopy failed!')
+else
+	SuccessExit(SUCCESS_MSG)
+end if
+
+exit

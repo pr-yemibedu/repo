@@ -1,0 +1,5 @@
+WM_SYSCOLORCHANGE
+void
+OnSysColorChange
+(HWND hWnd)
+

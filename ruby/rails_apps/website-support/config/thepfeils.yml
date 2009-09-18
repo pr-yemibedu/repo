@@ -1,0 +1,19 @@
+:web_root_directory_path: /home/thepfeil/public_html
+:photo_galleries_directory_path_bak: /home/thepfeil/public_html/galleries/galleries
+:photo_galleries_directory_path: /home/thepfeil/public_html/albums/Wyatt
+:photo_galleries_display_count: 5
+
+:video_display_count: 5
+:video_list:
+  -
+    :name: Wyatt @ Zoo May 2007
+    :url: http://www.youtube.com/watch?v=ztTjHnFg8wM
+  -
+    :name: Wyatt's 1st Year
+    :url: http://www.youtube.com/watch?v=GyAmkdXSejA
+  -
+    :name: Wyatt Laughing in Swing
+    :url: http://video.google.com/videoplay?docid=-8919996354352598165
+  -
+    :name: Wyatt's 1st Days
+    :url: http://video.google.com/videoplay?docid=6961269543569784488

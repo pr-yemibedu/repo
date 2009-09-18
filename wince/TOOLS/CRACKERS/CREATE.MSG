@@ -1,0 +1,4 @@
+WM_CREATE
+BOOL
+OnCreate
+(HWND hWnd, LPCREATESTRUCT lpCreateStruct)

@@ -1,0 +1,296 @@
+require 'pp'
+require 'yaml'
+
+config_yaml = <<EOF
+---
+:$install_directory: C:\\Program Files\\Insight
+:regasm_program: C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\regasm.exe
+
+:stop_process_template: taskkill /IM %s /F
+:register_template: regsvr32 /s %s
+:delete_registry_key_template: reg.exe delete "%s" /f
+:prog_id_registry_location_template: HKEY_CLASSES_ROOT\\%s
+:clsid_registry_location_template: HKEY_CLASSES_ROOT\\CLSID\\{%s}
+
+:stop_processes_list:
+- Insight.exe
+- ClientPlayer.exe
+- ProscapeExplorer.exe
+- MyCallFormularyControlWrapper.exe
+
+:install_files:
+  - {  :name: Insight.exe,
+        :target_directory: $install_directory }
+  - {  :name: Insight.Controls.PrecallPlanWrapperControl.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase, tlb],
+        :ProgID: Insight.Controls.PrecallPlanWrapperControl,
+        :GUID: 2CF7F171-F3C6-4F26-9EB7-209C946A17F5 }
+  - {  :name: CoInsightADODA.dll,
+        :target_directory: $install_directory,
+        :register: y }
+        
+  - {  :name: Infragistics2.Shared.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.Misc.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.UltraWinEditors.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.UltraWinGrid.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.UltraWinSchedule.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.UltraWinTabControl.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.UltraWinTree.v6.2.dll,
+        :target_directory: $install_directory }
+  - {  :name: Infragistics2.Win.v6.2.dll,
+        :target_directory: $install_directory }
+
+
+  - {  :name: AxInterop.CustFltr.dll,
+        :target_directory: $install_directory }
+  - {  :name: AxInterop.SAMPLEENTRYLib.dll,
+        :target_directory: $install_directory }
+  - {  :name: Interop.CustFltr.dll,
+        :target_directory: $install_directory }
+  - {  :name: QuestViewItemControl.dll,
+        :target_directory: $install_directory }
+  - {  :name: Interop.CustFltr.dll,
+        :target_directory: $install_directory }
+  - {  :name: ,
+        :target_directory: $install_directory }
+  - {  :name: ,
+        :target_directory: $install_directory }
+  - {  :name: ,
+        :target_directory: $install_directory }
+  - {  :name: ,
+        :target_directory: $install_directory }
+  - {  :name: ,
+        :target_directory: $install_directory }
+  - {  :name: ,
+        :target_directory: $install_directory }
+        
+
+
+  - {  :name: Insight.Interop.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase] }
+  - {  :name: Insight.Views.PostCallReporting.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Views.PostCallReporting,
+        :GUID:  E9912DAA-59DF-4B40-B939-12284A36290D }
+  - {  :name: Insight.Views.SampleCustomer.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Views.SampleCustomer,
+        :GUID: 9B0C5B8B-DA5E-4BCE-AAA4-F5DB58D90F81 }
+  - {  :name: Insight.Views.PreCallPlanning.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Views.PreCallPlanning,
+        :GUID: 72A3A64D-3F5F-4DE2-970C-1D73192CD726 }
+  - {  :name: Insight.Components.MyCallManager.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Components.MyCallManager,
+        :GUID: 858D087F-F88C-4784-A2B2-8C2F5A7024C3 }
+  - {  :name: Insight.Components.Preloader.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Components.Preloader,
+        :GUID: 0F31BFCE-7F66-4D14-9F8F-E3ED34E91AEC }
+  - {  :name: Insight.Controls.CustomerAssociationsControl.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Controls.CustomerAssociationsControl,
+        :GUID: 097F17AC-63B3-4303-84AC-BB825DF6AB72 }
+  - {  :name: Insight.Controls.ThreeSixtyViewControl.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Controls.ThreeSixtyViewControl,
+        :GUID: CBAB75AB-6F83-44EC-AE15-1161F5C8451B }
+  - {  :name: Insight.Controls.FormularyControl.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: Insight.Controls.FormularyControl,
+        :GUID: 1C1A7777-CC53-4fd4-82D9-E1F92168A5DF }
+  - {  :name: Merck.SFA.ExportedInterfaces.dll,
+        :target_directory: $install_directory,
+        :regasm: [codebase],
+        :ProgID: [Merck_SFA_ExportedInterfaces.RouteManagerForm, Merck_SFA_ExportedInterfaces.Tactics],
+        :GUID: [468FB202-3009-4EFE-86C5-C69A49022556, 8BC7A365-AD35-4CC3-AAB2-127EAA2C5866] }
+
+
+
+
+Insight.BusinessEntities.dll
+
+Insight.Components.MyCallManager.dll
+Insight.Components.Preloader.dll
+
+Insight.Controller.dll
+
+Insight.Controls.CallPlanControl.dll
+Insight.Controls.CustomerAssociationsControl.dll
+Insight.Controls.CustomerProfileControl.dll
+Insight.Controls.FormularyControl.dll
+Insight.Controls.ManagedCareFormularyControl.dll
+Insight.Controls.MyCallExecutionControl.dll
+Insight.Controls.PrecallPlanWrapperControl.dll
+Insight.Controls.ProductPerformanceControl.dll
+Insight.Controls.SampleControl.dll
+Insight.Controls.ThreeSixtyViewControl.dll
+
+Insight.DataAccess.dll
+Insight.DataFactory.dll
+Insight.DataLookup.dll
+
+Insight.Global.dll
+
+Insight.Interop.dll
+
+Insight.Options.dll
+
+Insight.UI.dll
+
+Insight.Views.PostCallReporting.dll
+Insight.Views.PreCallPlanning.dll
+Insight.Views.SampleCustomer.dll
+
+
+Interop.SAMPLEENTRYLib.dll
+
+log4net.dll
+
+
+
+
+
+EOF
+
+$config = YAML::load(config_yaml)
+
+# returns a configuration value
+def c s = nil
+  s ? $config[s] : $config
+end
+
+# -----------------------------------------------------------------------------
+module Helpers
+  
+  # execute string
+  def s s
+    s = r(s)
+    puts s
+    system s
+  end
+  
+  # make variable replacements/substitutions
+  def r s
+    c.each do |key, value|
+      s.gsub!(key.to_s, c(:"#{key}")) if key.to_s.index('$')
+    end
+    s
+  end
+  
+  #quote string
+  def q s
+    "\"#{s}\""
+  end
+  
+  def install_files
+    c(:install_files)
+  end
+  
+  def delete_registry_key k
+    s c(:delete_registry_key_template) % k
+  end
+  
+  def service_control service_name, action
+    s "net #{action} #{service_name}"
+  end
+  
+  def get_file_path file_info
+    q r("#{file_info[:target_directory]}\\#{file_info[:name]}")
+  end
+  
+  def stop_process name
+    s c(:stop_process_template) % name
+  end
+  
+  def register file_info
+    return unless file_info[:register]
+    s r(c(:register_template) % get_file_path(file_info))
+  end
+  
+  def regasm file_info
+    return unless file_info[:regasm]
+    switches = ""
+    (file_info[:regasm] || []).each do |switch|
+        switches = switches + " /#{switch}"
+    end
+    s "#{c(:regasm_program)} #{get_file_path(file_info)} #{switches}"
+  end
+
+end
+
+def delete_registry_entries file_info
+  delete_registry_key(c(:prog_id_registry_location_template) % file_info[:ProgID]) if file_info[:ProgID]
+  delete_registry_key(c(:clsid_registry_location_template) % file_info[:GUID]) if file_info[:GUID]
+end
+
+include Helpers
+# -----------------------------------------------------------------------------
+
+task :default => [:install]
+
+desc "Stop all processes that could have a file in use"
+task :stop_processes do
+  c(:stop_processes_list).each { |process_name| stop_process process_name }
+end
+
+desc "Stops the MSSQLSERVER service"
+task :stop_mssqlserver do
+  service_control :mssqlserver, "stop"
+end
+
+desc "Starts the MSSQLSERVER service"
+task :start_mssqlserver do
+  service_control :mssqlserver, "start"
+end
+
+desc "Stops then starts the MSSQLSERVER service"
+task :restart_mssqlserver => [:stop_mssqlserver, :start_mssqlserver]
+
+desc "Cleans the registry of COM and .NET Assembly registrations"
+task :clean_registrations_from_registry do
+  install_files.each { |file_info| delete_registry_entries file_info }
+end
+
+desc "Registers .NET assemblies"
+task :register_assemblies do
+  install_files.each { |file_info| regasm file_info }
+end
+
+desc "Registers COM/ActiveX files"
+task :register_com_files do
+    install_files.each { |file_info| register file_info }
+end
+
+desc "Copy files to their target directory"
+task :copy_files => [:clean_install_directory] do
+end
+
+desc "Copies all files and registers COM and .NET assembly files"
+task :install_files => [:copy_files, :register_com_files, :register_assemblies] do
+end
+
+desc "Cleans the target application install directory"
+task :clean_install_directory do
+end
+
+task :install => [:stop_processes, :stop_mssqlserver, :install_files] do
+    pp c
+end

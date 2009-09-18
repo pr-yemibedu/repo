@@ -1,0 +1,4 @@
+WM_CTLCOLORDLG
+HBRUSH
+OnCtlColorDlg
+(HWND hWnd,HDC hdc,HWND hWndChild, int type)

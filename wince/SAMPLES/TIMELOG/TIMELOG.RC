@@ -1,0 +1,204 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_TIMELOG             ICON    DISCARDABLE     "TIMELOG.ICO"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDM_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                       IDM_FILE_EXIT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                      IDM_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TALL DIALOGEX 0, 0, 150, 150
+STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CAPTIONOKBTN
+CAPTION "Time Log"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Project:",IDC_STATIC,6,1,26,8
+    EDITTEXT        IDC_PROJECT,36,1,108,14,ES_AUTOHSCROLL
+    LTEXT           "Task:",IDC_STATIC,6,17,18,8
+    EDITTEXT        IDC_TASK,36,17,108,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NOTE,6,33,138,41,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
+    PUSHBUTTON      "&Start",IDC_START,88,84,56,14
+    PUSHBUTTON      "&Clear",IDC_CLEAR,87,102,26,14
+    PUSHBUTTON      "&Delete",IDC_DELETE,118,102,26,14
+    PUSHBUTTON      "|<<",IDC_GO_FIRST,12,119,18,14
+    PUSHBUTTON      "<",IDC_GO_PREV,49,119,18,14
+    PUSHBUTTON      ">",IDC_GO_NEXT,86,119,18,14
+    PUSHBUTTON      ">>|",IDC_GO_LAST,123,119,18,14
+    RTEXT           "Start:",IDC_STATIC,11,83,26,8
+    LTEXT           "<Start>",IDC_START_TIME,42,83,38,8
+    RTEXT           "Stop:",IDC_STATIC,12,94,25,8
+    LTEXT           "<Stop>",IDC_STOP_TIME,42,94,39,8
+    RTEXT           "Elapsed:",IDC_STATIC,6,105,31,8
+    LTEXT           "<Elapsed>",IDC_ELAPSED_TIME,42,105,38,8
+    LTEXT           "Record",IDC_RECORD,25,136,85,8
+END
+
+IDD_WIDE DIALOGEX 0, 0, 290, 95
+STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CAPTIONOKBTN
+CAPTION "Time Log"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Project:",-1,7,2,26,8
+    EDITTEXT        IDC_PROJECT,37,2,100,14,ES_AUTOHSCROLL
+    LTEXT           "Task:",-1,15,18,18,8
+    EDITTEXT        IDC_TASK,37,18,100,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NOTE,7,35,130,55,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
+    PUSHBUTTON      "&Start",IDC_START,229,17,54,14
+    PUSHBUTTON      "&Clear",IDC_CLEAR,231,36,24,14
+    PUSHBUTTON      "&Delete",IDC_DELETE,259,36,24,14
+    PUSHBUTTON      "|<<",IDC_GO_FIRST,150,77,18,12
+    PUSHBUTTON      "<",IDC_GO_PREV,179,77,18,12
+    PUSHBUTTON      ">",IDC_GO_NEXT,211,77,18,12
+    PUSHBUTTON      ">>|",IDC_GO_LAST,244,77,18,12
+    RTEXT           "Start:",-1,149,18,26,8
+    LTEXT           "<Start>",IDC_START_TIME,183,18,35,8
+    RTEXT           "Stop:",-1,153,32,23,8
+    LTEXT           "<Stop>",IDC_STOP_TIME,183,32,37,8
+    RTEXT           "Elapsed:",-1,143,45,33,8
+    LTEXT           "<Elapsed>",IDC_ELAPSED_TIME,183,45,39,8
+    LTEXT           "Record",IDC_RECORD,175,61,60,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_TALL, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 144
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 145
+    END
+
+    IDD_WIDE, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 283
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 90
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_TIMELOG ACCELERATORS DISCARDABLE 
+BEGIN
+    "/",            IDM_HELP_ABOUT,         ASCII,  ALT, NOINVERT
+    VK_F4,          IDM_FILE_EXIT,          VIRTKEY, ALT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_APP_TITLE           "TIMELOG"
+    IDS_HELLO               "Hello World!"
+    IDC_TIMELOG             "TIMELOG"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

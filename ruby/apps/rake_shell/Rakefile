@@ -1,0 +1,24 @@
+require 'rubygems'
+require 'fileutils'
+
+RakeShellScriptName = Dir["*.rb"].first
+RakeShellScriptExeName = RakeShellScriptName.sub(File.extname(RakeShellScriptName), ".exe")
+RakeShellScriptRenamedExeName = "r.exe"
+InstallDirs = [
+  "c:/data/bin/"
+]
+
+task :install => [:build] do
+  InstallDirs.each do |dir|
+    rm_f "#{dir}#{RakeShellScriptRenamedExeName}"
+    cp RakeShellScriptExeName, "#{dir}#{RakeShellScriptRenamedExeName}"
+  end
+end
+
+task :build => [:clean] do
+  system "rubyscript2exe.cmd #{RakeShellScriptName}"
+end
+
+task :clean do
+  rm_f RakeShellScriptExeName
+end

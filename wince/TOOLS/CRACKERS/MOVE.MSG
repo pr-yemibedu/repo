@@ -1,0 +1,4 @@
+WM_MOVE
+void
+OnMove
+(HWND hWnd, int x, int y)

@@ -1,0 +1,336 @@
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:47:51) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mSQL (3.335000)[0m   [0;1mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('customers', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('customers'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'customers'[0m
+  [4;35;1mCustomer Load (0.000000)[0m   [0mDBI::DatabaseError: Execute
+ OLE error code:80040E37 in Microsoft OLE DB Provider for SQL Server
+ Invalid object name 'customers'.
+ HRESULT error code:0x80020009
+ Exception occurred.: SELECT * FROM customers [0m
+
+
+ActiveRecord::StatementInvalid (DBI::DatabaseError: Execute
+    OLE error code:80040E37 in Microsoft OLE DB Provider for SQL Server
+      Invalid object name 'customers'.
+    HRESULT error code:0x80020009
+      Exception occurred.: SELECT * FROM customers ):
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/abstract_adapter.rb:120:in `log'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:485:in `select'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:233:in `select_all'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:390:in `find_by_sql'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:924:in `find_every'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:381:in `find'
+    /app/controllers/customer_controller.rb:4:in `index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:910:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:368:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:381:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:377:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    ./script/server:3
+    -e:4
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:48:35) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mSQL (1.072000)[0m   [0;1mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('cust', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('cust'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'cust'[0m
+  [4;35;1mCustomer Load (162.917000)[0m   [0mSELECT * FROM cust [0m
+Rendering customer/index
+Completed in 166.45300 (0 reqs/sec) | Rendering: 1.18200 (0%) | DB: 167.32400 (100%) | 200 OK [http://localhost/customer]
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:51:22) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:53:14) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mSQL (0.050000)[0m   [0;1mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('cust', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('cust'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'cust'[0m
+  [4;35;1mCustomer Load (0.070000)[0m   [0mSELECT TOP 1 * FROM cust [0m
+Rendering customer/index
+
+
+ActionView::TemplateError (undefined method `each' for #<Customer:0x3769bf4>) on line #1 of app/views/customer/index.rhtml:
+1: <% @customers.each do |customer| %>
+2: customer.to_s
+3: <% end %>
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:1792:in `method_missing'
+    #{RAILS_ROOT}/app/views/customer/index.rhtml:1:in `_run_rhtml_customer_index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_view/base.rb:314:in `compile_and_render_template'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_view/base.rb:290:in `render_template'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_view/base.rb:249:in `render_file'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:699:in `render_file'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:621:in `render_with_no_layout'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/layout.rb:251:in `render_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:53:in `render'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:53:in `render'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:911:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:368:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:381:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:377:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    script/server:3
+    -e:4
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:53:56) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mCustomer Load (0.000000)[0m   [0;1mSELECT TOP 1 * FROM cust [0m
+Rendering customer/index
+Completed in 0.04000 (25 reqs/sec) | Rendering: 0.01000 (25%) | DB: 0.00000 (0%) | 200 OK [http://localhost/customer]
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:54:10) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;35;1mCustomer Load (0.010000)[0m   [0mSELECT TOP 1 * FROM cust [0m
+Rendering customer/index
+Completed in 0.02000 (50 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01000 (50%) | 200 OK [http://localhost/customer]
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:54:23) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mCustomer Load (0.010000)[0m   [0;1mSELECT TOP 1 * FROM cust [0m
+Rendering customer/index
+Completed in 0.02000 (50 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01000 (50%) | 200 OK [http://localhost/customer]
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 21:54:46) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;35;1mCustomer Load (0.010000)[0m   [0mSELECT TOP 1 * FROM cust [0m
+Rendering customer/index
+Completed in 0.03000 (33 reqs/sec) | Rendering: 0.02000 (66%) | DB: 0.01000 (33%) | 200 OK [http://localhost/customer]
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 22:03:40) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mCustomer Load (0.000000)[0m   [0;1mDBI::DatabaseError: Execute
+ OLE error code:80040E14 in Microsoft OLE DB Provider for SQL Server
+ Line 1: Incorrect syntax near 'smith'.
+ HRESULT error code:0x80020009
+ Exception occurred.: SELECT * FROM cust WHERE (last_name like '%'smith'%') [0m
+
+
+ActiveRecord::StatementInvalid (DBI::DatabaseError: Execute
+    OLE error code:80040E14 in Microsoft OLE DB Provider for SQL Server
+      Line 1: Incorrect syntax near 'smith'.
+    HRESULT error code:0x80020009
+      Exception occurred.: SELECT * FROM cust WHERE (last_name like '%'smith'%') ):
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/abstract_adapter.rb:120:in `log'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:485:in `select'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:233:in `select_all'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:390:in `find_by_sql'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:924:in `find_every'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:381:in `find'
+    /app/controllers/customer_controller.rb:4:in `index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:910:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:368:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:381:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:377:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    ./script/server:3
+    -e:4
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 22:04:05) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;35;1mCustomer Load (0.000000)[0m   [0mDBI::DatabaseError: Execute
+ OLE error code:80040E14 in Microsoft OLE DB Provider for SQL Server
+ Line 1: Incorrect syntax near 'smith'.
+ HRESULT error code:0x80020009
+ Exception occurred.: SELECT * FROM cust WHERE (last_name like %'smith'%) [0m
+
+
+ActiveRecord::StatementInvalid (DBI::DatabaseError: Execute
+    OLE error code:80040E14 in Microsoft OLE DB Provider for SQL Server
+      Line 1: Incorrect syntax near 'smith'.
+    HRESULT error code:0x80020009
+      Exception occurred.: SELECT * FROM cust WHERE (last_name like %'smith'%) ):
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/abstract_adapter.rb:120:in `log'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:485:in `select'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:233:in `select_all'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:390:in `find_by_sql'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:924:in `find_every'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:381:in `find'
+    /app/controllers/customer_controller.rb:4:in `index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:910:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:368:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:381:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:377:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    ./script/server:3
+    -e:4
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 22:05:04) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;36;1mCustomer Load (0.000000)[0m   [0;1mDBI::DatabaseError: Execute
+ OLE error code:80040E14 in Microsoft OLE DB Provider for SQL Server
+ Invalid column name 'last_name'.
+ HRESULT error code:0x80020009
+ Exception occurred.: SELECT * FROM cust WHERE (last_name like '%smith%') [0m
+
+
+ActiveRecord::StatementInvalid (DBI::DatabaseError: Execute
+    OLE error code:80040E14 in Microsoft OLE DB Provider for SQL Server
+      Invalid column name 'last_name'.
+    HRESULT error code:0x80020009
+      Exception occurred.: SELECT * FROM cust WHERE (last_name like '%smith%') ):
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/abstract_adapter.rb:120:in `log'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:485:in `select'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/connection_adapters/sqlserver_adapter.rb:233:in `select_all'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:390:in `find_by_sql'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:924:in `find_every'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.3/lib/active_record/base.rb:381:in `find'
+    /app/controllers/customer_controller.rb:4:in `index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:910:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:368:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/base.rb:381:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/filters.rb:377:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.4/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.1/lib/active_support/dependencies.rb:147:in `require'
+    ./script/server:3
+    -e:4
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.3/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing CustomerController#index (for 127.0.0.1 at 2006-10-16 22:05:21) [GET]
+  Session ID: fae03f8155062535c7d90d5ba7bcd84b
+  Parameters: {"action"=>"index", "controller"=>"customer"}
+  [4;35;1mCustomer Load (0.791000)[0m   [0mSELECT * FROM cust WHERE (last_nm like '%smith%') [0m
+Rendering customer/index
+Completed in 0.86100 (1 reqs/sec) | Rendering: 0.05000 (5%) | DB: 0.79100 (91%) | 200 OK [http://localhost/customer]

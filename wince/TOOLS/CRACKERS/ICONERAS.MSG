@@ -1,0 +1,4 @@
+WM_ICONERASEBKGND
+BOOL
+OnIconEraseBkgnd
+(HWND hWnd, HDC hdc)

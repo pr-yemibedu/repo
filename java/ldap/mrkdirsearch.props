@@ -1,0 +1,32 @@
+# directory servers
+#dev  - dsdvm01.merck.com:389
+#test - dsua1.merck.com:389
+#prod - usldap.merck.com:389
+
+# dev directory server
+host=dsua1.merck.com
+port=389
+
+# standard search base for merck directory
+searchbase=ou=People,dc=iM-2,dc=com
+
+# SCOPE_SUB
+scope=2
+
+# specify the attributes that you would like to see for each entry returned
+# from "searchstring"
+# separate multiple attributes by ','
+# leave blank to get all attributes
+#attributes=uid,mrkFSRBG,mrkFSRegion,mrkFSDistrict,mrkFSTerritory,mrkFSSalesTeam,mrkFSSalesTeamGroup,mrkFSTerritoryAssignmentEffectiveDate,mrkFSFieldEmployeeIndicator,mrkFSHQCity,mrkFSDistrictChampion
+attributes=
+
+# separate multiple search strings by ','
+# special characters - '@' and '#' are used as placeholders and are replaced by
+# single alphas [a-zA-Z]
+# searchstrings=(& (uid=@#*) (mrkfsfieldemployeeindicator=Y))
+searchstrings=(uid=veazey)
+
+# possible values
+# "standard" - standard display of attribute name and value
+# "delim" - display each returned entry as a comma delimited list of attributes
+displaymode=standard

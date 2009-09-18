@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+dirs_to_delete = Dir["**/.svn"]
+
+print "This will delete the following directories under #{pwd}:\n" + dirs_to_delete.join("\n") + "\nDo you want to continue [y|n]"
+response = gets.chomp
+
+if response =~ /y/
+  dirs_to_delete = Dir["**/.svn"]
+  dirs_to_delete.each { |relative_path| rm_rf relative_path }
+else
+  puts "nothing deleted"
+end

@@ -1,0 +1,859 @@
+require 'tempfile'
+
+HTTP_PROXY_HOST = "webproxy.merck.com"
+HTTP_PROXY_PORT = 8080
+
+def log s
+  puts s
+end
+
+# quote string
+def q s
+  "\"#{s}\""
+end
+
+# shortcut to run a task in this file
+def invoke_task task_name
+  Rake::Task[task_name].invoke
+end
+
+# template variables are of the form :<variable name>. e.g. :name
+def fill_template(template = "", values = {})
+  s = template.clone
+  values.each do |key, value|
+    s.gsub!(":#{key}", value.to_s) if value.respond_to? :to_s
+  end
+  s
+end
+
+def get_temp_file_path(ext = '')
+  temp_file =Tempfile.new('temp')
+  path = temp_file.path + rand(9999).to_s + ext
+  temp_file.delete
+  path  
+end
+
+def write_temp_file(file_content, ext = '')
+  path = get_temp_file_path(ext)
+  File.open(path, 'w') { |f| f << file_content }
+  path
+end
+
+module WindowsSystemHelpers
+
+  module FileHelpers
+    
+    def self.delete_file path
+      count = 0
+      while File.exist?(path) && count < 100 do
+        rm_f path
+        count = count + 1
+        #s "cmd /c del \"#{path}\" /F /Q"
+      end
+    end
+    
+  end
+
+  def s(*s)
+    log s.to_s
+    system *s
+  end
+  
+  def cmd_then_exit(cmd, *options)
+    options << "/c"
+    s "cmd #{options.join(' ')} #{cmd}"
+  end  
+  
+  def cmd_then_remain(cmd, *options)
+    options << "/k"
+    s "cmd #{options.join(' ')} #{cmd}"
+  end  
+  
+  def start_async(cmd, *options)
+    s "cmd /c start \"\" #{options.join(' ')} #{cmd}"
+  end  
+  
+  def start_and_wait(cmd, *options)
+    options << "/wait"
+    start_async(cmd, options)
+  end    
+  
+  def cmd_prompt_here(*options)
+    directory_path = ENV['dir']  || ''
+    cmd_then_remain "(cd /d #{directory_path} & cls)", options  
+  end
+
+  def robocopy(src, dest, *options)
+    options << "/E /Z /W:5"
+    s "robocopy \"#{src}\" \"#{dest}\" #{options.join(' ')}"
+  end
+  
+  def delete(*args)
+    args.flatten.each do |path|
+      FileHelpers.delete_file path unless File.directory?(path)
+      rm_fr path if File.directory?(path)
+    end
+  end
+  
+  def open s
+    s "explorer.exe #{q(s)}"
+  end
+  
+  def firefox(url, *options)
+    start_async( firefox_command_line(url, options) )
+  end
+  
+  def ie(url, *options)
+    start_async "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"#{url}\""
+  end
+  
+  def firefox_command_line(url, *options)
+    "\"c:\\program files\\mozilla firefox\\firefox.exe\" \"#{url}\""
+  end
+  
+  def browser(url, *options)
+      firefox(url, options)
+  end
+  
+  def text_edit(f)
+    s "e #{f}"
+  end
+
+  def kill(*images)
+    images.flatten.each do |image|
+      s "taskkill /IM #{image} /F /T"
+    end
+  end
+  
+  def define_file_association(ext, cmd)
+    cmd_then_exit "assoc .#{ext}=#{ext}file"
+    cmd_then_exit "ftype #{ext}file=#{cmd}"
+  end
+  
+  def map_drive(path, drive_letter, *options)
+    # delete the mapped drive in case it exists already
+    cmd_then_exit "net use #{drive_letter} /delete"
+    cmd_then_exit "net use \"#{path}\" /delete"
+    
+    # map the drive
+    cmd_then_exit "net use #{drive_letter} \"#{path}\""
+  end
+  
+  def open_share(share_unc_path, user, password)
+    cmd_then_exit "net use #{share_unc_path} /delete"
+    cmd_then_exit "net use #{share_unc_path} #{password} /user:#{user}"
+    start_async( share_unc_path )    
+  end  
+  
+  def service_started?(name)
+    not %x{sc.exe query #{name}}.grep(/state.*running/i).empty?
+  end  
+  
+  def service_control(action, name)
+    case action.to_s
+      when /start/i
+        s "net start #{name}" unless service_started?(name)
+      when /stop/i
+        s "net stop #{name}" if service_started?(name)
+    end
+  end
+    
+end
+
+include WindowsSystemHelpers
+
+module ClearCase
+  InstallDirectory = "c:/program files/rational/clearcase/"
+  BinDirectory = "#{InstallDirectory}bin/"
+  ClearToolProgramPath = "#{BinDirectory}ClearTool.exe"
+end
+
+namespace "insight" do
+
+  ClearCaseViewRootDirectory = "C:/clearcase_storage/views/Insight_Main_Branch/"
+  ClearCaseInsightVOBDirectory = "#{ClearCaseViewRootDirectory}USHH_SFA_Insight/"
+  VS05DevEnvProgramPath = "C:/program files/Microsoft Visual Studio 8/Common7/IDE/devenv.exe"
+  Configuration = ENV['CONFIG'] || "debug|any cpu"
+            
+  namespace "insight.net" do
+
+    SolutionDirectory = "#{ClearCaseInsightVOBDirectory}Insight.NET/"
+    SolutionFilePath = "#{SolutionDirectory}Insight.NET.sln" 
+    
+    desc "rebuild Insight.NET solution"
+    task :rebuild => [:clean, :build]
+    
+    desc "build Insight.NET solution"
+    task :build do
+      s "#{q(VS05DevEnvProgramPath)} #{q(SolutionFilePath)} /BUILD #{q(Configuration)}"
+    end    
+    
+    desc "clean Insight.NET solution"
+    task :clean do
+      s "#{q(VS05DevEnvProgramPath)} /CLEAN #{q(Configuration)} #{q(SolutionFilePath)}"
+    end
+    
+    desc "updates Insight.NET source files from repository"
+    task :update do
+      s "#{q(ClearCase::ClearToolProgramPath)} update #{q(SolutionDirectory)}"
+    end
+    
+  end
+  
+  namespace "insight.net.old" do
+    OldSolutionDirectory = "C:/clearcase_storage/views/pfeilbr_Insight_7.0/USHH_SFA_Insight/Insight4.5.1a/Insight.NET/"
+    #SolutionDirectory = "C:/temp/Insight.NET/"
+    ProjectsInDependentOrder = [
+      "Merck.SFA.Common",
+      "Merck.SFA.DataAccess",
+      "Merck.SFA.BusinessObjects",
+      "Merck.SFA.Controls",
+      "Merck.SFA.ExportedInterfaces",
+      "Merck.SFA.UnitTest"
+    ]
+    
+    def build_project_path solution_dir, project_name
+      "#{solution_dir}#{project_name}/#{project_name}.csproj"
+    end
+    
+    desc "rebuild Insight.NET.old solution"
+    task :rebuild => [:clean, :build]
+    
+    desc "build Insight.NET.old solution"
+    task :build do
+      ProjectsInDependentOrder.each do |project_name|
+        s "#{q(VS05DevEnvProgramPath)} #{q( build_project_path(OldSolutionDirectory, project_name) )} /BUILD #{q(Configuration)}"
+      end    
+    end
+    
+    
+    desc "clean Insight.NET.old solution"
+    task :clean do
+      ProjectsInDependentOrder.each do |project_name|
+        s "#{q(VS05DevEnvProgramPath)} #{q( build_project_path(OldSolutionDirectory, project_name) )} /CLEAN #{q(Configuration)}"
+      end
+    end
+    
+  end
+  
+  InsightInstallDirectory = "C:/Program Files/Insight/"
+  InsightProgramPath = "#{InsightInstallDirectory}Insight.exe"
+  
+  InsightProcesses = [
+    "Insight.exe",
+    "SharedDataServer.exe",
+    "SampleSecurityServer.exe"
+  ]
+  
+  InsightLogFiles = [
+    "#{InsightInstallDirectory}Insight.log",
+    "#{InsightInstallDirectory}CoInsightADODA.log",
+  ]
+  
+  InsightDatabaseServerServiceName = "mssqlserver"
+  
+  desc "reboots Insight"
+  task :reboot => [:stop, :delete_logs, :restart_db, :start]
+  
+  desc "restarts Insight"
+  task :restart => [:stop, :start]
+  
+  desc "starts Insight application"
+  task :start => [:stop, 'proscape:stop', :start_db, 'proscape:start'] do
+    start_async q(InsightProgramPath)
+  end
+    
+  desc "Kills all processes related to Insight application"
+  task :stop => ['samplecomponent:stop', 'proscape:stop'] do
+    kill InsightProcesses
+  end
+  
+  desc "deletes all Insight application log files"
+  task :delete_logs => [:stop, 'samplecomponent:delete_logs'] do
+    delete InsightLogFiles
+  end
+  
+  desc "starts database server"
+  task :start_db do
+    service_control :start, InsightDatabaseServerServiceName
+  end
+  
+  desc "stops database server"
+  task :stop_db do
+    service_control :stop, InsightDatabaseServerServiceName
+  end  
+  
+  desc "restarts database server"
+  task :restart_db => [:stop_db, :start_db]
+
+end
+
+namespace "samplecomponent" do
+
+  SampleComponentProcesses = [
+    "SampleSecurityServer.exe",
+    "SharedDataServer.exe"  
+  ]
+  
+  SampleComponentInstallDirectory = "#{InsightInstallDirectory}SampleEntry/"
+  SampleComponentLogFiles = [
+    "#{SampleComponentInstallDirectory}SampleEntry.log",
+    "#{SampleComponentInstallDirectory}SharedDataServer.log",
+  ]  
+
+  desc "stop sample component processes"
+  task :stop do
+    kill SampleComponentProcesses
+  end
+  
+  desc "deletes sample component logs"
+  task :delete_logs => [:stop] do
+    delete SampleComponentLogFiles
+  end
+  
+end
+
+namespace "proscape" do
+
+  ProscapeInstallDirectory = "C:/Program Files/Proscape Technologies/Proscape System 5/"
+  ClientPlayerProgramPath = "#{ProscapeInstallDirectory}Root/Content/Bin/ClientPlayer.exe"
+
+  ProscapeProcesses = [
+    "ClientPlayer.exe",
+    "ProscapeExplorer.exe",
+    "SampleSecurityServer.exe",
+    "SharedDataServer.exe",
+    "MyCallFormularyControlWrapper.exe"
+  ]
+  
+  desc "starts the proscape server (ClientPlayer.exe)"
+  task :start do
+    start_async "#{q(ClientPlayerProgramPath)} /autostart"
+  end
+  
+  desc "stops the proscape server (ClientPlayer.exe)"
+  task :stop => ['samplecomponent:stop', 'ie:clear_cache'] do
+    kill ProscapeProcesses
+  end
+  
+  desc "restarts the proscape server (ClientPlayer.exe)"
+  task :restart => [:stop, :start]
+  
+  task :content_update do
+    start_async q("C:/Program Files/Proscape Technologies/Proscape System 5/Root/Content/Bin/DataUpdateClient.exe")
+  end
+  
+  task :open_repository do
+	open "c:\\program files\\proscape technologies\\proscape system 5\\repository"
+  end
+  
+end
+
+namespace "appsight" do
+
+  AppSightInstallDrive = "C:/"
+  AppSightInstallDirectoryPath = "Program Files/Identify/"
+  AppSightRecordingProfileDirectoryPath = "#{AppSightInstallDirectoryPath}/AppSight/Data/RPR/"
+  AppSightRecordingProfileDirectory = "#{AppSightInstallDrive}#{AppSightRecordingProfileDirectoryPath}"
+  AppSightInstallDirectory = "#{AppSightInstallDrive}#{AppSightInstallDirectoryPath}"
+  AppSightAutoAttachDirectory = "#{AppSightInstallDirectory}COM BBX Auto Attach/"
+  AppSightAutoAttachProgram = "#{AppSightAutoAttachDirectory}COM_BBX_WrapperLauncher.exe" 
+  
+  AppSightProcesses = [
+    "COM_BBX_WrapperLauncher.exe",
+    "BBXCOMServer.exe"
+  ]
+  
+  AppSightLogDirectories = [
+    "#{AppSightInstallDirectory}AppSight/Bin/IdentifyTrace/",
+    "c:/Data/AppSightAutoAttachBlackBox/logs/"
+  ]
+  
+  AppSightClientMachines = ["uswpfststedc05z"]
+  
+  AppSightLogFiles = AppSightLogDirectories.collect do |dir_path|
+    Dir.glob("#{dir_path}**/*")
+  end
+  
+  desc "restart AppSight program"
+  task :restart => [:stop, :start]
+  
+  desc "start AppSight program"
+  task :start => [:stop, :delete_logs, :create_required_directories] do
+    start_async q(AppSightAutoAttachProgram)
+  end
+  
+  desc "Kills all processes related to AppSight application"
+  task :stop do
+    kill AppSightProcesses
+  end
+  
+  desc "Deletes all logs files created by AppSight application"
+  task :delete_logs => [:stop] do
+    delete AppSightLogFiles
+  end
+  
+  desc "create the required directories for AppSight to run (log dirs, etc.)"
+  task :create_required_directories do
+    AppSightLogDirectories.each do |dir_path|
+      mkdir_p dir_path
+    end
+  end
+  
+  desc "copies black box recording profiles to client machines"
+  task :deploy_recording_profiles do
+    AppSightClientMachines.each do |machine|
+      cp_r "#{AppSightRecordingProfileDirectory}.", "//#{machine}/c$/#{AppSightRecordingProfileDirectoryPath}"
+    end
+  end
+  
+end
+
+namespace "lighttpd" do
+  LighttpdInstallDirectory = "c:/lighttpd/"
+  LighttpdServerProgramPath = "#{LighttpdInstallDirectory}sbin/lighttpd.exe"
+  LighttpdConfigFilePath = "#{LighttpdInstallDirectory}etc/lighttpd.conf"
+  LighttpdProcesses = ["lighttpd.exe"]
+  LighttpdServiceName = "LighttpdServer"
+  LighttpdLogFiles = Dir.glob("#{LighttpdInstallDirectory}logs**/*")
+  
+  desc "starts lightttpd web server"
+  task :start do
+    start_async "#{q(LighttpdServerProgramPath)} -f #{q(LighttpdConfigFilePath)}"
+  end
+  
+  desc "stops lightttpd web server"
+  task :stop do
+    kill LighttpdProcesses
+  end
+  
+  desc "restarts lightttpd web server"
+  task :restart => [:stop, :start] do
+  end
+  
+  desc "deletes lightttpd web server logs"
+  task :delete_logs => [:stop] do
+    delete LighttpdLogFiles
+  end
+  
+  desc "opens lighttpd web server configuration file for editing"
+  task :config do
+    text_edit "#{q(LighttpdConfigFilePath)}"
+  end
+end
+
+namespace "ssh" do
+  PuttyTemplateString = %{putty.exe -pw :password -P :port :user@:host}
+  
+  def ssh_shell h
+    cmd = fill_template(PuttyTemplateString, h)
+    start_async cmd    
+  end
+  
+  ssh_connection_specifications = [
+    :bluehost => {:host => 'thepfeils.com', :user => 'thepfeil', :password => '<password here>', :port => 22},
+    :home_linux_server => {:host => 'localhost', :user => 'notroot', :password => '<password here>', :port => 10122},
+    :uswpsfa01 => {:host => 'uswpsfa01', :user => 'notroot', :password => '<password here>', :port => 22},
+    :uswpsfa00 => {:host => 'uswpsfa00', :user => 'notroot', :password => '<password here>', :port => 22},
+    :iapps => {:host => 'iapps', :user => 'notroot', :password => '<password here>', :port => 22},
+    :osx => {:host => 'tiger-x86', :user => 'root', :password => 'password', :port => 22},
+    :mac01 => {:host => 'localhost', :user => 'brianpfeil', :password => '<password here>', :port => 20122}
+  ]
+  
+  #dynamically create the tasks from the connection specifications array
+  ssh_connection_specifications.each do |ssh_connection_specification|
+    ssh_connection_specification.each_pair do |name, specification|
+      spec = specification # this is done because of the dynamic nature of this (ensures correct scoping)
+      task name do
+          ssh_shell(spec)
+      end
+    end
+  end
+  
+end
+
+namespace "dns" do
+
+  desc "purges client DNS cache"
+  task :refresh do
+    s "ipconfig /flushdns"
+    s "nbtstat -R"
+  end
+  
+end
+
+namespace "ie" do
+
+  InternetExplorerCacheDirectory = "C:/documents and settings/pfeilbr/local settings/temp/temporary internet files/Content.IE5"
+  
+  desc "deletes all files in the Internet Explorer cache"
+  task :clear_cache do
+    s "rmdir /s /q #{q(InternetExplorerCacheDirectory)}"
+  end
+
+end
+
+# system namespace
+namespace "s" do
+  
+  SyncBackProgram = "C:\\program files\\2BrightSparks\\SyncBack\\SyncBack.exe"
+
+  desc "kill a process and all child subprocesses"
+  task :kill do
+    rule '' do |t|
+      kill t.name
+    end
+  end
+  
+  task :kill_all_user_processes do
+    cmd_then_exit %{taskkill /FI "USERNAME eq NORTHAMERICA\\pfeilbr" /FI "IMAGENAME ne explorer.exe" /FI "IMAGENAME ne sr.exe" /FI "IMAGENAME ne ruby.exe" /F}
+  end
+  
+  desc "reboot"
+  task :reboot => [:kill_all_user_processes] do
+    cmd_then_exit "shutdown -f -r -t 0"
+  end
+  
+  desc "prepends the specified directory to the PATH environment variable.  NOTE:  PATH is only updated for current and child processes"
+  task :path do
+    ENV['path'] = ENV['dir'] + ";" + ENV['path']
+    cmd_then_remain "echo %PATH%"
+  end
+  
+  desc "Copy a directory to a target directory (uses robocopy). Usage copy src=\"c:\\temp\\a b c\" dest=\"c:\\temp\\1 2 3\""
+  task :copy do
+    src = ENV['src']
+    dest = ENV['dest']
+    if !src || !dest
+      puts "\nsrc and dest must be defined on the command line as follows:\nsrc=\"c:\\temp\\a b c\" dest=\"c:\\temp\\1 2 3\"\n\n"
+    else
+      robocopy( src, dest )
+    end
+  end
+  
+  desc "opens a command prompt positioned in the specified directory. Usage: prompt dir=<directory path>"
+  task :prompt do
+      directory_path = ENV['dir']
+      cmd_then_remain "(cd /d #{q(directory_path)} & cls)"
+  end
+  
+  #############################################################################
+  # System Daily Maintenance
+  #############################################################################
+  desc "runs backups for this machine, source code, etc. that targets extenal hard drive, network shares, home network, etc."
+  task :backup do
+    profiles = ["All"]
+    profiles.each { |profile| start_async "#{q(SyncBackProgram)} -m #{q(profile)}" }
+  end
+  
+  desc "defragments local hard drive"
+  task :defrag do
+    cmd_then_exit "defrag C: -f -v"
+    cmd_then_exit "contig -s \"C:\\*\""
+  end
+  
+  desc "runs the disk cleanup utility for the local drive"
+  task :disk_cleanup do
+    start_and_wait "%WINDIR%\\system32\\cleanmgr.exe /dc /sagerun: 1"
+  end
+  
+  desc "copies the *popular* books from home storage to *this* local machine"
+  task :get_popular_books do
+    cmd_then_exit %q{pscp -P 10122 -i c:\data\putty_private_key_ssh2_rsa.ppk -C -r root@localhost:/mnt/hgfs/storage01/books/$popular$ c:\books}
+  end
+  
+  desc "runs daily maintenance jobs"
+  task :daily_maintenance => [:backup, :ccleaner, :disk_cleanup, :get_popular_books, :defrag] do
+  end
+  
+  desc "Run CCleaner"
+  task :ccleaner do
+    cmd_then_exit %q{"c:\program files\ccleaner\ccleaner.exe" /AUTO}
+  end
+  
+  #############################################################################
+  # System Startup
+  #############################################################################  
+  desc "runs startup jobs"
+  task :startup => [:ssh_home_tunnel, :set_file_associations, :map_drives, :set_desktop_background] do
+    invoke_task "lighttpd:restart"
+  end
+  
+  desc "sets the desktop background to an image that contains system information"
+  task :set_desktop_background do
+    start_and_wait "bginfo.exe C:\\Data\\bginfo.bgi /timer:0"
+  end
+  
+  desc "set file associations for programs"
+  task :set_file_associations do
+    
+    file_associations =
+    [
+      { "C:\\Data\\bin\\wscite\\SciTE.exe \"%1\"" => %w( ard asc bak c cex cls conf config cpp cron cs cs csh ctl dat dct def desc dex dic dsc dtd el env ext file frq ftp gpg h hxx i idl il imf inc ini java json jsp latex log lst lzx map mxml ora pat php pl pln prc properties props py py rake rdf rep rhtml rpt sbk scr sh sml snk sql stderr stdout stp tbl tex texinfo tmp trace txt ucl vim wrap xml y yml ) },
+      { "C:\\Data\\bin\\sa_flashplayer_9_debug.exe \"%1\"" => %w( swf ) }
+    ]
+    
+    file_associations.each do |file_association_def|
+      file_association_def.each_pair do |command_template, file_extensions|
+        file_extensions.each { |ext| define_file_association(ext, command_template) }
+      end
+    end
+    
+  end
+  
+  desc "maps drives"
+  task :map_drives do
+    drive_mappings =
+      [
+        { "\\\\wpushh05.merck.com\\apps" => "g:" },
+        { "\\\\ushome02.merck.com\\pfeilbr" => "h:" }
+      ]
+    
+    drive_mappings.each do |drive_map|
+      drive_map.each_pair { |path, drive_letter| map_drive(path, drive_letter) }
+    end
+    
+  end
+  
+  task :ssh_home_tunnel do
+    # start_async "c:\\data\\bin\\ssh_tunnel_launcher.cmd", "/min"
+    #start_async "c:\\data\\bin\\ssh_tunnel_launcher_to_mac01.cmd", "/min"
+  end
+  
+end
+
+namespace "vpn" do
+
+  OpenVPNServiceName = "OpenVPNService"
+
+  desc "stop OpenVPN"
+  task :stop do
+    service_control :stop, OpenVPNServiceName  
+  end
+  
+  desc "start OpenVPN"
+  task :start do
+    service_control :start, OpenVPNServiceName  
+  end
+  
+  desc "restart OpenVPN"
+  task :restart => [:stop, :start]
+  
+end
+
+namespace "webserver" do
+  WebServerProgramPath = "C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\WebDev.WebServer.EXE"
+  WebServerCommandTemplate = %{":WebServerProgramPath" /port::port /path:":path" /vpath:"/:vpath"}
+  
+  desc "launch the ASP.NET developer webserver for th specified directory. E.g.: launch dir=c:\\temp\\site1"
+  task :launch do
+    root_directory = ENV['DIR']
+    virtual_path = root_directory.split("\\").reverse[0] if File.directory?(root_directory)
+    port = 4000 + rand(1000)
+    cmd = fill_template(WebServerCommandTemplate,
+      {
+        :WebServerProgramPath => WebServerProgramPath,
+        :port => port,
+        :path => root_directory,
+        :vpath => virtual_path
+      }
+    )
+    start_async cmd
+    browser "http://localhost:#{port}/#{virtual_path}"
+  end
+end
+
+namespace "jruby" do
+
+  JRUBY_INSTALL_PATH="C:\\jruby"
+  JRUBY_BIN_PATH = "#{JRUBY_INSTALL_PATH}\\bin"
+  
+  task :set_path do
+    ENV['PATH'] = "#{JRUBY_BIN_PATH};" + ENV['PATH']
+    ENV['HTTP_PROXY'] = "http://#{HTTP_PROXY_HOST}:#{HTTP_PROXY_PORT}"
+  end  
+  
+  desc "opens a shell for jruby development, which contains the correct PATHs"
+  task :shell => [:set_path] do
+    cmd_prompt_here
+  end
+  
+end
+
+namespace "flex" do
+
+  FLEX_SDK_INSTALL_PATH="C:\\data\\dev_working\\adobe\\flex3sdk_b2_100107"
+  FLEX_SDK_BIN_PATH = "#{FLEX_SDK_INSTALL_PATH}\\bin"
+  STANDALONE_FLASH_PLAYER="sa_flashplayer_9_debug.exe"
+  
+  task :set_path do
+    ENV['PATH'] = "#{FLEX_SDK_BIN_PATH};" + ENV['PATH']
+  end  
+  
+  desc "opens a shell for flex development, which contains the correct PATHs"
+  task :shell => [:set_path] do
+    cmd_prompt_here
+  end
+
+end
+
+namespace "air" do
+  
+  AIR_SDK_INSTALL_PATH="C:\\data\\dev_working\\adobe\\air_b2_win_sdk_100107"
+  AIR_SDK_BIN_PATH = "#{AIR_SDK_INSTALL_PATH}\\bin"
+  
+  task :set_path do
+    invoke_task "flex:set_path"
+    ENV['PATH'] = "#{AIR_SDK_BIN_PATH};" + ENV['PATH']
+  end
+  
+  desc "opens a shell for air development, which contains the correct PATHs"
+  task :shell => [:set_path] do
+    cmd_prompt_here
+  end
+  
+end
+
+# builds the rake shell and installs the centralized Rakefile on a network
+# share 
+namespace "r" do
+  InsightDevelopmentScripterProjectPath = "C:/data/svn_home/trunk/development/ruby/apps/productivity_scripts/"
+  InsightDevelopmentScripterRakefileName = "Rakefile"
+  InsightDevelopmentScripterRakefilePath = "#{InsightDevelopmentScripterProjectPath}#{InsightDevelopmentScripterRakefileName}"
+  InsightDevelopmentScripterShareDirectory = "C:/data/bin/"
+  RakeShellSourceDirectory = "../rake_shell/"
+  
+  # rake insight:development:scripts:install
+  #task :install => [:build_rake_shell] do
+  desc "installs this program"
+  task :install do
+    cp InsightDevelopmentScripterRakefilePath, "#{InsightDevelopmentScripterShareDirectory}#{InsightDevelopmentScripterRakefileName}"
+  end
+  
+  desc "builds *this* rake shell program"
+  task :build_rake_shell do
+    cd InsightDevelopmentScripterProjectPath do
+      cd RakeShellSourceDirectory do
+        s "rake.cmd install"
+      end
+    end
+  end
+  
+  desc "open *this* Rakefile in a text editor"
+  task :edit do
+    text_edit "#{q(InsightDevelopmentScripterRakefilePath)}"
+  end
+  
+  task :test do
+    cmd_then_remain "ruby -c #{q(InsightDevelopmentScripterRakefilePath)}"
+  end
+  
+  desc "display the list of tasks this Rakefile provides"
+  task :tasks do
+    temp_file_path = get_temp_file_path
+    s "r --tasks >\"#{temp_file_path}\""
+    text_edit "\"#{temp_file_path}\""
+  end
+end
+
+namespace "test" do
+  
+    task :write_temp_file do
+      cmd_then_exit "cat " + write_temp_file(%q{set z="test"}, ".cmd")
+    end
+  end
+  
+# o = open namespace.  for openning/launching things
+namespace "o" do
+
+  open_map =
+    {
+      'storage01' => %q{ftp://notroot:<password here>@pfeil.homeip.net/mnt/hgfs/storage01/},
+      'storage02' => %q{E:\\},
+      'uswpfststedc05z' => %q{\\\\uswpfststedc05z\c$},
+      'uswpfsdcm001' => %q{\\\\USWPFSDCM001\c$},
+      'pfeil02' => %q{\\\\pfeil02\C},
+      'pfeil03' => %q{\\\\pfeil03\C},
+      'svn' => %q{C:\data\svn_home\trunk},
+      'home_linux_server' => %q{ftp://notroot:<password here>@pfeil.homeip.net/},
+      'thepfeils' => %q{ftp://thepfeil:<password here>@thepfeils.com/},
+      'vs03' => %q{"%ProgramFiles%\microsoft visual studio .net 2003\Common7\IDE\devenv.exe"},
+      'vs05' => %q{"%ProgramFiles%\Microsoft Visual Studio 8\Common7\IDE\devenv.exe"},
+      'vs08' => %q{"C:\program files\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe"},
+      'search' => %q{"%ProgramFiles%\Yahoo!\Yahoo! Desktop Search\YahooDesktopSearch.exe"},
+      'ue' => %q{%ProgramFiles%\ultraedit\UEDIT32.EXE},
+      'mydocs' => %q{c:\documents and settings\pfeilbr\my documents},
+      'browser' => %q{"%ProgramFiles%\mozilla firefox\firefox.exe"},
+      'ie' => %q{"%ProgramFiles%\Internet Explorer\iexplore.exe"},
+      'cc' => %q{"%ProgramFiles%\rational\clearcase\bin\clearexplorer.exe"},
+      'cq' => %q{"%ProgramFiles%\rational\ClearQuest\clearquest.exe"},
+      'dev' => %q{"C:\clearcase_storage\views\Insight_Main_Branch\USHH_SFA_Insight"},
+      'rhino_shell' => %q{cmd /k java -Dhttp.proxyHost="webproxy.merck.com" -Dhttp.proxyPort="8080" -cp c:\data\bin\js-rhino1.6R5.jar org.mozilla.javascript.tools.shell.Main},
+      'downloads' => %q{"C:\Documents and Settings\Pfeilbr\Desktop\Downloads"},
+      'syncback' => %q{"%ProgramFiles%\2brightsparks\syncback\syncback.exe"},
+      'books' => %q{"c:\books\$popular$"},
+      'insight' => %q{"%ProgramFiles%\insight\insight.exe"},
+      'em' => %q{"C:\WINDOWS\system32\mmc.exe" /s "%ProgramFiles%\Microsoft SQL Server\80\Tools\BINN\SQL Server Enterprise Manager.MSC"},
+      'qa' => %q{"%ProgramFiles%\Microsoft SQL Server\80\Tools\Binn\isqlw.exe"},
+      'qa_insight' => %q{"%ProgramFiles%\Microsoft SQL Server\80\Tools\Binn\isqlw.exe" -S(local) -Usa -PsuD8u6RE -dInsight},
+      'info' => %q{"%ProgramFiles%\winzip\winzip32.exe" "C:\Data\a.zip"},
+      'project_status_tool' => %q{"%ProgramFiles%\internet explorer\iexplore.exe" http://entportman.merck.com/PortfolioServer/105/Project.aspx},
+      'wiki' => firefox_command_line(%q{http://wiki.brianpfeil.com}),
+      'tasks' => firefox_command_line(%q{http://www.rememberthemilk.com/home/pfeilbr/}),
+      'mydocs' => %q{"C:\Documents and Settings\Pfeilbr\My Documents"},
+      'sfawiki' => firefox_command_line(%q{http://uswpsfa01.merck.com/wiki}),
+      'mail' => %q{"%ProgramFiles%\Microsoft Office\OFFICE11\outlook.exe"},
+      'desktop' => %q{c:\data\bin\Desktop.scf},
+      'dm' => %q{"c:\data\Model D SFA Modeling.drl"},
+      'insight' => %q{"%ProgramFiles%\insight\insight.exe"},
+      'oraclient' => %q{"C:\program files\quest software\toad for oracle\TOAD.exe"},
+      'communicator' => %q{"c:\program files\microsoft office communicator\communicator.exe"},
+      'siebtools' => %q{"c:\program files\siebel\8.0\tools\bin\siebdev.exe" /u pfeilbr /p <password here>},
+      'siebcli' => %q{"C:\program files\siebel\8.0\web client\BIN\siebel.exe" /C "C:\program files\siebel\8.0\web client\BIN\ENU\epharma.cfg" /s c:\temp\siebel_web_client_sql_trace.log /U rep01 /p password01},
+      'oraem' => %q{"C:\oracle\product\10.2.0\client_1\BIN\oemapp.bat" console},
+      'rc' => %q{"c:\program files\blueprint\requirements center\rcenter.exe"},
+      'chrome' => %q{"C:\Documents and Settings\Pfeilbr\Local Settings\Application Data\Google\Chrome\Application\chrome.exe"},
+      'emacs' => %q{"c:\windows\system32\wscript.exe" "C:\emacs-22.3\bin\launch-emacs-client.vbs"},
+      'safari' => %q{"C:\Program Files\Safari\Safari.exe"},
+    'dropbox' => %q{"C:\Documents and Settings\Pfeilbr\My Documents\My Dropbox"},
+    'pkb' => %q{"C:\Documents and Settings\Pfeilbr\Local Settings\Application Data\Google\Chrome\Application\chrome.exe"  --app=http://qik.appspot.com/},
+    'sda' => %q{"%ProgramFiles%\Internet Explorer\iexplore.exe" "http://sda.merck.com/EN/SDA_en_US.html"}
+      # '' => %q{""}
+  }
+  
+  task :uswpsfa01 do open_share "\\\\uswpsfa01\\root", "notroot", "<password here>" end
+  task :uswpsfa00 do open_share "\\\\uswpsfa00\\root", "notroot", "<password here>" end
+  task :iapps do open_share "\\\\iapps\\root", "notroot", "<password here>" end
+  
+  # dynamically generate the tasks
+  open_map.each_pair do |name, path|
+    # this is needed to handle the dynamic nature of the task creation (ensures proper scoping). 
+    # Otherwise evrything would open the last one processed
+    path_for_scoping = path
+    task name do |t|
+      t.comment = "#{name} - path_for_scoping"
+      start_async( path_for_scoping )
+    end
+  end
+  
+end
+
+namespace "sieb" do
+  
+  desc 'start siebel web client'
+  task :start_web_client => ['o:siebcli']
+  
+  desc 'stop siebel web client'
+  task :stop_web_client do
+    kill ['siebel.exe', 'autosync.exe']
+  end
+  
+  desc 'restart siebel web client'
+  task :restart_web_client => [:stop_web_client, :start_web_client]
+  
+  desc 'stop siebel sync'
+  task :stop_sync do
+    kill 'autosync.exe'
+  end
+  
+end

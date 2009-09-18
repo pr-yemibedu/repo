@@ -1,0 +1,4 @@
+WM_MDIICONARRANGE
+void
+MDIIconArrange
+(HWND hWnd)

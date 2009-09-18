@@ -1,0 +1,4 @@
+WM_QUERYDRAGICON
+HICON
+OnQueryDragIcon
+(HWND hWnd)

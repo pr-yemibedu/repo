@@ -1,0 +1,133 @@
+<html>
+  <head>
+  
+    <link type="text/css" rel="stylesheet" href="js/datatable/assets/datatable.css">
+    <link rel="stylesheet" type="text/css" href="js/fonts/fonts.css">
+    <link rel="stylesheet" type="text/css" href="js/button/assets/button.css">
+    <link type="text/css" rel="stylesheet" href="js/logger/assets/logger.css">
+    <link rel="stylesheet" type="text/css" href="js/tabview/assets/tabview.css"> 
+    <link rel="stylesheet" type="text/css" href="js/tabview/assets/border_tabs.css"> 
+    <link rel="stylesheet" type="text/css" href="js/container/assets/container.css">   
+	<link rel="stylesheet" type="text/css" href="js/menu/assets/menu.css"> 
+
+    <script type="text/javascript" src="js/yahoo/yahoo-debug.js" ></script>
+    <script type="text/javascript" src="js/dom/dom-debug.js" ></script>
+    <script type="text/javascript" src="js/event/event-debug.js" ></script>
+    <script type="text/javascript" src="js/yahoo-dom-event/yahoo-dom-event.js"></script> 
+    <script type="text/javascript" src="js/element/element-beta-debug.js"></script>    
+    <script type="text/javascript" src="js/logger/logger-debug.js"></script>    
+    <script type="text/javascript" src="js/container/container_core-debug.js"></script>
+    <script type="text/javascript" src="js/container/container-debug.js"></script>     
+    <script type="text/javascript" src="js/connection/connection-debug.js"></script>
+    <script type="text/javascript" src="js/datasource/datasource-beta-debug.js"></script>
+    <script type="text/javascript" src="js/datatable/datatable-beta-debug.js"></script>
+    <script type="text/javascript" src="js/button/button-beta-debug.js"></script>    
+    <script type="text/javascript" src="js/menu/menu-debug.js"></script>
+    <script type="text/javascript" src="js/tabview/tabview-debug.js"></script>     
+    <script type="text/javascript" src="js/dragdrop/dragdrop-debug.js"></script>
+
+    <!--
+    <script type="text/javascript" src="http://www.json.org/json.js"></script>
+    -->
+
+    <style type="text/css">        
+    </style>
+  
+  </head>
+  <body>
+  	<div id="e1">Hello World</div>
+	
+	<a href="#" onclick="sayHello();">say hello</a>
+	<hr>
+	Button Group<br>
+	<a href="#" onclick="createButtonGroup();">createButtonGroup</a>
+	<hr>
+	Menu Button<br>
+	<div id="menubuttonsfromjavascript"></div>	
+  
+    <script type="text/javascript">
+    	function init() {
+	    	var logContainer = document.body.appendChild( document.createElement('div') );
+			var logger = new YAHOO.widget.LogReader( logContainer );
+			
+			YAHOO.log("My test log message #1");
+	
+	    
+			function sayHello(){
+				alert("hello");
+			}
+			
+			var e = YAHOO.util.Dom.get('e1');
+			e.innerHTML = "Hello Universe";
+			YAHOO.log(YAHOO.util.Dom.generateId());
+			YAHOO.log(YAHOO.util.Dom.getXY(e));
+			YAHOO.util.Dom.setXY(e, [50,50]);
+			
+			// ********************************************************************
+			var buttonContainer = document.createElement('div');
+			var button = new YAHOO.widget.Button({id: "mybutton", type: "button", label: "click me", container: buttonContainer});
+			
+			document.body.appendChild(buttonContainer);
+			
+			button.on('click', function(event, userDefinedParameter){
+				YAHOO.log(userDefinedParameter, "merck");
+			}, "you clicked me");
+			
+			// ********************************************************************
+			var buttonGroupContainer = document.createElement('div');
+			buttonGroupContainer.id = "buttonGroupContainer1";
+			document.body.appendChild(buttonGroupContainer);
+			function createButtonGroup() {
+				
+				document.body.appendChild(buttonGroupContainer);
+				var buttonGroup = new YAHOO.widget.ButtonGroup({id: "mybuttongroup", name: "radiofield3", container: "buttonGroupContainer1"});
+				buttonGroup.addButtons([
+						{label: "One", value: "1"},
+						{label: "Two", value: "2"},
+						{label: "Three", value: "3"}]
+				);
+			}
+			
+			// ********************************************************************
+			function onMenuItemClick(p_sType, p_aArgs, p_oItem) {
+	 			oMenuButton3.set("label", p_oItem.cfg.getProperty("text"));
+	 		}
+	
+			 var aMenuButton3Menu = [		
+				 { text: "one", value: 1, onclick: { fn: onMenuItemClick } },
+				 { text: "two", value: 2, onclick: { fn: onMenuItemClick } },
+				 { text: "three", value: 3, onclick: { fn: onMenuItemClick } }		
+			 ];
+			 
+			var oMenuButton3 = new YAHOO.widget.Button({ type: "menubutton", label: "one", name:"mymenubutton", menu: aMenuButton3Menu, container: "menubuttonsfromjavascript" });
+			
+			function BaseClass() {}
+			BaseClass.prototype = {
+				
+				One: function() {
+					return "One";
+				}
+				
+			}
+			
+			function SubClass() {}
+			SubClass.prototype = {
+				
+				Two: function() {
+					return "Two";
+				}
+			}
+			
+			YAHOO.lang.Extend(SubClass, BaseClass);
+			
+			YAHOO.log("zzzzzzzzzzzzzzzzzzzzzzzzzz");
+			
+			var subClass = new SubClass();
+			YAHOO.log( "subClass.One() = " + subClass.One() );
+		}
+		
+		YAHOO.util.Event.addListener(this, 'load', init);
+    </script>
+  
+  </body>
+</html>

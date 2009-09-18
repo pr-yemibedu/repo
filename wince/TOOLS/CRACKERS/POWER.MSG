@@ -1,0 +1,4 @@
+WM_POWER
+void
+OnPower
+(HWND hWnd, int code)

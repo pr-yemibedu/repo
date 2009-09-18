@@ -1,0 +1,242 @@
+//Microsoft eMbedded Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "newres.h"
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_PROPMANY       ICON    DISCARDABLE     "PROPMANY.ICO"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+	"#include ""newres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDM_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                        IDM_FILE_EXIT
+    END
+    POPUP "Format"
+    BEGIN
+        MENUITEM "Cells...",                    IDM_FORMAT_CELLS
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                       IDM_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+IDD_ABOUTBOX DIALOGEX 0, 0, 125, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CAPTIONOKBTN
+CAPTION "About PROPMANY"
+FONT 8, "System"
+BEGIN
+	ICON            IDI_PROPMANY,IDC_STATIC,11,17,20,20
+	LTEXT           "PROPMANY Version 1.0",IDC_STATIC,38,10,70,8, SS_NOPREFIX
+	LTEXT           "Copyright (C) 2000",IDC_STATIC,38,25,70,8
+END
+
+IDD_FORMAT_CELLS DIALOG FIXED IMPURE  0, 0, 110, 77
+STYLE DS_SETFOREGROUND | WS_POPUP | WS_VISIBLE | WS_CLIPSIBLINGS | 
+    WS_CLIPCHILDREN
+FONT 8, "System"
+BEGIN
+    LTEXT           "Row height:",1113,4,7,49,9
+    EDITTEXT        IDC_ROWHEIGHT,54,5,35,12,ES_AUTOHSCROLL
+    LTEXT           "Column width:",1114,4,22,49,9
+    EDITTEXT        IDC_COLWIDTH,54,20,35,12,ES_AUTOHSCROLL
+END
+
+IDD_NUMBER DIALOG FIXED IMPURE  0, 0, 135, 127
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Number"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Category:",1050,5,3,52,8
+    LISTBOX         1000,5,13,90,35,LBS_NOINTEGRALHEIGHT | 
+                    LBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "General format cells have no specific number format.",
+                    1017,5,54,124,45
+    LTEXT           "Sample:",1136,4,102,27,8
+END
+
+IDD_ALIGN DIALOG FIXED IMPURE  0, 0, 116, 133
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Align"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Wrap text",1008,"Button",BS_AUTO3STATE | WS_GROUP | 
+                    WS_TABSTOP,5,3,100,10
+    LTEXT           "Horizontal",1132,4,17,38,8
+    CONTROL         "General",1000,"Button",BS_AUTORADIOBUTTON | WS_GROUP,5,
+                    27,100,9
+    CONTROL         "Left",1057,"Button",BS_AUTORADIOBUTTON,5,38,100,9
+    CONTROL         "Center",1003,"Button",BS_AUTORADIOBUTTON,5,48,100,9
+    CONTROL         "Right",1055,"Button",BS_AUTORADIOBUTTON,5,58,100,9
+    CONTROL         "Center across selection",1007,"Button",
+                    BS_AUTORADIOBUTTON,5,68,100,9
+    LTEXT           "Vertical",1133,4,79,28,8
+    CONTROL         "Top",1004,"Button",BS_AUTORADIOBUTTON | WS_GROUP,5,90,
+                    100,9
+    CONTROL         "Center",1006,"Button",BS_AUTORADIOBUTTON,5,100,100,9
+    CONTROL         "Bottom",1005,"Button",BS_AUTORADIOBUTTON,5,110,100,9
+END
+
+IDD_BORDERS DIALOG FIXED IMPURE  0, 0, 141, 135
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Borders"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Borders:",1110,5,7,30,8
+    PUSHBUTTON      "",1107,36,5,20,12
+    LTEXT           "Fills:",1109,67,7,14,8
+    PUSHBUTTON      "",1106,86,5,20,12
+    LTEXT           "Border",1134,4,20,24,8
+    CONTROL         "Outline",1015,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,
+                    33,45,9
+    CONTROL         "Left",1057,"Button",BS_AUTO3STATE | WS_TABSTOP,5,45,45,
+                    9
+    CONTROL         "Right",1055,"Button",BS_AUTO3STATE | WS_TABSTOP,5,57,45,
+                    9
+    CONTROL         "Top",1004,"Button",BS_AUTO3STATE | WS_TABSTOP,5,69,45,9
+    CONTROL         "Bottom",1005,"Button",BS_AUTO3STATE | WS_TABSTOP,5,81,
+                    45,9
+    LTEXT           "Sample:",1135,4,94,27,8
+    PUSHBUTTON      "Sample Cell",1108,5,106,107,16,NOT WS_TABSTOP
+END
+
+IDD_FONT DIALOG DISCARDABLE  0, 0, 133, 127
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Font"
+FONT 8, "System"
+BEGIN
+    LTEXT           "Font:",IDC_STATIC,7,7,18,8
+    LTEXT           "Color:",IDC_STATIC,7,26,20,8
+    LTEXT           "Style",IDC_STATIC,7,46,17,8
+    LTEXT           "Preview",IDC_STATIC,7,100,26,8
+    COMBOBOX        IDC_COMBO1,34,7,92,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO2,34,25,25,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO3,92,27,34,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:",IDC_STATIC,67,28,16,8
+    CONTROL         "Bold",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    7,58,29,10
+    CONTROL         "Italic",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,70,31,10
+    LTEXT           "AaBbCcYyZz",IDC_STATIC,7,111,41,8
+    CONTROL         "Underline",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,84,46,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 118
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_PROPMANY ACCELERATORS DISCARDABLE 
+BEGIN
+    "/",            IDM_HELP_ABOUT,         ASCII,  ALT, NOINVERT
+    VK_F4,          IDM_FILE_EXIT,          VIRTKEY, ALT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+   IDC_PROPMANY   "PROPMANY"
+   IDS_APP_TITLE       "PROPMANY"
+   IDS_HELLO           "Hello World!"
+END
+
+#endif
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED

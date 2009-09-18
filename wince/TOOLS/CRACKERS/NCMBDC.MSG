@@ -1,0 +1,4 @@
+WM_NCMBUTTONDBLCLK
+void
+OnNCMButtonDblClk
+(HWND hWnd, BOOL fDoubleClick, int x, int y, UINT codeHitTest)

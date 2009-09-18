@@ -1,0 +1,23 @@
+<h1>Listing people</h1>
+
+<table border="1" cellpadding="0">
+<tr>
+<% for field_name in Person::DISPLAY_FIELDS %>
+    <td><%= field_name %></td>
+<% end %>
+</tr>
+<% for person in @people %>
+  <tr>
+    <% for field_name in Person::DISPLAY_FIELDS %>
+    <td><%= h person.send(field_name.to_sym) %></td>
+    <% end %>
+    <td><%= link_to 'Show', person %></td>
+    <!-- <td><%= link_to 'Edit', edit_person_path(person) %></td> -->
+    <!-- <td><%= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete %></td> -->
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<!-- <%= link_to 'New person', new_person_path %> -->

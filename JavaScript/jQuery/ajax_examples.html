@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>jQuery Examples</title>
+		<script type="text/javascript" src="lib/jQuery/jquery-1.2.6.js" ></script>
+		
+		<style type="text/css">
+			.logging_container {
+				background-color:#DDDDDD;
+				border:1px solid #CCCCCC;
+				color:#000000;
+				line-height:1.1em;
+				overflow:auto;
+				padding:5px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<h2>jQuery AJAX Examples</h2>
+		<b>Log Messages:</b><br>
+		<div id="logging_container1" class="logging_container"></div><br />
+
+		<div id="loading" style="display: none">Loading ...</div>
+    
+      <div id="google" />
+      
+      search: <input id="q" type="text" /><input id="go" name="go" value="go" type="button" /><br/>
+      <ul id="results" />
+    
+		<script type="text/javascript">
+		$(function() {
+			
+			function l(s) {
+				$("#logging_container1").html( $("#logging_container1").html() + "<br>" + s);
+			}
+      
+      $("#q").keyup( function () {
+        var q = $(this).val();
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?&tagmode=any&format=json&jsoncallback=?", {tags: q}, function(data) {
+            $("#results").text("");
+            $.each(data.items, function(i, item) {
+              $("<li/>").append($("<img />").attr("src", item.media.m)).appendTo("#results");
+            });
+        });
+      });
+			
+		});
+		</script>
+		
+	</body>
+</html>

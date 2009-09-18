@@ -1,0 +1,4 @@
+WM_MEASUREITEM
+void
+OnMeasureItem
+(HWND hWnd, MEASUREITEMSTRUCT * lpMeasureItem)

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Untitled Page</title>
+<script language="javascript" type="text/javascript">
+// <!CDATA[
+
+function containerButton_onclick() {
+    var containerElementStyle = document.getElementById("divContainer").style;
+    if (containerElementStyle.visibility == "hidden")
+    {
+        containerElementStyle.visibility = "visible";
+    }
+    else
+    {
+        containerElementStyle.visibility = "hidden";
+    }
+}
+
+// ]]>
+</script>
+</head>
+<body>
+    <div id="divContainer" style="width: 400px; position: static; height: 258px; background-color: transparent; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-bottom-style: solid;">
+        <div id="divHeader" style="z-index: 101; left: 26px; width: 100%; position: static;
+            top: 29px; height: 20%; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-bottom-style: solid;">
+            header</div>
+        <div id="divBody" style="z-index: 101; left: 100px; width: 100%; position: static;
+            top: 100px; height: 80%; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-bottom-style: solid;">
+            Body</div>
+        <div style="z-index: 101; left: 36px; width: 100%; position: static; top: 280px;
+            height: 20%; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-bottom-style: solid;" id="divFooter">
+            Footer</div>
+    </div>
+    <div id="divControls" style="z-index: 101; left: 17px; width: 399px; top: 366px;
+        height: 100px">
+        <input id="containerButton" type="button" value="Container" onclick="return containerButton_onclick()" /></div>
+
+</body>
+</html>

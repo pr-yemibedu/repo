@@ -1,0 +1,4 @@
+WM_ERASEBKGND
+BOOL
+OnEraseBkgnd
+(HWND hWnd, HDC hdc)

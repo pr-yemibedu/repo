@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdmext:extension
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pdm="http://www.blueprintsys.com/RC2009/emf/pdm"
+    xmlns:pdmext="http://www.blueprintsys.com/pdmandsd">
+<!--Model (PTM or PDM)-->
+<pdmext:model xsi:type="pdm:PDMUseCaseModel" uid="_lxrfoWJBEd2lXIFvdgvURw" version="2.01">
+    <systemAttrSet>
+      <attrs name="NAME_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="VERSION_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="DESCRIPTION_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="OVERVIEW_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="ASSUMPTION_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="CONSTRAINTS_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="DEPENDENCIES_ID">
+        <linkableString value=""/>
+      </attrs>
+      <attrs name="FUNCTIONAL_DESCRIPTION_ID">
+        <linkableString value=""/>
+      </attrs>
+    </systemAttrSet>
+    <customAttrSet/>
+    <systemMeta uid="_IrjDMBwQEdul6ZbaF_PO8Q">
+      <NodeMeta nodeType="PDMUseCaseModel">
+        <attrMeta attrName="Name" readOnly="true" attrField="NAME_ID"/>
+        <attrMeta attrName="Version" fileUrlsAllowed="true" readOnly="true" attrField="VERSION_ID"/>
+        <attrMeta attrName="Description" fileUrlsAllowed="true" readOnly="true" attrField="DESCRIPTION_ID"/>
+        <attrMeta attrName="Overview" fileUrlsAllowed="true" readOnly="true" attrField="OVERVIEW_ID"/>
+        <attrMeta attrName="Assumption" fileUrlsAllowed="true" readOnly="true" attrField="ASSUMPTION_ID"/>
+        <attrMeta attrName="Constraints" fileUrlsAllowed="true" readOnly="true" attrField="CONSTRAINTS_ID"/>
+        <attrMeta attrName="Dependencies" fileUrlsAllowed="true" readOnly="true" attrField="DEPENDENCIES_ID"/>
+        <attrMeta attrName="Functional Description" fileUrlsAllowed="true" readOnly="true"
+            attrField="FUNCTIONAL_DESCRIPTION_ID"/>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMAssociation">
+        <attrMeta attrName="Role" fileUrlsAllowed="true" readOnly="true" attrField="ROLE_ID"/>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMActor">
+        <attrMeta attrName="Name" readOnly="true" attrField="NAME_ID"/>
+        <attrMeta attrName="Description" fileUrlsAllowed="true" guiScreenAllowed="true"
+            readOnly="true" attrField="DESCRIPTION_ID"/>
+        <attrMeta attrName="Custom Icon" readOnly="true" attrField="CUSTOM_ICON_ID"/>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMGenericUseCase">
+        <attrMeta attrName="Name" readOnly="true" attrField="NAME_ID"/>
+        <attrMeta attrName="Use Case Level" type="INTEGER" defaultValue="0" miltiline="false"
+            hasValidValues="true" readOnly="true" attrField="USE_CASE_LEVEL_ID">
+          <validValues value="1"/>
+          <validValues value="2"/>
+          <validValues value="3"/>
+          <validValues value="4"/>
+          <validValues value="5"/>
+          <validValues value="6"/>
+          <validValues value="7"/>
+          <validValues value="8"/>
+          <validValues value="9"/>
+          <validValues value="10"/>
+        </attrMeta>
+        <attrMeta attrName="Overview" fileUrlsAllowed="true" guiScreenAllowed="true"
+            readOnly="true" attrField="OVERVIEW_ID"/>
+        <attrMeta attrName="Goal in Context" fileUrlsAllowed="true" guiScreenAllowed="true"
+            readOnly="true" attrField="GOAL_IN_CONTEXT_ID"/>
+        <attrMeta attrName="Scope" fileUrlsAllowed="true" guiScreenAllowed="true"
+            readOnly="true" attrField="SCOPE_ID"/>
+        <attrMeta attrName="Trigger" fileUrlsAllowed="true" guiScreenAllowed="true"
+            readOnly="true" attrField="TRIGGER_ID"/>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMProxy">
+        <attrMeta attrName="Goal" fileUrlsAllowed="true" guiScreenAllowed="true" readOnly="true"
+            attrField="GOAL_ID"/>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMUseCase"/>
+      <NodeMeta nodeType="PDMExternalModel">
+        <attrMeta attrName="Relative File Path" miltiline="false" readOnly="true"
+            attrField="RELATIVE_FILE_PATH_ID"/>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMRequirement">
+        <attrMeta attrName="Name" miltiline="false" readOnly="true" attrField="NAME_ID"/>
+        <attrMeta attrName="Description" fileUrlsAllowed="true" readOnly="true" attrField="DESCRIPTION_ID"/>
+        <attrMeta attrName="Requirement Type" defaultValue="0" miltiline="false" hasValidValues="true"
+            hasValidValuePrefix="true" prefixLength="2" attrField="REQUIREMENT_TYPE_ID">
+          <validValues value="Requirement" prefix="RQ" readOnly="true"/>
+          <validValues value="Requirement Folder" prefix="RF" readOnly="true"/>
+          <validValues value="Business Requirement" prefix="BR" defaultValue="Business Requirement"
+              defaultPrefix="BR"/>
+          <validValues value="User Requirement" prefix="UR" defaultValue="User Requirement"
+              defaultPrefix="UR"/>
+          <validValues value="Functional Requirement" prefix="FR" defaultValue="Functional Requirement"
+              defaultPrefix="FR"/>
+          <validValues value="Quality of Service Requirement" prefix="QS" defaultValue="Quality of Service Requirement"
+              defaultPrefix="QS"/>
+          <validValues value="Assumption and Constraint" prefix="AS" defaultValue="Assumption and Constraint"
+              defaultPrefix="AS"/>
+          <validValues value="Implementation Requirement" prefix="IR" defaultValue="Implementation Requirement"
+              defaultPrefix="IR"/>
+          <validValues value="Technical Requirement" prefix="TR" defaultValue="Technical Requirement"
+              defaultPrefix="TR"/>
+          <validValues value="Business Rule" prefix="RU" defaultValue="Business Rule"
+              defaultPrefix="RU"/>
+          <validValues value="Data Requirement" prefix="DR" defaultValue="Data Requirement"
+              defaultPrefix="DR"/>
+          <validValues value="Integration Requirement" prefix="IN" defaultValue="Integration Requirement"
+              defaultPrefix="IN"/>
+          <validValues value="Service Requirement" prefix="SR" defaultValue="Requirement Type 13"
+              defaultPrefix="ZZ"/>
+          <validValues value="Requirement Type 14" prefix="YY" defaultValue="Requirement Type 14"
+              defaultPrefix="YY"/>
+          <validValues value="Requirement Type 15" prefix="XX" defaultValue="Requirement Type 15"
+              defaultPrefix="XX"/>
+          <validValues value="Requirement Type 16" prefix="WW" defaultValue="Requirement Type 16"
+              defaultPrefix="WW"/>
+          <validValues value="Requirement Type 17" prefix="VV" defaultValue="Requirement Type 17"
+              defaultPrefix="VV"/>
+          <validValues value="Requirement Type 18" prefix="UU" defaultValue="Requirement Type 18"
+              defaultPrefix="UU"/>
+          <validValues value="Requirement Type 19" prefix="TT" defaultValue="Requirement Type 19"
+              defaultPrefix="TT"/>
+          <validValues value="Requirement Type 20" prefix="SS" defaultValue="Requirement Type 20"
+              defaultPrefix="SS"/>
+          <validValues value="Requirement Type 21" prefix="RR" defaultValue="Requirement Type 21"
+              defaultPrefix="RR"/>
+          <validValues value="Requirement Type 22" prefix="QQ" defaultValue="Requirement Type 22"
+              defaultPrefix="QQ"/>
+          <validValues value="Requirement Type 23" prefix="PP" defaultValue="Requirement Type 23"
+              defaultPrefix="PP"/>
+          <validValues value="Requirement Type 24" prefix="OO" defaultValue="Requirement Type 24"
+              defaultPrefix="OO"/>
+          <validValues value="Requirement Type 25" prefix="NN" defaultValue="Requirement Type 25"
+              defaultPrefix="NN"/>
+        </attrMeta>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMGlossary">
+        <attrMeta attrName="Name" miltiline="false" readOnly="true" attrField="NAME_ID"/>
+        <attrMeta attrName="Description" miltiline="false" readOnly="true" attrField="DESCRIPTION_ID"/>
+      </NodeMeta>
+    </systemMeta>
+    <customMeta uid="_JrjDMBwQEdul6ZbaF_PO8Q">
+      <NodeMeta nodeType="PDMUseCaseModel"/>
+      <NodeMeta nodeType="PDMActor"/>
+      <NodeMeta nodeType="PDMGenericUseCase"/>
+      <NodeMeta nodeType="PDMUseCase"/>
+      <NodeMeta nodeType="PDMExternalModel"/>
+      <NodeMeta nodeType="PDMRequirement">
+        <attrMeta attrName="Priority" defaultValue="2" hasValidValues="true" attrField="Field1">
+          <validValues value="High"/>
+          <validValues value="Medium"/>
+          <validValues value="Low"/>
+        </attrMeta>
+      </NodeMeta>
+      <NodeMeta nodeType="PDMUserData"/>
+      <NodeMeta nodeType="PDMScreenData"/>
+    </customMeta>
+    <actors uid="_sjCWUGJPEd2lXIFvdgvURw" index="1" prefix="AC">
+      <systemAttrSet>
+        <attrs name="NAME_ID">
+          <linkableString value="User"/>
+        </attrs>
+        <attrs name="DESCRIPTION_ID">
+          <linkableString value="Bank customer who has ATM card"/>
+        </attrs>
+        <attrs name="CUSTOM_ICON_ID">
+          <linkableString value=""/>
+        </attrs>
+      </systemAttrSet>
+      <customAttrSet/>
+      <graphicsContexts xsi:type="pdm:PDMActorGraphicsContext" bounds="303,96,29,54"
+          customIcon="ATM Users\ATM User Female.jpg"/>
+    </actors>
+    <useCases xsi:type="pdm:PDMUseCase" uid="_Udmx8GJQEd2lXIFvdgvURw" index="1" prefix="UC">
+      <threads uid="_RPNpkGPgEd2cdcg-uq0Hng" timestamp="1218045118909" author="BP">
+        <name value="Traceability"/>
+        <comments uid="_UUMdgGPgEd2cdcg-uq0Hng" timestamp="1218045737286" author="BP">
+          <text value="Need to complete the Traceability for the ATM use case."/>
+        </comments>
+      </threads>
+      <systemAttrSet>
+        <attrs name="NAME_ID">
+          <linkableString value="ATM"/>
+        </attrs>
+        <attrs name="USE_CASE_LEVEL_ID">
+          <linkableString value="1"/>
+        </attrs>
+        <attrs name="OVERVIEW_ID">
+          <linkableString value="Performs the ATM (Automated Teller Machine) banking services"/>
+        </attrs>
+        <attrs name="GOAL_IN_CONTEXT_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="SCOPE_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="TRIGGER_ID">
+          <linkableString value=""/>
+        </attrs>
+      </systemAttrSet>
+      <customAttrSet/>
+      <graphicsContexts xsi:type="pdm:PDMUseCaseGraphicsContext" bounds="387,173,100,50">
+        <extends useCase="#_SIaeIGL-Ed2CdPCSjJlsCw"/>
+        <extends useCase="#_A0TckGL_Ed2CdPCSjJlsCw"/>
+        <extends useCase="#_55NV4GMCEd2CdPCSjJlsCw"/>
+        <includes useCase="#__ejucGL6Ed2CdPCSjJlsCw"/>
+      </graphicsContexts>
+      <proxy uid="_Udmx8WJQEd2lXIFvdgvURw" flow="#_Udmx9WJQEd2lXIFvdgvURw">
+        <goal uid="_Udmx8mJQEd2lXIFvdgvURw">
+          <description/>
+        </goal>
+        <preCondition uid="_Udmx82JQEd2lXIFvdgvURw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="197,10,100,68"/>
+          <description value="ATM prompts to insert bank card">
+            <fileUrls name="Prompt for Card" link="Images\Prompt for Card.jpg"/>
+            <fileUrls name="ATM SRS - Initialization" link="Documents\ATM SRS.doc#Initialization"/>
+            <fileUrls name="RCEA Course Outline" link="Documents\RCEA Course Outline.pdf"/>
+            <fileUrls name="Blueprint" link="http://www.blueprintsys.com"/>
+          </description>
+        </preCondition>
+        <postCondition uid="_Udmx9GJQEd2lXIFvdgvURw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="195,317,105,68"/>
+          <description value="ATM displays a Thank You message">
+            <fileUrls name="Service Complete" link="Images\Service Complete.jpg"/>
+          </description>
+        </postCondition>
+      </proxy>
+      <basicFlow uid="_Udmx9WJQEd2lXIFvdgvURw">
+        <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+            bounds="100,118,295,159"/>
+        <steps uid="_yVJsoGJUEd2lXIFvdgvURw" stepOfType="CUSTOM_ACTOR" customActor="#_sjCWUGJPEd2lXIFvdgvURw">
+          <threads uid="_f88CQGPgEd2cdcg-uq0Hng" timestamp="1218045447479" author="BP">
+            <name value="Acceptable Cards"/>
+            <comments uid="_ho0VQGPgEd2cdcg-uq0Hng" timestamp="1218045205329" author="BP">
+              <text value="Can a User use the new Debit cards?"/>
+            </comments>
+            <comments uid="_k8aM8GPgEd2cdcg-uq0Hng" timestamp="1218045246844" author="BP">
+              <text value="Will User's bank-issued Mastercard or Visa work?  What happens if the bank did not issue the Credit Cards?"/>
+            </comments>
+            <comments uid="_ENb_4GPhEd2cdcg-uq0Hng" timestamp="1218045447479" author="BP">
+              <text value="Can American Express cards be used also?"/>
+            </comments>
+          </threads>
+          <description value="User inserts bank card into the ATM">
+            <fileUrls name="Card Inserted" link="Images\Card Inserted.jpg"/>
+            <fileUrls name="ATM SRS - Card_Encoding" link="Documents\ATM SRS.doc#Card_Encoding"/>
+            <fileUrls name="ATM Constraints - Card Reader" link="Documents\ATM Constraints.xls#Globally_Invalid_PINS"/>
+            <operations>iwdg18e75w198-1sxsdwyiv8dvd</operations>
+          </description>
+        </steps>
+        <steps xsi:type="pdm:PDMIncludeStep" uid="_cKZ88GL9Ed2CdPCSjJlsCw" stepOfType="SYSTEM"
+            hide="true">
+          <description value="ATM validates PIN"/>
+          <include uid="_cKZ88WL9Ed2CdPCSjJlsCw" flow="#__ejudWL6Ed2CdPCSjJlsCw">
+            <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+                bounds="557,55,164,142"/>
+            <goal uid="_cKZ88mL9Ed2CdPCSjJlsCw">
+              <description value="Validate PIN"/>
+            </goal>
+            <preCondition uid="_cKZ882L9Ed2CdPCSjJlsCw">
+              <description/>
+            </preCondition>
+            <postCondition uid="_cKZ89GL9Ed2CdPCSjJlsCw">
+              <description/>
+            </postCondition>
+          </include>
+        </steps>
+        <steps uid="_FMatkGJVEd2lXIFvdgvURw" stepOfType="SYSTEM">
+          <description value="ATM displays available services"/>
+        </steps>
+        <steps xsi:type="pdm:PDMBranchingStep" uid="_eIiBEGL-Ed2CdPCSjJlsCw" stepOfType="CUSTOM_ACTOR"
+            customActor="#_sjCWUGJPEd2lXIFvdgvURw">
+          <description value="User selected cancel">
+            <fileUrls name="Service Menu" link="Images\Services Menu.jpg"/>
+          </description>
+          <extensions uid="_gCWCYGL-Ed2CdPCSjJlsCw" flow="#_SIaeJWL-Ed2CdPCSjJlsCw"
+              external="true">
+            <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+                bounds="748,322,204,195"/>
+            <goal uid="_gCWCYWL-Ed2CdPCSjJlsCw">
+              <description value="Withdraw Cash"/>
+            </goal>
+            <preCondition uid="_gCWCYmL-Ed2CdPCSjJlsCw">
+              <description value="User selected Withdraw Cash">
+                <operations>ibkuufb2gstod-1aw59ixx6d6is</operations>
+              </description>
+            </preCondition>
+            <postCondition uid="_gCWCY2L-Ed2CdPCSjJlsCw">
+              <description/>
+            </postCondition>
+          </extensions>
+          <extensions uid="_TukuMGL_Ed2CdPCSjJlsCw" flow="#_A0TclWL_Ed2CdPCSjJlsCw"
+              external="true">
+            <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+                bounds="519,403,204,182"/>
+            <goal uid="_TukuMWL_Ed2CdPCSjJlsCw">
+              <description value="Get Balance"/>
+            </goal>
+            <preCondition uid="_TukuMmL_Ed2CdPCSjJlsCw">
+              <description value="User selected Get Balance"/>
+            </preCondition>
+            <postCondition uid="_TukuM2L_Ed2CdPCSjJlsCw">
+              <description/>
+            </postCondition>
+          </extensions>
+          <extensions uid="_YrNnUGL_Ed2CdPCSjJlsCw" flow="#_55NV5WMCEd2CdPCSjJlsCw"
+              external="true">
+            <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+                bounds="821,70,204,195"/>
+            <goal uid="_YrNnUWL_Ed2CdPCSjJlsCw">
+              <description value="Deposit Funds"/>
+            </goal>
+            <preCondition uid="_YrNnUmL_Ed2CdPCSjJlsCw">
+              <description value="User selected Deposit Funds"/>
+            </preCondition>
+            <postCondition uid="_YrNnU2L_Ed2CdPCSjJlsCw">
+              <description/>
+            </postCondition>
+          </extensions>
+        </steps>
+        <steps uid="_KpZToGJVEd2lXIFvdgvURw" stepOfType="SYSTEM">
+          <description value="ATM ejects the card">
+            <fileUrls name="Eject Card" link="Images\Eject Card.jpg"/>
+            <operations>i14fv8i0w2mhsg-163ke8hynp0of</operations>
+          </description>
+        </steps>
+      </basicFlow>
+    </useCases>
+    <useCases xsi:type="pdm:PDMUseCase" uid="__ejucGL6Ed2CdPCSjJlsCw" index="2" prefix="UC"
+        outcomingTraces="#_3Fy2UGJCEd2lXIFvdgvURw">
+      <systemAttrSet>
+        <attrs name="NAME_ID">
+          <linkableString value="Validate PIN"/>
+        </attrs>
+        <attrs name="USE_CASE_LEVEL_ID">
+          <linkableString value="7"/>
+        </attrs>
+        <attrs name="OVERVIEW_ID">
+          <linkableString value="This use case is used to validate PIN (Personal Identification Number)"/>
+        </attrs>
+        <attrs name="GOAL_IN_CONTEXT_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="SCOPE_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="TRIGGER_ID">
+          <linkableString value=""/>
+        </attrs>
+      </systemAttrSet>
+      <customAttrSet/>
+      <graphicsContexts xsi:type="pdm:PDMUseCaseGraphicsContext" bounds="117,193,100,50"/>
+      <proxy uid="__ejucWL6Ed2CdPCSjJlsCw" flow="#__ejudWL6Ed2CdPCSjJlsCw">
+        <goal uid="__ejucmL6Ed2CdPCSjJlsCw">
+          <description/>
+        </goal>
+        <preCondition uid="__ejuc2L6Ed2CdPCSjJlsCw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="169,10,100,51"/>
+          <description value="Card is inserted"/>
+        </preCondition>
+        <postCondition uid="__ejudGL6Ed2CdPCSjJlsCw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="167,300,105,50"/>
+          <description value="End"/>
+        </postCondition>
+      </proxy>
+      <basicFlow uid="__ejudWL6Ed2CdPCSjJlsCw">
+        <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+            bounds="100,101,239,159"/>
+        <steps uid="_Cb-FUGL8Ed2CdPCSjJlsCw" stepOfType="SYSTEM">
+          <threads uid="_ZTGyEGPhEd2cdcg-uq0Hng" timestamp="1218045594891" author="BP">
+            <name value="Supported Languages"/>
+            <comments uid="_aooakGPhEd2cdcg-uq0Hng" timestamp="1218045594891" author="BP">
+              <text value="Survey potential customers on what languages need to be supported."/>
+            </comments>
+          </threads>
+          <description value="ATM prompts to enter PIN">
+            <fileUrls name="Prompt for PIN" link="Images\Prompt for PIN.jpg"/>
+          </description>
+        </steps>
+        <steps uid="_Cb-FUWL8Ed2CdPCSjJlsCw" stepOfType="CUSTOM_ACTOR" customActor="#_sjCWUGJPEd2lXIFvdgvURw">
+          <description value="User enters PIN">
+            <fileUrls name="ATM Contraints - Number_of_Digits_in_PIN" link="Documents\ATM Constraints.xls#Number_of_Digits_in_PIN"/>
+            <fileUrls name="Keypad" link="Images\keypad.png"/>
+          </description>
+        </steps>
+        <steps uid="_Kr4tEGL8Ed2CdPCSjJlsCw" stepOfType="SYSTEM">
+          <description value="ATM compares PIN entered by user to PIN encoded on bank card"/>
+        </steps>
+        <steps xsi:type="pdm:PDMBranchingStep" uid="_VOMOMGL8Ed2CdPCSjJlsCw">
+          <description value="PIN is Valid">
+            <fileUrls name="Valid PIN" link="Images\Valid PIN.jpg"/>
+          </description>
+          <extensions uid="_ceqyMGL8Ed2CdPCSjJlsCw" flow="#_aKfJEGL8Ed2CdPCSjJlsCw"
+              returnType="EXIT">
+            <goal uid="_ceqyMWL8Ed2CdPCSjJlsCw">
+              <description value="To handle the case of an invalid PIN being entered"/>
+            </goal>
+            <preCondition uid="_ceqyMmL8Ed2CdPCSjJlsCw">
+              <description value="PIN is Invalid">
+                <fileUrls name="Invalid PIN" link="Images\Invalid PIN.jpg"/>
+              </description>
+            </preCondition>
+            <postCondition uid="_ceqyM2L8Ed2CdPCSjJlsCw">
+              <description/>
+            </postCondition>
+          </extensions>
+        </steps>
+      </basicFlow>
+      <extFlows uid="_aKfJEGL8Ed2CdPCSjJlsCw">
+        <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+            bounds="470,81,170,202"/>
+        <steps uid="_cfQoEGL8Ed2CdPCSjJlsCw">
+          <description value="PIN is Invalid">
+            <fileUrls name="Invalid PIN" link="Images\Invalid PIN.jpg"/>
+          </description>
+        </steps>
+        <steps uid="_qaYfIGL8Ed2CdPCSjJlsCw" stepOfType="SYSTEM">
+          <description value="ATM displays error message"/>
+        </steps>
+        <steps uid="_t1TG0GL8Ed2CdPCSjJlsCw" stepOfType="SYSTEM">
+          <description value="ATM ejects the card">
+            <fileUrls name="Eject Card" link="Images\Eject Card.jpg"/>
+            <operations>i1qdm3n6840pyp-1bbspkx4o70rr</operations>
+          </description>
+        </steps>
+      </extFlows>
+    </useCases>
+    <useCases xsi:type="pdm:PDMUseCase" uid="_SIaeIGL-Ed2CdPCSjJlsCw" index="3" prefix="UC"
+        outcomingTraces="#_EfJ5kGJCEd2lXIFvdgvURw">
+      <systemAttrSet>
+        <attrs name="NAME_ID">
+          <linkableString value="Withdraw Cash"/>
+        </attrs>
+        <attrs name="USE_CASE_LEVEL_ID">
+          <linkableString value="2"/>
+        </attrs>
+        <attrs name="OVERVIEW_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="GOAL_IN_CONTEXT_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="SCOPE_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="TRIGGER_ID">
+          <linkableString value=""/>
+        </attrs>
+      </systemAttrSet>
+      <customAttrSet/>
+      <graphicsContexts xsi:type="pdm:PDMUseCaseGraphicsContext" bounds="124,98,100,50"/>
+      <proxy uid="_SIaeIWL-Ed2CdPCSjJlsCw" flow="#_SIaeJWL-Ed2CdPCSjJlsCw">
+        <goal uid="_SIaeImL-Ed2CdPCSjJlsCw">
+          <description/>
+        </goal>
+        <preCondition uid="_SIaeI2L-Ed2CdPCSjJlsCw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="122,9,100,51"/>
+          <description value="PIN is Validated"/>
+        </preCondition>
+        <postCondition uid="_SIaeJGL-Ed2CdPCSjJlsCw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="119,291,105,50"/>
+          <description value="End"/>
+        </postCondition>
+      </proxy>
+      <basicFlow uid="_SIaeJWL-Ed2CdPCSjJlsCw">
+        <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+            bounds="100,100,144,151"/>
+        <steps uid="_zRTxoGL-Ed2CdPCSjJlsCw" stepOfType="CUSTOM_ACTOR" customActor="#_sjCWUGJPEd2lXIFvdgvURw">
+          <description value="User selected Withdraw Cash"/>
+        </steps>
+        <steps uid="_5GMhYGL-Ed2CdPCSjJlsCw" stepOfType="SYSTEM">
+          <description value="ATM performs steps for withdrawal of cash"/>
+        </steps>
+      </basicFlow>
+    </useCases>
+    <useCases xsi:type="pdm:PDMUseCase" uid="_A0TckGL_Ed2CdPCSjJlsCw" index="4" prefix="UC"
+        outcomingTraces="#_bt4qAGJCEd2lXIFvdgvURw">
+      <systemAttrSet>
+        <attrs name="NAME_ID">
+          <linkableString value="Get Balance"/>
+        </attrs>
+        <attrs name="USE_CASE_LEVEL_ID">
+          <linkableString value="1"/>
+        </attrs>
+        <attrs name="OVERVIEW_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="GOAL_IN_CONTEXT_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="SCOPE_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="TRIGGER_ID">
+          <linkableString value=""/>
+        </attrs>
+      </systemAttrSet>
+      <customAttrSet/>
+      <graphicsContexts xsi:type="pdm:PDMUseCaseGraphicsContext" bounds="518,89,100,50"/>
+      <proxy uid="_A0TckWL_Ed2CdPCSjJlsCw" flow="#_A0TclWL_Ed2CdPCSjJlsCw">
+        <goal uid="_A0TckmL_Ed2CdPCSjJlsCw">
+          <description/>
+        </goal>
+        <preCondition uid="_A0Tck2L_Ed2CdPCSjJlsCw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="122,10,100,50"/>
+          <description value="PIN is Valid"/>
+        </preCondition>
+        <postCondition uid="_A0TclGL_Ed2CdPCSjJlsCw">
+          <graphicsContexts graphicsContexType="FLOW_CHART" bounds="119,262,105,50"/>
+          <description value="End"/>
+        </postCondition>
+      </proxy>
+      <basicFlow uid="_A0TclWL_Ed2CdPCSjJlsCw">
+        <graphicsContexts xsi:type="pdm:PDMFlowBoxGraphicsContext" graphicsContexType="FLOW_CHART"
+            bounds="100,100,144,122"/>
+        <steps uid="_nf_00GMAEd2CdPCSjJlsCw" stepOfType="CUSTOM_ACTOR" customActor="#_sjCWUGJPEd2lXIFvdgvURw">
+          <description value="Use selected get balance"/>
+        </steps>
+        <steps uid="_qii_0GMAEd2CdPCSjJlsCw" stepOfType="SYSTEM">
+          <description value="ATM Gets Balance"/>
+        </steps>
+      </basicFlow>
+    </useCases>
+    <useCases xsi:type="pdm:PDMExternalModel" uid="_55NV4GMCEd2CdPCSjJlsCw" index="5"
+        prefix="UC" outcomingTraces="#_exyf4GJCEd2lXIFvdgvURw">
+      <systemAttrSet>
+        <attrs name="NAME_ID">
+          <linkableString value="Deposit Funds"/>
+        </attrs>
+        <attrs name="USE_CASE_LEVEL_ID">
+          <linkableString value="1"/>
+        </attrs>
+        <attrs name="OVERVIEW_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="GOAL_IN_CONTEXT_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="SCOPE_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="TRIGGER_ID">
+          <linkableString value=""/>
+        </attrs>
+        <attrs name="RELATIVE_FILE_PATH_ID">
+          <linkableString value="Deposit Funds.ucmodel"/>
+        </attrs>
+      </systemAttrSet>
+      <customAttrSet/>
+      <graphicsContexts xsi:type="pdm:PDMGenericUseCaseGraphicsContext" bounds="273,7,100,50"/>
+      <proxy uid="_55NV4WMCEd2CdPCSjJlsCw" flow="#_55NV5WMCEd2CdPCSjJlsCw">
+        <goal uid="_55NV4mMCEd2CdPCSjJlsCw">
+          <description/>
+        </goal>
+        <preCondition uid="_55NV42MCEd2CdPCSjJlsCw">
+          <description/>
+        </preCondition>
+        <postCondition uid="_55NV5GMCEd2CdPCSjJlsCw">
+          <description/>
+        </postCondition>
+      </proxy>
+      <stubFlow uid="_55NV5WMCEd2CdPCSjJlsCw"/>
+    </useCases>
+    <associations uid="_lZDmcGJQEd2lXIFvdgvURw" supplier="#_Udmx8GJQEd2lXIFvdgvURw"
+        client="#_sjCWUGJPEd2lXIFvdgvURw">
+      <systemAttrSet>
+        <attrs name="ROLE_ID">
+          <linkableString value=""/>
+        </attrs>
+      </systemAttrSet>
+      <graphicsContexts xsi:type="pdm:PDMAssociationGraphicsContext"/>
+    </associations>
+    <userData>i1x3yzjh1g83v1-1t7kx8hmncna1</userData>
+    <userData>i1rdvz7bm6nvxk-100tsihqwrxwu</userData>
+    <ptmFiles>ATM_Ex 5-2 Initial ATM.testmodel</ptmFiles>
+    <externalData uid="i1x3yzjh1g83v1-1t7kx8hmncna1" index="1" prefix="DA">
+      <threads uid="_Pp8fcGPhEd2cdcg-uq0Hng" timestamp="1218045543661" author="BP">
+        <name value="Card Magnetic Strip"/>
+        <comments uid="_RHEkwGPhEd2cdcg-uq0Hng" timestamp="1218045543661" author="BP">
+          <text value="Should date &amp; time and the ATM identifier be written to the card's magnetic strip when it is inserted?"/>
+        </comments>
+      </threads>
+      <customAttrSet/>
+    </externalData>
+    <externalData uid="i1rdvz7bm6nvxk-100tsihqwrxwu" index="2" prefix="DA">
+      <customAttrSet/>
+    </externalData>
+    <requirement uid="_lxrfomJBEd2lXIFvdgvURw">
+      <requirements uid="_rCfR8GJBEd2lXIFvdgvURw" index="1" prefix="RF">
+        <systemAttrSet>
+          <attrs name="NAME_ID">
+            <linkableString value="Initial ATM Description"/>
+          </attrs>
+          <attrs name="DESCRIPTION_ID">
+            <linkableString value=""/>
+          </attrs>
+          <attrs name="REQUIREMENT_TYPE_ID">
+            <linkableString value="Requirement Folder"/>
+          </attrs>
+        </systemAttrSet>
+        <customAttrSet>
+          <attrs name="Field1">
+            <linkableString value="Low"/>
+          </attrs>
+        </customAttrSet>
+        <requirements uid="_w1t00GJBEd2lXIFvdgvURw" index="2" prefix="FR" incomingTraces="#_ByfNEGJEEd2lXIFvdgvURw">
+          <threads uid="_zv7mYGJFEd2lXIFvdgvURw" timestamp="1217868917729" author="BP">
+            <name value="Priority of Services"/>
+            <comments uid="_4GglEGJFEd2lXIFvdgvURw" timestamp="1217868852448" author="BP">
+              <text value="Overall Services parent requirement should have a priority of High since ..."/>
+            </comments>
+            <comments uid="_AaM5kGJGEd2lXIFvdgvURw" timestamp="1217868917729" author="QZ">
+              <text value="Agreed - Let's set the priority to the highest child priority in all cases."/>
+            </comments>
+          </threads>
+          <systemAttrSet>
+            <attrs name="NAME_ID">
+              <linkableString value="Services"/>
+            </attrs>
+            <attrs name="DESCRIPTION_ID">
+              <linkableString value="This particular bank machine must offer the following banking services:">
+                <fileUrls name="Blueprint" link="http://www.blueprintsys.com"/>
+              </linkableString>
+            </attrs>
+            <attrs name="REQUIREMENT_TYPE_ID">
+              <linkableString value="Functional Requirement"/>
+            </attrs>
+          </systemAttrSet>
+          <customAttrSet>
+            <attrs name="Field1">
+              <linkableString value="Low"/>
+            </attrs>
+          </customAttrSet>
+          <requirements uid="_EfJ5kGJCEd2lXIFvdgvURw" index="3" prefix="SR" incomingTraces="#_SIaeIGL-Ed2CdPCSjJlsCw">
+            <systemAttrSet>
+              <attrs name="NAME_ID">
+                <linkableString value="Withdraw Cash"/>
+              </attrs>
+              <attrs name="DESCRIPTION_ID">
+                <linkableString value=""/>
+              </attrs>
+              <attrs name="REQUIREMENT_TYPE_ID">
+                <linkableString value="Service Requirement"/>
+              </attrs>
+            </systemAttrSet>
+            <customAttrSet>
+              <attrs name="Field1">
+                <linkableString value="Low"/>
+              </attrs>
+            </customAttrSet>
+          </requirements>
+          <requirements uid="_bt4qAGJCEd2lXIFvdgvURw" index="4" prefix="SR" incomingTraces="#_A0TckGL_Ed2CdPCSjJlsCw">
+            <systemAttrSet>
+              <attrs name="NAME_ID">
+                <linkableString value="Get Balance"/>
+              </attrs>
+              <attrs name="DESCRIPTION_ID">
+                <linkableString value=""/>
+              </attrs>
+              <attrs name="REQUIREMENT_TYPE_ID">
+                <linkableString value="Service Requirement"/>
+              </attrs>
+            </systemAttrSet>
+            <customAttrSet>
+              <attrs name="Field1">
+                <linkableString value="Low"/>
+              </attrs>
+            </customAttrSet>
+          </requirements>
+          <requirements uid="_exyf4GJCEd2lXIFvdgvURw" index="5" prefix="SR" incomingTraces="#_55NV4GMCEd2CdPCSjJlsCw">
+            <threads uid="_PPddoGJGEd2lXIFvdgvURw" timestamp="1217869007709" author="QZ">
+              <name value="Priority of Services"/>
+              <comments uid="_Qwl5MGJGEd2lXIFvdgvURw" timestamp="1217869007709" author="BP">
+                <text value="The deposit funds service can be provided in a secondary release ..."/>
+              </comments>
+            </threads>
+            <systemAttrSet>
+              <attrs name="NAME_ID">
+                <linkableString value="Deposit Funds"/>
+              </attrs>
+              <attrs name="DESCRIPTION_ID">
+                <linkableString value=""/>
+              </attrs>
+              <attrs name="REQUIREMENT_TYPE_ID">
+                <linkableString value="Service Requirement"/>
+              </attrs>
+            </systemAttrSet>
+            <customAttrSet>
+              <attrs name="Field1">
+                <linkableString value="Medium"/>
+              </attrs>
+            </customAttrSet>
+          </requirements>
+        </requirements>
+        <requirements uid="_3Fy2UGJCEd2lXIFvdgvURw" index="6" prefix="FR" incomingTraces="#__ejucGL6Ed2CdPCSjJlsCw">
+          <systemAttrSet>
+            <attrs name="NAME_ID">
+              <linkableString value="Validate Customer"/>
+            </attrs>
+            <attrs name="DESCRIPTION_ID">
+              <linkableString value="Before performing banking services, the system must verify that the user is really a bank customer"/>
+            </attrs>
+            <attrs name="REQUIREMENT_TYPE_ID">
+              <linkableString value="Functional Requirement"/>
+            </attrs>
+          </systemAttrSet>
+          <customAttrSet>
+            <attrs name="Field1">
+              <linkableString value="Low"/>
+            </attrs>
+          </customAttrSet>
+          <requirements uid="_EE6YIGJDEd2lXIFvdgvURw" index="7" prefix="FR">
+            <systemAttrSet>
+              <attrs name="NAME_ID">
+                <linkableString value="Validate PIN"/>
+              </attrs>
+              <attrs name="DESCRIPTION_ID">
+                <linkableString value="The user must insert their bank card and enter a Personal Identification Number (PIN) which the system verifies as belonging to a valid bank customer."/>
+              </attrs>
+              <attrs name="REQUIREMENT_TYPE_ID">
+                <linkableString value="Functional Requirement"/>
+              </attrs>
+            </systemAttrSet>
+            <customAttrSet>
+              <attrs name="Field1">
+                <linkableString value="Low"/>
+              </attrs>
+            </customAttrSet>
+            <requirements uid="_NbMLAGJDEd2lXIFvdgvURw" index="8" prefix="FR">
+              <systemAttrSet>
+                <attrs name="NAME_ID">
+                  <linkableString value="Incorrect PIN"/>
+                </attrs>
+                <attrs name="DESCRIPTION_ID">
+                  <linkableString value="An incorrect PIN results in the system displaying an error message and ejecting the card."/>
+                </attrs>
+                <attrs name="REQUIREMENT_TYPE_ID">
+                  <linkableString value="Functional Requirement"/>
+                </attrs>
+              </systemAttrSet>
+              <customAttrSet>
+                <attrs name="Field1">
+                  <linkableString value="Low"/>
+                </attrs>
+              </customAttrSet>
+            </requirements>
+            <requirements uid="_TaCvEGJDEd2lXIFvdgvURw" index="9" prefix="FR">
+              <systemAttrSet>
+                <attrs name="NAME_ID">
+                  <linkableString value="Cancel Transaction"/>
+                </attrs>
+                <attrs name="DESCRIPTION_ID">
+                  <linkableString value="After the user gains access to the ATM, the system allows the user to cancel the transaction, whereupon the system will return the bank card."/>
+                </attrs>
+                <attrs name="REQUIREMENT_TYPE_ID">
+                  <linkableString value="Functional Requirement"/>
+                </attrs>
+              </systemAttrSet>
+              <customAttrSet>
+                <attrs name="Field1">
+                  <linkableString value="Low"/>
+                </attrs>
+              </customAttrSet>
+            </requirements>
+            <requirements uid="_muYGgGJDEd2lXIFvdgvURw" index="10" prefix="FR">
+              <systemAttrSet>
+                <attrs name="NAME_ID">
+                  <linkableString value="Return Bank Card"/>
+                </attrs>
+                <attrs name="DESCRIPTION_ID">
+                  <linkableString value="The bank card is also returned to the customer at the end of all transactions."/>
+                </attrs>
+                <attrs name="REQUIREMENT_TYPE_ID">
+                  <linkableString value="Functional Requirement"/>
+                </attrs>
+              </systemAttrSet>
+              <customAttrSet>
+                <attrs name="Field1">
+                  <linkableString value="Low"/>
+                </attrs>
+              </customAttrSet>
+            </requirements>
+          </requirements>
+        </requirements>
+      </requirements>
+      <requirements uid="_3qAhMGJDEd2lXIFvdgvURw" index="14" prefix="RF">
+        <systemAttrSet>
+          <attrs name="NAME_ID">
+            <linkableString value="Non-Functional Requirements"/>
+          </attrs>
+          <attrs name="DESCRIPTION_ID">
+            <linkableString value=""/>
+          </attrs>
+          <attrs name="REQUIREMENT_TYPE_ID">
+            <linkableString value="Requirement Folder"/>
+          </attrs>
+        </systemAttrSet>
+        <customAttrSet>
+          <attrs name="Field1">
+            <linkableString value="Low"/>
+          </attrs>
+        </customAttrSet>
+        <requirements uid="_ByfNEGJEEd2lXIFvdgvURw" index="15" prefix="QS" outcomingTraces="#_w1t00GJBEd2lXIFvdgvURw">
+          <systemAttrSet>
+            <attrs name="NAME_ID">
+              <linkableString value="Performance"/>
+            </attrs>
+            <attrs name="DESCRIPTION_ID">
+              <linkableString value="System response time ..."/>
+            </attrs>
+            <attrs name="REQUIREMENT_TYPE_ID">
+              <linkableString value="Quality of Service Requirement"/>
+            </attrs>
+          </systemAttrSet>
+          <customAttrSet>
+            <attrs name="Field1">
+              <linkableString value="Low"/>
+            </attrs>
+          </customAttrSet>
+        </requirements>
+        <requirements uid="_F__IQGJEEd2lXIFvdgvURw" index="16" prefix="QS">
+          <systemAttrSet>
+            <attrs name="NAME_ID">
+              <linkableString value="Reliability"/>
+            </attrs>
+            <attrs name="DESCRIPTION_ID">
+              <linkableString value="System must be available ..."/>
+            </attrs>
+            <attrs name="REQUIREMENT_TYPE_ID">
+              <linkableString value="Quality of Service Requirement"/>
+            </attrs>
+          </systemAttrSet>
+          <customAttrSet>
+            <attrs name="Field1">
+              <linkableString value="Low"/>
+            </attrs>
+          </customAttrSet>
+        </requirements>
+      </requirements>
+    </requirement>
+    <glossary uid="_lxrfo2JBEd2lXIFvdgvURw">
+      <glossaries uid="_Ba-2kGJFEd2lXIFvdgvURw" index="1" prefix="GL">
+        <systemAttrSet>
+          <attrs name="NAME_ID">
+            <linkableString value="Acronyms"/>
+          </attrs>
+          <attrs name="DESCRIPTION_ID">
+            <linkableString value=""/>
+          </attrs>
+        </systemAttrSet>
+        <terms>
+          <key value="ATM"/>
+          <value value="Automated Teller Machine"/>
+        </terms>
+        <terms>
+          <key value="PIN"/>
+          <value value="Personal Identification Number"/>
+        </terms>
+      </glossaries>
+    </glossary>
+  </pdmext:model>
+</pdmext:extension>

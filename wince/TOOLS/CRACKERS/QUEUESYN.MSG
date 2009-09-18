@@ -1,0 +1,4 @@
+WM_QUEUESYNC
+void
+OnQueueSync
+(HWND hWnd)

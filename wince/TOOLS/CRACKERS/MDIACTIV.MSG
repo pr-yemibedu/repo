@@ -1,0 +1,4 @@
+WM_MDIACTIVATE
+void
+MDIActivate
+(HWND hWnd, BOOL fActive, HWND hWndActivate, HWND hWndDeactivate)

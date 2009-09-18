@@ -1,0 +1,4 @@
+WM_FONTCHANGE
+void
+OnFontChange
+(HWND hWnd)

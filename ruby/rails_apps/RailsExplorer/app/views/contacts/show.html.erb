@@ -1,0 +1,38 @@
+<p>
+  <b>First:</b>
+  <%=h @contact.first %>
+</p>
+
+<p>
+  <b>Last:</b>
+  <%=h @contact.last %>
+</p>
+
+<p>
+  <b>Age:</b>
+  <%=h @contact.age %>
+</p>
+
+<p>
+  <b>Birthday:</b>
+  <%=h @contact.birthday %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @contact.notes %>
+</p>
+
+<p>
+  <b>Married:</b>
+  <%=h @contact.married %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%=h @contact.version %>
+</p>
+
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

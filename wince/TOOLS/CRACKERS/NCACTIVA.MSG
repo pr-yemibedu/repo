@@ -1,0 +1,4 @@
+WM_NCACTIVATE
+BOOL
+OnNCActivate
+(HWND hWnd, BOOL fActive, HWND hWndActDeact, BOOL fMinimized)

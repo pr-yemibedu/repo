@@ -1,0 +1,10 @@
+    <div id="<%= gen_id(snippet) %>" onclick="$('snippet_body_<%= snippet.id %>').toggle()">
+      <div id="<%= gen_id(snippet, :title) %>">
+        <%=h snippet.title %>
+        <%= link_to 'Show', snippet %> |
+        <%= link_to 'Edit', edit_snippet_path(snippet) %> |
+        <%= link_to 'Destroy', snippet, :confirm => 'Are you sure?', :method => :delete %>
+ 
+      </div>
+      <div id="<%= gen_id(snippet, :body) %>" style="display: none"><%= snippet.html %></div>
+    </div>

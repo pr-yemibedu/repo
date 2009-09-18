@@ -1,0 +1,38 @@
+// BeepCntMod.idl : IDL source for BeepCntMod.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (BeepCntMod.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(5900347E-7BD5-4898-88C1-D0E50FF673B3),
+		dual,
+		helpstring("IBeepCnt Interface"),
+		pointer_default(unique)
+	]
+	interface IBeepCnt : IDispatch
+	{
+	};
+
+[
+	uuid(B563B755-9589-4EEB-B5B7-2B31CE7169E3),
+	version(1.0),
+	helpstring("BeepCntMod 1.0 Type Library")
+]
+library BEEPCNTMODLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(46083029-2E36-41E3-AF48-36CB628E7B61),
+		helpstring("BeepCnt Class")
+	]
+	coclass BeepCnt
+	{
+		[default] interface IBeepCnt;
+	};
+};

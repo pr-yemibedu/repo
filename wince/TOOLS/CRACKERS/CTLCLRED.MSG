@@ -1,0 +1,4 @@
+WM_CTLCOLOREDIT
+HBRUSH
+OnCtlColorEdit
+(HWND hWnd,HDC hdc,HWND hWndChild, int type)

@@ -1,0 +1,33 @@
+---
+:host: pfeil
+:user: Owner
+:password: password
+:retry_interval_in_seconds: 5
+:local_forward:
+  - :port: 1212
+    :host: localhost
+    :hostport: 1212
+    :bindaddress: 0.0.0.0
+  - :port: 1213
+    :host: localhost
+    :hostport: 1213
+    :bindaddress: 0.0.0.0
+:remote_forward:
+  - :port: 1214
+    :host: localhost
+    :hostport: 1214
+    :bindaddress: 0.0.0.0
+:blocal_forward:
+  - :port: 8081
+    :host: localhost
+    :hostport: 8081
+    :bindaddress: 0.0.0.0
+  - :port: 5900
+    :host: localhost
+    :hostport: 5900
+    :bindaddress: 0.0.0.0
+:bremote_forward:
+  - :port: 3389
+    :host: localhost
+    :hostport: 3389
+    :bindaddress: 0.0.0.0    

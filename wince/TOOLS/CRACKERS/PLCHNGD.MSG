@@ -1,0 +1,4 @@
+WM_PALETTECHANGED
+void
+OnPaletteChanged
+(HWND hWnd, HWND hWndPaletteChange)

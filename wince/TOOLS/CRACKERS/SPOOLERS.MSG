@@ -1,0 +1,4 @@
+WM_SPOOLERSTATUS
+void
+OnSpoolerStatus
+(HWND hWnd, UINT status, int cJobInQueue)

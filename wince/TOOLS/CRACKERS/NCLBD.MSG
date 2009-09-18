@@ -1,0 +1,4 @@
+WM_NCLBUTTONDOWN
+void
+OnNCLButtonDown
+(HWND hWnd, BOOL fDoubleClick, int x, int y, UINT codeHitTest)

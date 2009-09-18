@@ -1,0 +1,66 @@
+# example rakefile
+
+# command line parameters can be specified as follows:
+# rake [options ...]  [VAR=VALUE]  [targets ...]
+# They are available in the Rake file as ENV[VAR]
+
+# regular ruby code can be used in a rakefile
+def support_function
+  p "support_function called"
+end
+
+module MyHelpers
+    def self.log
+      p "#{self.name}.log called"
+    end
+end
+  
+global_config = {:version => 1.0, :date => '12/02/2006'}
+
+# if no target is specified when running rake the ":default" target is ran
+task :default => [:test]
+
+task :codeGen do
+  puts "code generation complete"
+end
+
+task :compile => :codeGen do
+  puts "compile complete"
+end
+
+task :dataLoad => :codeGen do
+  puts "data load complete"
+end
+
+task :test => [:compile, :dataLoad] do |t|
+  # run the tests
+  
+  # t is a reference to the task
+  # p t
+  support_function
+  MyHelpers.log
+  p global_config[:version] # using a global variable
+  #p "Press enter to continue ..."
+  #gets
+end
+
+# namespaces
+namespace "main" do
+  # "rake main:build" would be the command to invoke this task
+  task :build do
+    p "main:build called" 
+  end
+end
+
+namespace "samples" do
+  task :build do
+    p "samples:build called" 
+  end
+end
+
+# explicitly invoke another task from w/in a task 
+task :subtask do
+  Rake::Task[:build].invoke
+end
+
+task :build => ["main:build", "samples:build"]

@@ -1,0 +1,4 @@
+WM_CONTEXTMENU
+void
+OnContextMenu
+(HWND hWnd, HWND hWndContext, UINT xPos, UINT yPos)

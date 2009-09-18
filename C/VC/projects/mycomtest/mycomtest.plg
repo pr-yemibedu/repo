@@ -1,0 +1,29 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: mycomtest - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\pfeilbr\LOCALS~1\Temp\RSP15F.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/mycomtest.pdb" /debug /machine:I386 /out:"Debug/mycomtest.exe" /pdbtype:sept 
+".\Debug\StdAfx.obj"
+".\Debug\mycomtest.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\pfeilbr\LOCALS~1\Temp\RSP15F.tmp"
+<h3>Output Window</h3>
+Linking...
+mycomtest.obj : error LNK2001: unresolved external symbol _CLSID_Foo
+mycomtest.obj : error LNK2001: unresolved external symbol _IID_IFoo
+Debug/mycomtest.exe : fatal error LNK1120: 2 unresolved externals
+Error executing link.exe.
+
+
+
+<h3>Results</h3>
+mycomtest.exe - 3 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

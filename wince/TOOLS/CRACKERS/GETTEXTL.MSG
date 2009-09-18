@@ -1,0 +1,4 @@
+WM_GETTEXTLENGTH
+INT
+OnGetTextLength
+(HWND hWnd)

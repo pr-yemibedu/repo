@@ -1,0 +1,4 @@
+WM_WINDOWPOSCHANGED
+void
+OnWindowPosChanged
+(HWND hWnd, const LPWINDOWPOS lpwpos)

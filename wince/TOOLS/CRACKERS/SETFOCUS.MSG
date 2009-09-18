@@ -1,0 +1,4 @@
+WM_SETFOCUS
+void
+OnSetFocus
+(HWND hWnd, HWND hWndOldFocus)

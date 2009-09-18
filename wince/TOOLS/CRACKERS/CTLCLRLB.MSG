@@ -1,0 +1,4 @@
+WM_CTLCOLORLISTBOX
+HBRUSH
+OnCtlColorListBox
+(HWND hWnd,HDC hdc,HWND hWndChild, int type)

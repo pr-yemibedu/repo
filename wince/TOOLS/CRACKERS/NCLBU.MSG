@@ -1,0 +1,4 @@
+WM_NCLBUTTONUP
+void
+OnNCLButtonUp
+(HWND hWnd, int x, int y, UINT codeHitTest)

@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "Serialization.csproj", "{239A8738-A989-4DF4-BCF7-6AFFFC7CAC33}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{239A8738-A989-4DF4-BCF7-6AFFFC7CAC33}.Debug.ActiveCfg = Debug|.NET
+		{239A8738-A989-4DF4-BCF7-6AFFFC7CAC33}.Debug.Build.0 = Debug|.NET
+		{239A8738-A989-4DF4-BCF7-6AFFFC7CAC33}.Release.ActiveCfg = Release|.NET
+		{239A8738-A989-4DF4-BCF7-6AFFFC7CAC33}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

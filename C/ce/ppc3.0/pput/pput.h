@@ -1,0 +1,1 @@
+int pput(char *src, char *dest);

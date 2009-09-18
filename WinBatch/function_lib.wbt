@@ -1,0 +1,77 @@
+; recursively copies the source directory to the destination directory.
+; returns true is everything is copied, otherwise false
+#DefineFunction DirCopy(src, dest)
+	dir_copy_success = DirMake(dest)
+	if !dir_copy_success then return @false
+	
+	file_names = FileItemize(StrCat(src, "\*.*"))
+	if file_names != ''
+		file_names_array = Arrayize(file_names, @tab)
+		for index = 0 to ArrInfo(file_names_array, 1) - 1
+			src_file_path = StrCat('%src%\', file_names_array[index])
+			dest_file_path = StrCat('%dest%\', file_names_array[index])
+            ErrorMode(@off)
+	        LastError() ; set "last error" indicator to 0
+			dir_copy_success = dir_copy_success && FileCopy(src_file_path, dest_file_path, @false)
+            ErrorMode(@cancel)
+            dir_copy_success = dir_copy_success && !LastError()
+		next
+	end if
+
+	dir_names = DirItemize(StrCat(src, "\*.*"))
+	if dir_names != ''
+		dir_names_array = Arrayize(dir_names, @tab)
+		for index = 0 to ArrInfo(dir_names_array, 1) - 1
+			src_dir_path = StrCat('%src%\', dir_names_array[index])
+			dest_dir_path = StrCat('%dest%\', dir_names_array[index]) 
+			dir_copy_success = dir_copy_success && DirCopy(src_dir_path, dest_dir_path)
+		next
+	end if
+	return dir_copy_success
+#EndFunction
+
+; auxillary function that deletes the specified directory and all it's files
+; and sub directories. returns true if directory is deleted, otherwise false.
+; see DirDeleteAll
+#DefineFunction DirDeleteAllAux(path, status)
+    dir_delete_success = status
+	file_names = FileItemize(StrCat(path, "\*.*"))
+	if file_names != ''
+		file_names_array = Arrayize(file_names, @tab)
+		for index = 0 to ArrInfo(file_names_array, 1) - 1
+			file_path = StrCat('%path%\', file_names_array[index])
+            ErrorMode(@off)
+	        LastError() ; set "last error" indicator to 0
+			dir_delete_success = dir_delete_success && FileDelete(file_path)
+            ErrorMode(@cancel)
+            dir_delete_success = dir_delete_success && !LastError()
+		next
+	end if
+
+	dir_names = DirItemize(StrCat(path, "\*.*"))
+	if dir_names != ''
+		dir_names_array = Arrayize(dir_names, @tab)
+		for index = 0 to ArrInfo(dir_names_array, 1) - 1
+			dir_path = StrCat('%path%\', dir_names_array[index]) 
+			dir_delete_success = dir_delete_success && DirDeleteAllAux(dir_path, dir_delete_success)
+            ErrorMode(@off)
+	        LastError() ; set "last error" indicator to 0
+            dir_delete_success = dir_delete_success && DirRemove(dir_path)
+            ErrorMode(@cancel)
+            dir_delete_success = dir_delete_success && !LastError()
+		next
+	end if
+    ErrorMode(@off)
+    LastError() ; set "last error" indicator to 0
+    dir_delete_success = dir_delete_success && DirRemove(path)
+    ErrorMode(@cancel)
+    dir_delete_success = dir_delete_success && !LastError()
+    return dir_delete_success
+#EndFunction
+
+; deletes the specified directory and all it's files and sub directories.
+; returns true if directory is deleted, otherwise false. 
+#DefineFunction DirDeleteAll(path)
+    return DirDeleteAllAux(path, @true)
+#EndFunction
+

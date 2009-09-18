@@ -1,0 +1,4 @@
+WM_GETMINMAXINFO
+void
+OnGetMinMaxInfo
+(HWND hWnd, LPMINMAXINFO lpMinMaxInfo)

@@ -1,0 +1,4 @@
+WM_MOUSEACTIVATE
+int
+OnMouseActivate
+(HWND hWnd, HWND hWndTopLevel, UINT codeHitTest, UINT msg)

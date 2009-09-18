@@ -1,0 +1,13 @@
+
+#if !defined(AFX_SIP_H__9005F5EB_ADC2_4B7E_AD58_81703FAF82B4__INCLUDED_)
+#define AFX_SIP_H__9005F5EB_ADC2_4B7E_AD58_81703FAF82B4__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+#include "resource.h"
+
+#define MENU_HEIGHT 26
+
+#endif // !defined(AFX_SIP_H__9005F5EB_ADC2_4B7E_AD58_81703FAF82B4__INCLUDED_)

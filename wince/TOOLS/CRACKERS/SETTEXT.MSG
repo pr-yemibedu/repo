@@ -1,0 +1,4 @@
+WM_SETTEXT
+void
+OnSetText
+(HWND hWnd, LPCTSTR lpszText)

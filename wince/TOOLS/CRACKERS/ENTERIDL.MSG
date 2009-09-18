@@ -1,0 +1,4 @@
+WM_ENTERIDLE
+void
+OnEnterIdle
+(HWND hWnd, UINT source, HWND hWndSource)

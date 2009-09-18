@@ -1,0 +1,4 @@
+WM_KILLFOCUS
+void
+OnKillFocus
+(HWND hWnd, HWND hWndNewFocus)

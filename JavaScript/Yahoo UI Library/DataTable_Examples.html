@@ -1,0 +1,125 @@
+<html>
+  <head>
+  
+    <!-- Required CSS -->
+    <link type="text/css" rel="stylesheet" href="js/datatable/assets/datatable.css">
+
+    <!-- Dependencies -->
+    <script type="text/javascript" src="js/yahoo-dom-event/yahoo-dom-event.js"></script>
+
+    <!-- OPTIONAL: Connection (enables XHR) -->
+    <script type="text/javascript" src="js/connection/connection-min.js"></script>
+
+    <!-- OPTIONAL: Drag Drop (enables resizeable columns) -->
+    <script type="text/javascript" src="js/dragdrop/dragdrop-min.js"></script>
+
+    <!-- OPTIONAL: External JSON parser from http://www.json.org/ (enables JSON validation) -->
+    <script type="text/javascript" src="http://www.json.org/json.js"></script>
+
+    <!-- Source file -->
+    <script type="text/javascript" src="js/datasource/datasource-beta-min.js"></script>
+    <script type="text/javascript" src="js/datatable/datatable-beta-min.js"></script>
+    
+<!-- Required CSS -->
+<link type="text/css" rel="stylesheet" href="js/logger/assets/logger.css">
+
+<!-- Dependencies -->
+<script type="text/javascript" src="js/yahoo-dom-event/yahoo-dom-event.js"></script>
+
+<!-- OPTIONAL: Drag and Drop (not required if not enabling drag and drop) -->
+<script type="text/javascript" src="js/dragdrop/dragdrop-min.js"></script>
+
+<!-- Source file -->
+<script type="text/javascript" src="js/logger/logger-min.js"></script>
+    
+    
+    <style type="text/css">
+/* custom css*/
+#offers {margin:1em;}
+#offers table {border-collapse:collapse;}
+#offers th, #offers td {border:1px solid #000;padding:.25em;}
+#offers th {background-color:#696969;color:#fff;} /*dark gray*/
+#offers .yui-dt-odd {background-color:#eee;} /*light gray*/
+#offers em {font-style:italic;}
+#offers strong {font-weight:bold;}
+#offers .big {font-size:136%;}
+#offers .small {font-size:77%}
+#offers .yui-dt-selected {background-color:#97C0A5;} /*green*/ 
+        
+    </style>
+  
+  
+  </head>
+  <body>
+  <div id="logging_console"></div>
+  <div id="offers"></div>
+  
+  
+    <script type="text/javascript">
+    var logReader = new YAHOO.widget.LogReader("logging_console"); 
+    YAHOO.log("Test log message"); 
+    
+    function createSelect(arr) {
+      var html = "<select>";
+      for(i = 0; i < arr.length; i++) {
+        html += "<option value= '" + arr[i] + "'>" + arr[i] + "</option>";
+      }
+      html += "</select>";
+      return html;
+    }
+    function deliveryFormatter(cell, record, column, data) {
+      cell.innerHTML = createSelect(data);
+    }
+    
+    var columnHeaders = [
+      {key:"product", text:"Product", sortable:true, resizeable:true, editor:"textbox"},
+      {key:"offer", text:"Offer", sortable:true, resizeable:true, editor:"textbox"},
+      {key:"delivery", text:"Delivery", sortable:true, resizeable:true, formatter:deliveryFormatter}
+    ];
+
+    var columnSet = new YAHOO.widget.ColumnSet(columnHeaders);    
+    
+    var offers = [
+       {product:"Januvia",offer:"Learn more about Januvia",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},       
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+       {product:"Cozaar",offer:"Learn more about Cozaar",delivery:["email", "mail"]},
+    ];
+    
+    var dataSource = new YAHOO.util.DataSource(offers);
+    dataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+    dataSource.responseSchema = {
+        fields: ["product","offer","delivery"]
+    };
+    
+    var dataTable = new YAHOO.widget.DataTable( "offers", columnSet, dataSource,
+      {
+        caption: "MyCaption",
+        summary: "My Summary",
+        scrollable:true,
+        rowSingleSelect:true,
+        pageCurrent: 1,
+        rowsPerPage: 5,
+        startRecordIndex: 1,
+        pageLinksLength: -1,
+        rowsPerPageDropdown: []
+      }
+    );
+    
+    dataTable.subscribe("cellClickEvent", dataTable.onEventSelectRow );
+    dataTable.subscribe("cellClickEvent", dataTable.onEventEditCell );
+    
+    
+    </script>
+  
+  </body>
+</html>

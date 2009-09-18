@@ -1,0 +1,4 @@
+WM_SYSCOMMAND
+void
+OnSysCommand
+(HWND hWnd, UINT cmd, int x, int y)

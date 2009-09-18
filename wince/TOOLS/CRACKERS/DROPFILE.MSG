@@ -1,0 +1,4 @@
+WM_DROPFILES
+void
+OnDropFiles
+(HWND hWnd,HDROP hdrop)

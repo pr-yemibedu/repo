@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visual Studio 2005 Unit Testing Examples", "Visual Studio 2005 Unit Testing Examples.csproj", "{EE550B6C-DA14-4B14-8AE3-8E77ADBC2D96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{D5F0E428-656C-49E5-A8CA-FD102EC38579}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A033FE16-143F-4959-B279-C92F1B512B3F}"
+	ProjectSection(SolutionItems) = preProject
+		localtestrun.testrunconfig = localtestrun.testrunconfig
+		Visual Studio 2005 Unit Testing Examples.vsmdi = Visual Studio 2005 Unit Testing Examples.vsmdi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Visual Studio 2005 Unit Testing Examples.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE550B6C-DA14-4B14-8AE3-8E77ADBC2D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE550B6C-DA14-4B14-8AE3-8E77ADBC2D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE550B6C-DA14-4B14-8AE3-8E77ADBC2D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE550B6C-DA14-4B14-8AE3-8E77ADBC2D96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F0E428-656C-49E5-A8CA-FD102EC38579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F0E428-656C-49E5-A8CA-FD102EC38579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F0E428-656C-49E5-A8CA-FD102EC38579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F0E428-656C-49E5-A8CA-FD102EC38579}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

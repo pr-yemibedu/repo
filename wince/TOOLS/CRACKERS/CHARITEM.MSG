@@ -1,0 +1,4 @@
+WM_CHARTOITEM
+int
+OnCharToItem
+(HWND hWnd, UINT ch, HWND hWndListbox, int iCaret)

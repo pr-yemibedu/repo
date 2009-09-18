@@ -1,0 +1,4 @@
+WM_PASTE
+void
+OnPaste
+(HWND hWnd)

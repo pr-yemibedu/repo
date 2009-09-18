@@ -1,0 +1,4 @@
+WM_CANCELMODE
+void
+OnCancelMode
+(HWND hWnd)

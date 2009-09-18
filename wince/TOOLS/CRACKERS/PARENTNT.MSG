@@ -1,0 +1,4 @@
+WM_PARENTNOTIFY
+void
+OnParentNotify
+(HWND hWnd, UINT msg, HWND hWndChild, int idChild)

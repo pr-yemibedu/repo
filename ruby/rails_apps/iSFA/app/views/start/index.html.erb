@@ -1,0 +1,298 @@
+	<!--
+    <div class="toolbar">
+        <h1 id="pageTitle"></h1>
+        <a id="backButton" class="button" href="#"></a>
+        <a class="button" href="#searchForm">Search</a>
+    </div>
+	-->
+    
+    <ul id="home" title="Home" selected="true">
+		<li><a href="#plannedcalls">Todays Planned Calls</a></li>
+        <li><a href="#contacts" id="contactsid">Contacts</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <ul id="plannedcalls" title="Planned Calls">
+        <p>Select a call to report</p>
+        <li><a href="#reportcall1">9:00 AM Buckley, Robert</a></li>
+        <li><a href="#reportcall2">10:00 AM Barnes, Michael</a></li>
+        <li><a href="#reportcall3">11:00 AM Carper, Thomas</a></li>
+        <li><a href="#reportcall4">1:30 PM Jones, Mark</a></li>
+        <li><a href="#reportcall5">2:30 PM Johnson, Arnold</a></li>
+    </ul>
+
+	<div class="panel" id="reportcall1" title="Call" style="left: 0%;">
+	    <h3>Buckley, Robert</h3>
+		<p>
+			7905 Golden Triangle Dr<br/>
+			Eden Prairie, MN, 55344 [P]
+		</p>
+		<a class="whiteButton" href="#recordsample">Sample</a>
+		<a class="whiteButton" href="#recorddetail">Detail</a>
+		<br/>
+		<a class="whiteButton" href="#callsubmitted">Submit</a>
+	</div>
+	
+	<ul id="recordsample" title="Samples">
+		<h2>Select a sample:</h2>
+		<li><a href="#lots">Cozaar 100 MG (1X7)</a></li>
+		<li><a href="#lots">Hyzaar 100/25 MG (1X40)</a></li>
+		<li><a href="#lots">Janumet 50/500 MG (1X56)</a></li>
+		<li><a href="#lots">Januvia 100 MG (1X28)</a></li>
+		<li><a href="#lots">Maxalt 10 MG (1X2)</a></li>
+		<li><a href="#lots">Singulair 4 MG (1X12)</a></li>
+		<li><a href="#lots">Singulair 5 MG (1X7)</a></li>						
+	</ul>
+
+	<ul id="lots" title="Lots">
+		<h2>Cozaar 100 MG (1X7)</h2>
+		<li><a href="#samplequantity">U1001</a></li>
+		<li><a href="#samplequantity">U1002</a></li>
+		<li><a href="#samplequantity">U1003</a></li>
+		<li><a href="#samplequantity">U1004</a></li>
+		<li><a href="#samplequantity">U1005</a></li>
+		<li><a href="#samplequantity">U1006</a></li>
+	</ul>
+	
+	<div class="panel" id="samplequantity" title="Quantity">
+		<h2>Enter quantity</h2>
+	    <fieldset>
+	        <div class="row">
+	            <label>Product</label>
+	            <input type="text" value="Cozaar 100 MG (1X7)"/>
+	        </div>
+	        <div class="row">
+	            <label>Lot</label>
+	            <input type="text" value="U1001"/>
+	        </div>
+	        <div class="row">
+	            <label>Quantity</label>
+	            <input type="text" value=""/>
+	        </div>
+		</fieldset>
+		<a class="whiteButton" href="#sign">Sign</a>
+		<a class="whiteButton" href="#recordsample">Add & Select Another Sample</a>
+		<a class="whiteButton" href="#reportcall1">Add & Return to Call</a>		
+	</div>
+
+	<div class="panel" id="callsubmitted" title="Submitted">
+		<center>
+		<h2>Call for Buckley, Robert</h2>
+		<h1>Submitted Successfully!</h1>
+		</center>
+		<br/>
+		<br/>
+		<a class="whiteButton" href="#plannedcalls">Planned Calls</a>
+		<a class="whiteButton" href="#home">Home</a>
+	</div>
+	
+	<div class="panel" id="recorddetail" title="Details">
+		<h2>Buckley, Robert</h2>
+		<!--
+		<p>
+			7905 Golden Triangle Dr<br/>
+			Eden Prairie, MN, 55344 [P]
+		</p>
+	-->
+		<h3>Select details:</h3>
+	    <fieldset>
+	        <div class="row">
+	            <label>Cozaar</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	        <div class="row">
+	            <label>Hyzaar</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	        <div class="row">
+	            <label>Janumet</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	        <div class="row">
+	            <label>Januvia</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	        <div class="row">
+	            <label>Maxalt</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	        <div class="row">
+	            <label>Singulair Asthma</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	        <div class="row">
+	            <label>Singulair Rhinitis</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	
+	        <div class="row">
+	            <label>Maxalt</label>
+	            <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn"></span><span class="toggleOff"></span></div>
+	        </div>
+	    </fieldset>
+		<a class="whiteButton" href="#reportcall1">Save</a>
+	</div>
+
+    <ul id="contacts" title="Contacts">
+        <li class="group">B</li>
+        <li><a href="#BuckleyRobert">Buckley, Robert</a></li>
+
+        <li><a href="#BarnesMichael">Barnes, Michael</a></li>
+        <li class="group">C</li>
+        <li><a href="#CollierChristoper">Collier, Christopher J.</a></li>
+        <li class="group">J</li>
+        <li><a href="#JonesMark">Jones, Mark</a></li>
+        <li><a href="#JohnsonArnold">Johnson, Arnold</a></li>
+
+        <li class="group">Z</li>
+        <li><a href="#ZimmermanSean">Zimmerman, Sean</a></li>
+    </ul>
+    <ul id="BuckleyRobert" title="Contact">
+        <h2>Buckley, Robert</h2>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#locations">Locations</a></li>
+	     <li><a href="#reportcall1">Report Call</a></li>
+    </ul>
+
+	<div class="panel" title="Profile" id="profile" style="left: 0%;">
+	    <h3>Buckley, Robert</h3>
+	    <fieldset>
+	        <div class="row">
+	            <label>Prof Desig</label>
+	            <input type="text" value="M.D."/>
+	        </div>
+	        <div class="row">
+	            <label>Salutation</label>
+	            <input type="text" value="Dr."/>
+	        </div>
+	        <div class="row">
+	            <label>Specialty</label>
+	            <input type="text" value="General Practice"/>
+	        </div>
+	    </fieldset>
+	</div>
+
+    <ul id="locations" title="Locations">
+        <li><a href="#location1">7905 Golden Triangle Dr, Eden Prairie, MN, 55344 [P]</a></li>
+        <li><a href="#location2">8100 Northland Dr, Bloomington, MN, 55431</a></li>
+    </ul>
+
+	<div class="panel" title="Location" id="location1" style="left: 0%;">
+	    <h2>Buckley, Robert</h2>
+		<b>Primary Location</b>
+		<a href="http://maps.google.com/maps?q=7905+Golden+Triangle+Dr%2c+Eden+Prairie%2c+MN%2c+55344">Map</a>
+	    <fieldset>
+	        <div class="row">
+	            <label>Addr 1</label>
+	            <input type="text" value="7905 Golden Triangle Dr"/>
+	        </div>
+	        <div class="row">
+	            <label>Addr 2</label>
+	            <input type="text" value=""/>
+	        </div>
+	        <div class="row">
+	            <label>City</label>
+	            <input type="text" value="Eden Prairie"/>
+	        </div>
+	        <div class="row">
+	            <label>State</label>
+	            <input type="text" value="MN"/>
+	        </div>
+	        <div class="row">
+	            <label>Zip</label>
+	            <input type="text" value="55344"/>
+	        </div>
+	        <div class="row">
+	            <label>Phone #</label>
+	            <input type="text" value="(952) 746-2529"/>
+	        </div>			
+	        <div class="row">
+	            <label>Fax #</label>
+	            <input type="text" value="(952) 746-2530"/>
+	        </div>			
+	
+	    </fieldset>
+	</div>
+
+
+
+	<div class="panel" title="About" id="about" style="left: 0%;">
+	    <!-- <h3>iSFA</h3> -->
+	    <center><p>iPhone Sales Force Automation Tool<p/></center>
+	    <fieldset>
+	        <div class="row">
+	            <label>Version</label>
+	            <input type="text" value="0.1.1"/>
+	        </div>
+	        <div class="row">
+	            <label>Author</label>
+	            <input type="text" value="Brian Pfeil"/>
+	        </div>	
+	        <div class="row">
+	            <label>User</label>
+	            <input type="text" value="Obrien, Christina"/>
+	        </div>
+	        <div class="row">
+	            <label>Territory</label>
+	            <input type="text" value="N001"/>
+	        </div>	
+	    </fieldset>
+		<center>
+		<small>Copyright 2008 Merck & Co.,Inc.<br/>
+		All rights reserved</small>
+		</center>
+	</div>
+    
+    <form id="searchForm" class="dialog" action="/start/search">
+        <fieldset>
+            <h1>Contact Search</h1>
+            <a class="button leftButton" type="cancel">Cancel</a>
+
+            <a class="button blueButton" type="submit">Search</a>
+            
+            <label>Name:</label>
+            <input id="last" type="text" name="last"/>
+        </fieldset>
+    </form>
+
+    <div id="settings" title="Settings" class="panel">
+		<h2>Placeholder</h2>
+	    <ul id="BuckleyRobert" title="Contact">
+	        <li><a href="#profile">Profile</a></li>
+	        <li><a href="#locations">Locations</a></li>
+		     <li><a href="#reportcall1">Report Call</a></li>
+	    </ul>
+		
+        <!--
+		<h2>Playback</h2>
+        <fieldset>
+            <div class="row">
+                <label>Repeat</label>
+                <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn">ON</span><span class="toggleOff">OFF</span></div>
+
+            </div>
+            <div class="row">
+                <label>Shuffle</label>
+                <div class="toggle" onclick="" toggled="true"><span class="thumb"></span><span class="toggleOn">ON</span><span class="toggleOff">OFF</span></div>
+            </div>
+        </fieldset>
+        
+        <h2>User</h2>
+
+        <fieldset>
+            <div class="row">
+                <label>Name</label>
+                <input type="text" name="userName" value="johnappleseed"/>
+            </div>
+            <div class="row">
+                <label>Password</label>
+                <input type="password" name="password" value="delicious"/>
+
+            </div>
+            <div class="row">
+                <label>Confirm</label>
+                <input type="password" name="password" value="delicious"/>
+            </div>
+        </fieldset>
+		-->
+    </div>

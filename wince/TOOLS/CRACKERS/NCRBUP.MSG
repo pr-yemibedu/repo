@@ -1,0 +1,4 @@
+WM_NCRBUTTONUP
+void
+OnNCRButtonUp
+(HWND hWnd, int x, int y, UINT codeHitTest)

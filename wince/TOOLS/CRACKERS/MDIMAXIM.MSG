@@ -1,0 +1,4 @@
+WM_MDIMAXIMIZE
+void
+MDIMaximize
+(HWND hWnd, HWND hWndMaximize)

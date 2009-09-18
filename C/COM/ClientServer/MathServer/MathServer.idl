@@ -1,0 +1,39 @@
+// MathServer.idl : IDL source for MathServer.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (MathServer.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(B6AFF525-238E-4228-8C54-3DF05693CCB1),
+	
+		helpstring("IArithmetic Interface"),
+		pointer_default(unique)
+	]
+	interface IArithmetic : IUnknown
+	{
+		[helpstring("method Add")] HRESULT Add([in] LONG a, [in] LONG b, [out,retval] LONG* ret);
+	};
+
+[
+	uuid(DAA8E487-8D1F-4940-B9B6-3C510EACE0F0),
+	version(1.0),
+	helpstring("MathServer 1.0 Type Library")
+]
+library MATHSERVERLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(0B909253-E37F-438D-8871-A9455BF8418C),
+		helpstring("Arithmetic Class")
+	]
+	coclass Arithmetic
+	{
+		[default] interface IArithmetic;
+	};
+};

@@ -1,0 +1,4 @@
+WM_NCHITTEST
+UINT
+OnNCHitTest
+(HWND hWnd,int x,int y)

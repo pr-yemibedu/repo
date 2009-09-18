@@ -1,0 +1,105 @@
+body {
+  background-color: #e1ddd9;
+  color:#564b47;  
+  padding:10px;
+  margin:0px;
+  text-align: center;
+}
+
+#header {
+    text-align: right;
+}
+
+#container {
+}
+
+#content { 	
+  text-align: left;
+  vertical-align: middle;	
+  margin: 0px auto;
+  padding: 0px;
+  width: 550px;
+/*  width: 80%; */
+  background-color: #ffffff;
+  border: 1px dashed #564b47;
+}
+
+/* ------------------------------------------------------------------------- */
+#login_form {
+    margin:0pt;
+    padding:0pt;
+}
+
+#login_form dt {
+    float: left;
+    width: 80px;
+}
+
+#login_form dd {
+    margin:0pt 0pt 5px 80px;
+}
+
+/* ------------------------------------------------------------------------- */
+#tasks {
+    height: 350px;
+    overflow: scroll;
+}
+
+.tasks_header, .tasks_footer {
+    background-color: #C3D9FF;
+    padding: 0.25em;
+}
+
+.task {
+    border-bottom:1px solid #AAAAAA;
+    margin: 0pt;
+    padding: 0pt;        
+    overflow: hidden;
+
+}
+
+.task_title {
+    height: 1.25em;
+    overflow: hidden;
+}
+
+.task_pending {
+}
+
+.task_completed {
+    text-decoration: line-through;
+    background:#E8EEF7 none repeat scroll 0%;
+}
+
+.update_task_status_form {
+    margin: 0pt;
+    padding: 0pt;
+}
+
+.edit_task_form {
+    margin: 0pt;
+    padding: 0pt;
+}
+
+.input_title {
+    width: 100%
+}
+
+.input_notes {
+    width: 100%
+}
+
+.task_actions_menu {
+    position: relative;
+    width: 100%
+    text-align: right;
+}
+
+#item-count {
+    color:#555555;
+    text-align: right;
+}
+
+/* ------------------------------------------------------------------------- */
+#footer {
+}

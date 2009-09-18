@@ -1,0 +1,4 @@
+WM_TIMECHANGE
+void
+OnTimeChange
+(HWND hWnd)

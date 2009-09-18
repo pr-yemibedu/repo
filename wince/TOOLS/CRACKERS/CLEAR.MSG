@@ -1,0 +1,4 @@
+WM_CLEAR
+void
+OnClear
+(HWND hWnd)

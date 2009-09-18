@@ -1,0 +1,4 @@
+WM_CTLCOLORSTATIC
+HBRUSH
+OnCtlColorStatic
+(HWND hWnd,HDC hdc,HWND hWndChild, int type)

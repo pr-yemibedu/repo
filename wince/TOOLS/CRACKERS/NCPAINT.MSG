@@ -1,0 +1,4 @@
+WM_NCPAINT
+void
+OnNCPaint
+(HWND hWnd, HRGN hrgn)

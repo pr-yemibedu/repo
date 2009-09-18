@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Microsoft AJAX Library Examples</title>
+    <script src="js/en-US.js"></script>
+    <script src="js/Microsoft.Web.Resources.ScriptLibrary.MicrosoftAjax.js"></script>    
+  </HEAD>
+  <body>
+    <div id="output"></div>
+    <script type="text/javascript">
+    //***********************************************************************
+    //   
+    function l(s) {
+      $get('output').innerHTML = $get('output').innerHTML + s + "<br>";
+    }
+    
+    //***********************************************************************
+    // create class
+    Type.registerNamespace("Entities");
+    Entities.Person = function(name, age) {
+      var _name = (name != null) ? name : "unknown";
+      this.getName = function() {
+        return _name;
+      }
+      this.setName = function(name) {
+        _name = name;
+      }
+      
+      var _age = (age != null) ? age : "unknown";
+      this.getAge = function() {
+        return _age;
+      }
+      this.setAge = function(age) {
+        _age = age;
+      }
+      
+      var getGenders = function() {
+        return "male or female";
+      }
+    }
+    
+    Type.registerClass("Entities.Person"); // make class available for use
+    
+    Entities.Person.prototype.toString = function() {
+      return "Name=" + this.getName() + ",Age=" + this.getAge();
+    }
+    
+    //***********************************************************************
+    // use class
+    var person = new Entities.Person("Brian Pfeil", 28);
+    l(person.toString());
+    
+    //***********************************************************************
+    // inherit from class
+    Entities.Employee = function(name, age, employeeId) {
+      Entities.Employee.initializeBase(this, [name, age]);
+      
+      var _employeeId = (employeeId != null) ? employeeId : "unknown";
+      this.getEmployeeId = function() {
+        return _employeeId;
+      }
+      this.setEmployeeId = function(employeeId) {
+        _employeeId = employeeId;
+      }
+    }
+    
+    Entities.Employee.registerClass("Entities.Employee", Entities.Person);
+    
+    Entities.Employee.prototype.toString = function() {
+      return Entities.Employee.callBaseMethod(this, "toString") + ",EmployeeId=" + this.getEmployeeId();
+    }
+    
+    //***********************************************************************
+    // use inherited class
+    var employee = new Entities.Employee("Brian Pfeil", 28, 9999);
+    l(employee.toString());
+    
+    //***********************************************************************
+    // define interface
+    Entities.IPerson = function() {
+      this.toString = Function.abstractMethod;
+    }
+    Type.registerInterface("Entities.IPerson");
+    
+    //***********************************************************************    
+    $addHandler( $get('output'), "click", function() { alert(this.id + "<br>" + $get('output').innerHTML); } );
+    
+    var output = new Sys.UI.Control($get('output'));
+    alert("output element is visible = " + output.get_visible());
+    output.set_visible(true);
+
+
+    
+    </script>
+  </body>
+</html>
+    

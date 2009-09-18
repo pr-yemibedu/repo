@@ -1,0 +1,4 @@
+WM_MDINEXT
+HWND
+MDINext
+(HWND hWnd, HWND hWndCur, BOOL fPrev)

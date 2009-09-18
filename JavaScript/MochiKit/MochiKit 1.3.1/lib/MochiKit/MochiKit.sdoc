@@ -1,0 +1,9 @@
+/**
+ * @namespace MochiKit
+ */
+
+/**
+ * MochiKit namespace that all other MochiKit namespaces, objects, and functions are derived
+ * from.
+ * @id MochiKit
+ */

@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDomainSimpleExample", "AppDomainSimpleExample.csproj", "{386C6E12-A134-4E24-9A9A-2556C7442FE0}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDomainSimpleExampleSupport", "..\AppDomainSimpleExampleSupport\AppDomainSimpleExampleSupport.csproj", "{2F6C27B6-069D-40F0-94AD-FCFA9A7DAC3A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{386C6E12-A134-4E24-9A9A-2556C7442FE0}.Debug.ActiveCfg = Debug|.NET
+		{386C6E12-A134-4E24-9A9A-2556C7442FE0}.Debug.Build.0 = Debug|.NET
+		{386C6E12-A134-4E24-9A9A-2556C7442FE0}.Release.ActiveCfg = Release|.NET
+		{386C6E12-A134-4E24-9A9A-2556C7442FE0}.Release.Build.0 = Release|.NET
+		{2F6C27B6-069D-40F0-94AD-FCFA9A7DAC3A}.Debug.ActiveCfg = Debug|.NET
+		{2F6C27B6-069D-40F0-94AD-FCFA9A7DAC3A}.Debug.Build.0 = Debug|.NET
+		{2F6C27B6-069D-40F0-94AD-FCFA9A7DAC3A}.Release.ActiveCfg = Release|.NET
+		{2F6C27B6-069D-40F0-94AD-FCFA9A7DAC3A}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

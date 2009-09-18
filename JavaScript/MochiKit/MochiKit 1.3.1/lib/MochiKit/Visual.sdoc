@@ -1,0 +1,40 @@
+/**
+ * @namespace MochiKit.Visual
+ */
+
+/**
+ * Rounds the specified corners of the specified element. 
+ * @id roundElement
+ * @alias roundElement
+ * @alias MochiKit.Visual.roundElement
+ * @param {Element, String} e	Element (or string id) to round the corners for.
+ * @param {String} ...	String specifying the options for what should be rounded for the element. The following values are valid:
+ * <ul>
+ * <li>corners - "all" (default), "top", "bottom", "tl" (top left), "bl" (bottom left), "tr" (top right), "br" (bottom right)</li>
+ * <li>color - "fromElement" (default) or specify a color.</li>
+ * <li>bgColor - "fromParent" (default) or specify a background color.</li>
+ * <li>blend - true (Color and background color should be blended together to produce the border color) or false. Default is true.</li>
+ * <li>border - false (Does not have a border) or true. Default is false.</li>
+ * <li>compact - false (Is not compacted) or true. Default is false.</li>
+ * </ul>
+ * @see roundClass
+ */
+ 
+ /**
+ * Rounds all of the classes that match the specified tagName and className, using the specified options.
+ * @id roundClass
+ * @alias roundClass 
+ * @alias MochiKit.Visual.roundClass
+ * @param {String} tagName	Tag name to round the class for. null matches all tag names.
+ * @param {String} className	Class name to round the class for. null matches all class names.
+ * @param {String} ...	String specifying the options for what should be rounded for the class. The following values are valid:
+ * <ul>
+ * <li>corners - "all" (default), "top", "bottom", "tl" (top left), "bl" (bottom left), "tr" (top right), "br" (bottom right)</li>
+ * <li>color - "fromElement" (default) or specify a color.</li>
+ * <li>bgColor - "fromParent" (default) or specify a background color.</li>
+ * <li>blend - true (Color and background color should be blended together to produce the border color) or false. Default is true.</li>
+ * <li>border - false (Does not have a border) or true. Default is false.</li>
+ * <li>compact - false (Is not compacted) or true. Default is false.</li>
+ * </ul>
+ * @see roundElement
+ */

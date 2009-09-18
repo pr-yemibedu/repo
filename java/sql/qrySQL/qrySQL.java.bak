@@ -1,0 +1,349 @@
+package com.merck.fdds.servlet.html.qrySQL;
+//  SERVLET by WILLIAM MANTZ
+//  12/98
+//  Merck & Co., Inc.
+//
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
+import java.lang.String;
+
+//import borland.sql.dataset.*;
+//import borland.jbcl.control.*;
+
+public class qrySQL extends HttpServlet {
+
+//Initialize global variables
+
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+  }
+//Process the HTTP Post request
+
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    //Username
+    // model
+    String varModel = "";
+    String varcurl = "";
+    String varcnum = "";
+    String varSql = "";
+    String varTitle = "";
+    String tmpstr = "";
+    String varHeader = "";
+    String varShowSql = "OFF";
+    String sql = "";
+    String strWrk = "";
+    String varsounds = "OFF";
+    String varXURL = "";
+    String varURL = "";
+    String varDB = "";
+    String varCSV = "OFF";
+    String tempstr = "";
+    String varXLS = "OFF";
+    String columnurl = "";
+    int columnnumber = 0;
+    int rownumber = 0;
+    int findx = 0;
+    int icolnum = 0;
+    boolean header = true;
+    boolean togglesw = true;
+    boolean colortable = true;
+
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+
+    response.setContentType("text/html");
+    PrintWriter errout = response.getWriter();
+
+    try {
+      varShowSql = request.getParameter("showsql");
+      if (varShowSql.length() < 2) {
+          varShowSql = "OFF";
+      } else {
+         varShowSql = "ON";
+      }
+
+      varsounds = request.getParameter("sounds");
+      if (varsounds.length() < 2) {
+        varsounds = "OFF";
+      } else {
+       varsounds = "ON";
+      }
+
+      varSql = request.getParameter("sql");
+      if (varSql.length() < 3) varSql = "";
+      varTitle = request.getParameter("title");
+      if (varTitle.length() < 3) varTitle = "Your Results";
+
+      varcnum = request.getParameter("cnum");
+
+      if (varcnum.length() < 1) {
+         varcnum = "0";
+         icolnum = 0;
+      } else {
+         icolnum = new Integer(varcnum).intValue();
+      }
+    // this is the hotspot url
+
+    varcurl = request.getParameter("curl").trim();
+    columnurl = varcurl;
+      // debug
+      // out.println(varcurl);
+
+    if (icolnum != 0) {
+       varCSV = "OFF";
+       varXLS = "OFF";
+    } else {
+
+       icolnum = 0;
+       varCSV = "OFF" ;
+       varXLS = "OFF";
+       if (varcurl.equalsIgnoreCase("csv") ) {
+          varcurl = " ";
+          icolnum = 0;
+          varCSV = "ON";
+          varXLS = "OFF";
+       }
+       if (varcurl.equalsIgnoreCase("XLS") )  {
+           varcurl = " ";
+           icolnum = 0;
+           varXLS = "ON";
+           varCSV = "OFF";
+       }
+   } // for else icolnum
+
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+
+
+//////////////////////////////////////////////////////////////////////////////
+// THIS LEFT FOR BACKWARD COMPATIBILITY, it CSV or XLS, re-direct.
+//////////////////////////////////////////////////////////////////////////////
+
+   if (( varCSV == "ON") || (varXLS == "ON"))  {   //  ADDED FOR BACKWARD COMPATIBILITY
+       //response.setContentType("application/CSV");  // application/vnd.ms-excel vs text/csv
+      varURL = request.getQueryString();
+      varXURL = request.getQueryString();
+
+      if ( varCSV == "ON") {
+        // Redirects for CSV option.
+        findx = 0;
+        tmpstr = "";
+        findx = varURL.indexOf("&cnum=");
+        if (findx > 1) {
+            tmpstr= varURL.substring(0,findx) + "&DSN=remote&B1=Submit "; // needs space at end
+            out.println("<html>");
+            out.println("<head><title>" + varTitle + "</title>");
+            out.println("<meta NAME=\"Cache\" CONTENT=\"no-cache\">");
+            varURL = "http://" + request.getServerName() + "/servlet/com.merck.fdds.servlet.html.qryCSV.qryCSV" + "?" + tmpstr + " ";
+            out.println("<meta HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=" + varURL + "\">");
+            out.println("</head>");
+            out.println("</body></html>");
+            out.flush();
+            out.close();
+            }
+      } else {    // for if CSV  XLS below
+        // Redirects for XLS option.
+           varcurl = " ";
+           icolnum = -1;  //  -1 means no row count used.
+           findx = 0;
+           tmpstr = "";
+           findx = varURL.indexOf("&cnum=");
+           if (findx > 1) {
+              tmpstr= varURL.substring(0,findx) + "&DSN=remote&B1=Submit "; // needs space at end
+              out.println("<html>");
+              out.println("<head><title>" + varTitle + "</title>");
+              out.println("<meta NAME=\"Cache\" CONTENT=\"no-cache\">");
+              varURL = "http://" + request.getServerName() + "/servlet/com.merck.fdds.servlet.html.qryXLS.qryXLS" + "?" + tmpstr + " ";
+              out.println("<meta HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=" + varURL + "\">");
+              out.println("</head>");
+              out.println("</body></html>");
+              out.flush();
+              out.close();
+              }
+      } // for if CSV else XLS option
+   }  // for If CSV or XLS option we bail here.
+
+
+    header=true;   //  make false if you dont want a header on the report output
+    //header=false;
+    sql=varSql;
+
+    // debug
+    if (varShowSql != "OFF") {
+     out.println(sql);
+     out.println("varTitle = " + varTitle);
+     out.println("varcurl = " + varcurl);
+     out.println("icolnum = " + icolnum);
+    }
+
+    columnnumber = icolnum;
+
+
+   // setup basic HTML page here
+    out.println("<html>");
+    out.println("<head><title>" + varTitle + "</title>");
+    out.println("</head>");
+    out.println("<body link=\"#330066\" vlink=\"#330066\">");
+// setup tables here
+    out.println("<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
+    out.println("<tr><td>");
+    out.println("<a HREF=\"http://home.merck.com/home/\"><p><img SRC=\"http://ftsweb.merck.com/supportfiles/images/merck25.gif\" BORDER=\"0\" ALT=\"The Merck Internal Web\" WIDTH=\"600\" HEIGHT=\"25\"></a>");
+    out.println("</td></tr>");
+
+    out.println("<tr>");
+    out.println("<td><MAP NAME=\"FrontPageMap0\"><AREA SHAPE=\"RECT\" COORDS=\"119, 4, 450, 21\" HREF=\"http://ftsweb.merck.com\"></MAP><img src=\"http://ftsweb.merck.com/supportfiles/images/topbordern.GIF\" width=\"604\" height=\"24\" alt=\"topborder.GIF (1244 bytes)\" border=\"0\" usemap=\"#FrontPageMap0\"></td>");
+    out.println("</tr>\n<tr>\n");
+    out.println("<td><img src=\"http://ftsweb.merck.com/supportfiles/images/sidetop.gif\" alt=\"sidetop.gif (1118 bytes)\">");
+//  put in Heading here.
+    out.println("<big>" + varTitle + "</big></td>");
+    out.println("</tr>");
+    out.println("<tr>");
+    out.println("<td>");
+//    out.println("<blockquote>");
+//    out.println("<blockquote>");
+// start to put data in.
+
+    out.println("<table border=\"0\" width=\"100%\">");
+    out.println("<tr><td width=\"100%\">");
+// data here
+    out.println("<p>");
+    out.flush();
+//  DATABASE QUERY IS HERE        /////////////////////////////
+
+
+    try {
+
+    //////////////////////////////////////////////////////////////////////////////
+    // THIS SETS UP ODBC/JDBC Connection to  Database
+    //////////////////////////////////////////////////////////////////////////////
+
+    Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+    con = DriverManager.getConnection("jdbc:odbc:remote", "webman", "www3");
+//    Class.forName("com.ashna.jturbo.driver.Driver");
+//    con = DriverManager.getConnection("jdbc:JTurbo://wprws07/remote", "webman", "www3");
+
+      stmt = con.createStatement();
+      if (stmt.execute((sql))) {
+        rs = stmt.getResultSet();
+        out.println("<TABLE border=1 BGCOLOR=#ffffff cellspacing=0>\n");
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+
+        int numcols = rsmd.getColumnCount();
+        if (header == true) {
+        // start table header with Column Names
+          out.println("<THEAD>\n<TR>");
+          for (int i = 1; i <= numcols; i++) {
+            out.println("<TH BGCOLOR=#c0c0c0 BORDERCOLOR=#000000><FONT SIZE=2 FACE=\"Arial\" COLOR=#000000>" + rsmd.getColumnLabel(i) +"</FONT></TH>\n");
+            out.flush();
+           }
+           out.println("</TR></thead>\n");
+        } // for header information = true
+
+        // table for data
+          String bluecolor = "#F0F0F0";
+          String whitecolor = "#ffffff";
+          String currcolor = "whitecolor";
+          if (colortable == false) bluecolor="#ffffff"; //  this makes tabel bg white if picked.
+
+
+          togglesw = true;
+          rownumber= 0;
+          while(rs.next()) {
+            out.println("<TR>");
+            rownumber = rownumber + 1;
+            if (togglesw == true) {
+              togglesw = false;
+              currcolor = bluecolor;
+
+            }  else {
+              togglesw = true;
+              currcolor = whitecolor;
+            }  // if else
+
+            for (int i = 1; i <= numcols; i++) {
+               Object obj = rs.getObject(i);
+               if (obj != null) {
+                 if (i == columnnumber) {
+                     out.println("<TD bgcolor=" + currcolor + " BORDERCOLOR=#000000><FONT SIZE=2 FACE=\"Arial\" COLOR=#000000><a href=" + '"'+ columnurl + obj.toString() + '"' + "><B>" + obj.toString() + "</a><BR></FONT></TD>\n");
+                     out.flush();
+                 } else {
+                      out.println("<TD bgcolor=" + currcolor + " BORDERCOLOR=#000000><FONT SIZE=2 FACE=\"Arial\" COLOR=#000000>" + obj.toString() + "<BR></FONT></TD>\n");
+                      out.flush();
+                 }  // for if else
+               } else  {
+                 out.println("<TD bgcolor=" + currcolor + " BORDERCOLOR=#000000>&nbsp;</td>");
+                 out.flush();
+               }
+          }  //for
+          out.println("</TR>\n");
+          out.flush();
+       }  // while
+       out.println("</TABLE>\n");
+       if (columnnumber != -1) out.println("Total Rows: " + rownumber);
+       }
+    } catch (SQLException e) {
+        out.println("</TABLE>\n <H1>ERROR: " + e.getMessage() + "</H1>\n");
+        out.flush();
+    } // for catch
+
+
+    //////////////////////////////////
+    out.println("</p>");
+    out.flush();
+
+    // PRINTS Line for CSV option.
+    varURL = request.getQueryString();
+    varXURL = request.getQueryString();
+    findx = 0;
+    tmpstr = "";
+    findx = varURL.indexOf("&cnum=");
+    if (findx > 0) {
+        tmpstr= varURL.substring(0,findx) + "&DSN=remote&B1=Submit "; // needs space at end
+        varURL = "<a href=\"http://" + request.getServerName() + "/servlet/com.merck.fdds.servlet.html.qryCSV.qryCSV" + "?" + tmpstr + " \">Click for CSV output</a><img src=\"" + "http://ftsweb.merck.com/supportfiles/images/csv.gif" + "\" alt=\"csv.gif (1112 bytes)\"  align=\"absmiddle\">";
+        out.println(varURL);
+    }
+        // PRINTS Line for xls option.
+
+    findx = 0;
+    tmpstr = "";
+    findx = varXURL.indexOf("&cnum=");
+    if (findx > 0) {
+        tmpstr= varXURL.substring(0,findx) + "&format=normal&DSN=remote&B1=Submit "; // needs space at end!
+        varXURL = "<a href=\"http://" + request.getServerName() + "/servlet/com.merck.fdds.servlet.html.qryXLS.qryXLS" + "?" + tmpstr + " \">Click for XLS output</a><img src=\"" + "http://ftsweb.merck.com/supportfiles/images/csv.gif" + "\" alt=\"csv.gif (1112 bytes)\"  align=\"absmiddle\">";
+        out.println(varXURL);
+    }
+
+
+    out.println("<center><strong><a href=\"javascript:history.back()\" class=\"txt-link\"><< Back to previous </strong></a></p>");
+    out.println("</td></tr></table></td></tr><tr><td>");
+    out.println("<img src=\"http://ftsweb.merck.com/supportfiles/images/sidebottom.gif\" alt=\"sidebottom.gif (1112 bytes)\" align=\"absmiddle\">");
+// address line
+    out.println("servlet updated 27-Sep-2000 / <a href=\"http://ftsweb.merck.com/\">FTS Data Systems</a> / William Mantz </address>");
+// end of table
+    out.println("</td>");
+    out.println("</tr><tr><td><img src=\"http://ftsweb.merck.com/supportfiles/images/bottomfill.gif\" alt=\"bottomfill.gif (1175 bytes)\"></td></tr></table>");
+
+ // if (varsounds != "OFF") {
+//        out.println("<SCRIPT LANGUAGE=\"JavaScript1.1\" SRC=\"http://ftsweb.merck.com/supportfiles/sounds/confirm.js\"></script>");
+//    }
+    out.println("</body>\n</html>\n");
+    out.flush();
+    out.close();
+
+} catch(ClassNotFoundException e) {
+      errout.println("<h3>Exception caught:  " + e.getMessage()+ "</h3>");
+} finally {
+     try {
+        if (con != null) con.close();
+      }
+        catch (SQLException ignored){}
+      }
+    } // for finally
+} // end of servlet
+

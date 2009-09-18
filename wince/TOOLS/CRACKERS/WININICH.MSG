@@ -1,0 +1,4 @@
+WM_WININICHANGE
+void
+OnWinIniChange
+(HWND hWnd, LPCTSTR lpszSectionName)

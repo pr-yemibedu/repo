@@ -1,0 +1,1 @@
+BOOL CreatePropertySheet(HWND hwndParent);

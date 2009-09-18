@@ -1,0 +1,4 @@
+WM_DESTROY
+void
+OnDestroy
+(HWND hWnd)

@@ -1,0 +1,4 @@
+WM_COMMNOTIFY
+void
+OnCommNotify
+(HWND hWnd, int cid, UINT flags)

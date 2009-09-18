@@ -1,0 +1,4 @@
+WM_SIZECLIPBOARD
+void
+OnSizeClipboard
+(HWND hWnd, HWND hWndCBViewer, const LPRECT lprc)

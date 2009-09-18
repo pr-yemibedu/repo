@@ -1,0 +1,6 @@
+<%= text_field(:search, :text) %>
+<%= observe_field(:search_text,
+                  :url => {:controller=> 'snippets', :action => 'search'},
+                  :frequency => 0.5,
+                  :update => :snippets,
+                  :with => :search_text) %>

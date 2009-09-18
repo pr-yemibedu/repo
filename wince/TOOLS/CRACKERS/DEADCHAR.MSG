@@ -1,0 +1,4 @@
+WM_DEADCHAR
+void
+OnDeadChar
+(HWND hWnd, TCHAR ch, int cRepeat)

@@ -1,0 +1,44 @@
+<style type="text/stylesheet">
+  /* custom styles for this example */
+  .yui-skin-sam .yui-dt-body { cursor:pointer; } /* when rows are selectable */
+  #single { margin-top:2em; }
+  
+  .snippet-edit-id { display: none; }
+
+  .snippet-edit-title, .snippet-edit-body, .snippet-edit-language, .snippet-edit-tags {
+    width: 100%;
+  }
+
+  .snippet-label {
+    font-weight: bold;
+  }
+</style>
+
+<div id="top"></div>
+
+<div id="snippet-edit-template" style="display: none;">
+  <div id="snippet-edit">
+    <input id="snippet-edit-id" class="snippet-edit-id" value="#{id}"></input>
+    <input id="snippet-edit-title" class="snippet-edit-title" value="#{title}"></input><br />
+    <textarea id="snippet-edit-body" class="snippet-edit-body" rows="26">#{body}</textarea><br />
+    <input id="snippet-edit-language" class="snippet-edit-language" value="#{language}"></input><br />
+    <input id="snippet-edit-tag_list" class="snippet-edit-tag_list" value="#{tag_list}"></input><br /><br />
+    <a id="snippet-edit-save" class="snippet-edit-save" href="#">save</a>
+    <a id="snippet-edit-cancel" class="snippet-edit-cancel" href="#">cancel</a>
+  </div>
+</div>
+
+<div id="snippet-show" style="display: none">
+  <input id="snippet-show-id" type="text" value="" style="display: none;"></input>
+  <a class="close" href="#">back</a>
+  <h1 id="snippet-show-title"></h1>
+  <div id="snippet-show-body"></div>
+  <br />
+  <span class="snippet-label">language:</span><span id="snippet-show-language"></span>
+  <span class="snippet-label">tags:</span><span id="snippet-show-tag_list"></span>
+  <br />
+  <a class="close" href="#">back</a>
+</div>
+
+<div id="snippets"></div>
+<div id="logger" style="display: none"></div>
